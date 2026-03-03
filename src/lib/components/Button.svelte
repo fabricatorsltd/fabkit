@@ -7,6 +7,7 @@
     children,
     disabled = false,
     type = "button",
+    flat = false,
     square = false,
     onclick,
     class: className = "",
@@ -36,7 +37,9 @@
     zIndex = 0,
     ref = $bindable(),
     ...rest
-  } = $props();
+  
+if (flat) type = \"flat\";
+} = $props();
 
   // Local derived values for fallbacks
   const finalPadding = $derived(
