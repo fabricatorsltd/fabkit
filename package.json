@@ -5,6 +5,7 @@
     "build": "rollup -c",
     "prepublishOnly": "svelte-kit sync && svelte-package && rollup -c",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "test": "pnpm run check",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
@@ -58,6 +59,8 @@
     "@storybook/sveltekit": "^10.1.7",
     "@sveltejs/adapter-auto": "^7.0.0",
     "@sveltejs/kit": "^2.48.5",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "vite": "^7.2.7",
     "rollup": "^4.12.0",
     "rollup-plugin-svelte": "^7.1.5",
     "rollup-plugin-terser": "^7.0.2",
@@ -76,5 +79,6 @@
   ],
   "dependencies": {
     "mitt": "^3.0.1"
-  }
+  },
+  "packageManager": "pnpm@9.15.6+sha512.139cab068fdf0b751268179ac5f909b5be72afb4a75c513d1905d151befc8977b593d3cf8671ed83d4d6637c5c94b98ffbce108125de4a5a27a31233601a99de"
 }
