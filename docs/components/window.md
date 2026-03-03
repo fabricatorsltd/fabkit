@@ -36,6 +36,8 @@ import { Window } from 'fabkit';
 |------|------|---------|-------------|
 | `top` | `Snippet` | — | Top area — typically a `TitleBar` |
 | `content` | `Snippet` | — | Main scrollable content area |
+| `flat` | `boolean` | `false` | Removes window chrome (no margin, no shadow, no rounding; also defaults `borderWidth` to `0`) |
+| `hideTitleBarOnScroll` | `boolean` | `false` | Hides the top slot while scrolling down; shows it again while scrolling up or when scrolled to top |
 | `ref` | `bindable` | — | DOM element reference |
 
 Window integrates with the `Engine` to detect fullscreen/maximize state and window resize events.
@@ -48,7 +50,7 @@ Accepts all [Skeleton props](./skeleton.md). Defaults:
 
 | Prop | Default |
 |------|---------|
-| `borderWidth` | `[1,1,1,1]` |
+| `borderWidth` | `[1,1,1,1]` (or `[0,0,0,0]` when `flat`) |
 | `borderColor` | `var(--border-secondary)` |
 | `borderStyle` | `"solid"` |
 | `padding` | `[0,0,0,0]` |
@@ -59,4 +61,5 @@ Accepts all [Skeleton props](./skeleton.md). Defaults:
 ## Notes
 
 - Window observes resize to track maximized state internally.
+- `flat` is useful when using `Window` in non-app contexts (treat it like the website `body`).
 - Wrap your entire app in a single `Window` at the layout level.
