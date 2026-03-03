@@ -39,6 +39,7 @@ import { SelectField } from 'fabkit';
 | `options` | `SelectOption[]` | `[]` | Available options |
 | `icon` | `SvelteComponent` | `""` | Phosphor icon component shown inside the field |
 | `iconPosition` | `"left" \| "right"` | `"right"` | Icon placement |
+| `flat` | `boolean` | `false` | Removes the underline |
 | `ref` | `bindable` | — | DOM element reference |
 
 ### SelectOption shape

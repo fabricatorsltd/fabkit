@@ -48,6 +48,7 @@
 ### Form Fields
 
 - [TextField](./components/text-field.md) — text input
+- [TextArea](./components/text-area.md) — multiline text input
 - [SelectField](./components/select-field.md) — dropdown select
 - [BaseField](./components/base-field.md) — field primitive (for custom fields)
 
