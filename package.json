@@ -1,5 +1,8 @@
 {
-  "name": "fabkit",
+  "name": "@fabricatorsltd/fabkit",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "version": "0.0.7",
   "scripts": {
     "build": "rollup -c",
