@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.13",
+  "version": "0.0.14",
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "svelte-kit sync && svelte-package && rollup -c",
