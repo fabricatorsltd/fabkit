@@ -1,9 +1,10 @@
 {
-  "name": "fabkit",
+  "name": "@fabricatorsltd/fabkit",
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
     "access": "public"
   },
-  "version": "0.0.14",
+  "version": "0.0.15",
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "svelte-kit sync && svelte-package && rollup -c",
