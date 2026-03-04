@@ -1,7 +1,7 @@
 {
   "name": "@fabricatorsltd/fabkit",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "version": "0.0.9",
   "scripts": {
