@@ -1,9 +1,9 @@
 {
-  "name": "@fabricatorsltd/fabkit",
+  "name": "fabkit",
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.11",
+  "version": "0.0.12",
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "svelte-kit sync && svelte-package && rollup -c",
