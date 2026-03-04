@@ -39,6 +39,8 @@ jobs:
     if: github.event_name == 'release' && github.event.action == 'published'
     needs: check
     runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
@@ -56,9 +58,13 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
+      - run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "Missing required secret: NPM_TOKEN" >&2
+            exit 1
+          fi
+
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm publish --no-git-checks --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
