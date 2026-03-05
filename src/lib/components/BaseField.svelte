@@ -175,10 +175,28 @@
     color: var(--text-primary);
     outline: none;
     line-height: normal;
+    border-radius: inherit;
   }
 
   .BaseField-input:focus {
     border-bottom: 2px solid var(--action-suggested);
+  }
+
+  .BaseField-input:-webkit-autofill,
+  .BaseField-input:-webkit-autofill:hover,
+  .BaseField-input:-webkit-autofill:focus,
+  .BaseField-input:-internal-autofill-selected {
+    border-radius: inherit;
+    -webkit-text-fill-color: var(--text-primary);
+    caret-color: var(--text-primary);
+    background-color: transparent !important;
+    box-shadow: 0 0 0px 1000px transparent inset;
+  }
+
+  :global(.BaseField:has(input:-webkit-autofill)) .BaseField-label {
+    transform: translateY(-15px);
+    font-size: 0.85rem;
+    left: 0 !important;
   }
 
   .BaseField-label {
