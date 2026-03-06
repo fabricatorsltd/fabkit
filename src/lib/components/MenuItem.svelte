@@ -1,51 +1,54 @@
 <script>
-  import { resolveProps } from "../system.js";
+  import { resolveProps } from '../system.js';
 
   let {
     label,
     action,
     children,
-    class: className = "",
+    class: className = '',
+    icon: IconComponent = null,
     // Collect expressive syntax props
     href,
     target,
     ...rest
   } = $props();
 
-  const element = $derived(href ? "a" : "div");
+  const element = $derived(href ? 'a' : 'div');
 
   function handleClick() {
     if (action) action();
   }
 
   const finalPadding = $derived(
-    rest.padding !== undefined ? rest.padding : [10, 16, 10, 16],
+    rest.padding !== undefined ? rest.padding : [10, 16, 10, 16]
   );
   const finalBgHover = $derived(
-    rest.bgHover !== undefined ? rest.bgHover : "var(--background-elevated-2-hover)",
+    rest.bgHover !== undefined
+      ? rest.bgHover
+      : 'var(--background-elevated-2-hover)'
   );
   const finalBgActive = $derived(
-    rest.bgActive !== undefined ? rest.bgActive : "var(--background-top)",
+    rest.bgActive !== undefined ? rest.bgActive : 'var(--background-top)'
   );
   const finalBorderRadius = $derived(
     rest.borderRadius !== undefined
       ? rest.borderRadius
-      : "var(--snt-border-radius, 12px)",
+      : 'var(--snt-border-radius, 12px)'
   );
 
   const processedProps = $derived.by(() => {
     const defaults = {
       margin: rest.margin ?? [0, 0, 0, 0],
       padding: finalPadding,
-      bg: rest.bg ?? "transparent",
+      bg: rest.bg ?? 'transparent',
       bgHover: finalBgHover,
       bgFocus: rest.bgFocus,
       bgActive: finalBgActive,
       borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
-      borderColor: rest.borderColor ?? "transparent",
-      borderStyle: rest.borderStyle ?? "solid",
+      borderColor: rest.borderColor ?? 'transparent',
+      borderStyle: rest.borderStyle ?? 'solid',
       borderRadius: finalBorderRadius,
-      shadow: rest.shadow ?? "none",
+      shadow: rest.shadow ?? 'none',
       zIndex: rest.zIndex ?? 0,
       ...rest
     };
@@ -64,13 +67,18 @@
   style={[
     'text-decoration: none;',
     processedProps.styles
-  ].filter(Boolean).join('; ')}
+  ]
+    .filter(Boolean)
+    .join('; ')}
   {...processedProps.filteredRest}
 >
+  {#if IconComponent}
+    <IconComponent size={16} />
+  {/if}
   {#if children}
     {@render children()}
   {:else}
-    {label}
+    <span class="Menu-item-label">{label}</span>
   {/if}
 </svelte:element>
 
