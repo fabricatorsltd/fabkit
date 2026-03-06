@@ -1,254 +1,161 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+    import { resolveProps } from "../system.js";
 
-  let {
-    label = "",
-    icon = "",
-    children,
-    disabled = false,
-    type = "button",
-    square = false,
-    onclick,
-    class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding,
-    bg,
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius,
-    shadow = "none",
-    shadowSecondary,
-    transformHover,
-    transformFocus,
-    transformActive,
-    color,
-    colorHover,
-    colorFocus,
-    colorActive,
-    zIndex = 0,
-    ref = $bindable(),
-    ...rest
-  } = $props();
+    let {
+        label = "",
+        icon = "",
+        children,
+        disabled = false,
+        variant = "secondary", // primary, secondary, destructive, flat
+        square = false,
+        onclick,
+        class: className = "",
+        // Collect expressive syntax props
+        ...rest
+    } = $props();
 
-  // Local derived values for fallbacks
-  const finalPadding = $derived(
-    padding !== undefined
-      ? padding
-      : square
-        ? [10, 10, 10, 10]
-        : icon && !label
-          ? [10, 10, 10, 10]
-          : [10, 15, 10, 15],
-  );
+    const variants = {
+        primary: {
+            bg: "var(--action-suggested)",
+            color: "var(--text-primary-alt)",
+            hover: {
+                bg: "var(--action-suggested-hover)",
+            },
+            active: {
+                bg: "var(--action-suggested-active)",
+            },
+        },
+        secondary: {
+            bg: "var(--background-top)",
+            color: "var(--text-primary)",
+            hover: {
+                bg: "var(--background-elevated)",
+            },
+            active: {
+                bg: "var(--background-base)",
+            },
+        },
+        destructive: {
+            bg: "var(--action-destructive)",
+            color: "var(--text-primary-alt)",
+            hover: {
+                bg: "var(--action-destructive-hover)",
+            },
+            active: {
+                bg: "var(--action-destructive-active)",
+            },
+        },
+        flat: {
+            bg: "transparent",
+            color: "var(--text-primary)",
+            hover: {
+                bg: "var(--background-elevated)",
+            },
+            active: {
+                bg: "var(--background-base)",
+            },
+        },
+    };
 
-  const finalBg = $derived(
-    bg !== undefined
-      ? bg
-      : type === "suggested"
-        ? "var(--action-suggested)"
-        : type === "destructive"
-          ? "var(--action-destructive)"
-          : type === "flat"
-            ? "transparent"
-            : "var(--background-top)",
-  );
+    const selectedVariant = $derived(variants[variant] || variants.secondary);
 
-  const finalBgHover = $derived(
-    bgHover !== undefined
-      ? bgHover
-      : type === "suggested"
-        ? "var(--action-suggested-hover)"
-        : type === "destructive"
-          ? "var(--action-destructive-hover)"
-          : "var(--background-elevated)",
-  );
+    // Local derived values for fallbacks
+    const finalPadding = $derived(
+        rest.padding !== undefined
+            ? rest.padding
+            : square
+                ? [10, 10, 10, 10]
+                : icon && !label
+                    ? [10, 10, 10, 10]
+                    : [10, 15, 10, 15],
+    );
 
-  const finalBgFocus = $derived(
-    bgFocus !== undefined
-      ? bgFocus
-      : type === "suggested"
-        ? "var(--action-suggested-active)"
-        : type === "destructive"
-          ? "var(--action-destructive-active)"
-          : "var(--background-base)",
-  );
+    const finalBorderRadius = $derived(
+        rest.borderRadius !== undefined || rest.radius !== undefined
+            ? rest.borderRadius ?? rest.radius
+            : "var(--snt-border-radius, 20px)",
+    );
 
-  const finalBgActive = $derived(
-    bgActive !== undefined
-      ? bgActive
-      : type === "suggested"
-        ? "var(--action-suggested-active)"
-        : type === "destructive"
-          ? "var(--action-destructive-active)"
-          : "var(--background-base)",
-  );
+    let classes = $derived.by(() => {
+        const klasses = [];
+        if (icon && label) klasses.push("Button--with-icon");
+        if (disabled) klasses.push("Button--disabled");
+        if (square) klasses.push("Button--square");
+        return klasses.join(" ");
+    });
 
-  const finalBorderRadius = $derived(
-    borderRadius !== undefined
-      ? borderRadius
-      : "var(--snt-border-radius, 20px)",
-  );
-
-  let classes = $derived.by(() => {
-    const classes = [];
-
-    if (icon) {
-      if (label) {
-        classes.push("Button--withIcon");
-      } else {
-        classes.push("Button--iconOnly");
-      }
-    }
-    if (disabled) {
-      classes.push("Button--disabled");
-    }
-    // We keep these for non-color styling if any (none really left besides transition)
-    classes.push(`Button--${type}`);
-
-    if (square) {
-      classes.push("Button--square");
-    }
-
-    return classes.join(" ");
-  });
+    const processedProps = $derived.by(() => {
+        const defaults = {
+            padding: finalPadding,
+            bg: rest.bg ?? selectedVariant.bg,
+            hover: rest.hover ?? selectedVariant.hover,
+            focus: rest.focus ?? selectedVariant.active,
+            active: rest.active ?? selectedVariant.active,
+            borderWidth: rest.borderWidth ?? [0,0,0,0],
+            borderColor: rest.borderColor ?? 'transparent',
+            borderStyle: rest.borderStyle ?? "solid",
+            borderRadius: finalBorderRadius,
+            shadow: rest.shadow ?? "none",
+            color: rest.color ?? selectedVariant.color,
+            zIndex: rest.zIndex ?? 0,
+            ...rest
+        };
+        return resolveProps(defaults);
+    });
 </script>
 
-<Skeleton
-  element="button"
-  bind:ref
-  class="Button {classes} {className}"
-  {disabled}
-  {onclick}
-  {margin}
-  padding={finalPadding}
-  bg={finalBg}
-  bgHover={finalBgHover}
-  bgFocus={finalBgFocus}
-  bgActive={finalBgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  {borderColor}
-  {borderStyle}
-  borderRadius={finalBorderRadius}
-  {shadow}
-  {shadowSecondary}
-  {transformHover}
-  {transformFocus}
-  {transformActive}
-  {color}
-  {colorHover}
-  {colorFocus}
-  {colorActive}
-  {zIndex}
-  {...rest}
+<button
+    class="Button {classes} {className}"
+    {disabled}
+    {onclick}
+    style={processedProps.styles}
+    {...processedProps.filteredRest}
 >
-  {#if children}
-    {@render children()}
-  {:else}
-    {#if icon}
-      {#if typeof icon === "function" && icon.length <= 1}
-        {@render icon()}
-      {:else}
-        <svelte:component this={icon} />
-      {/if}
+    {#if children}
+        {@render children()}
+    {:else}
+        {#if icon}
+            {#if typeof icon === "function" && icon.length <= 1}
+                {@render icon()}
+            {:else}
+                {@const Component = icon}
+                <Component />
+            {/if}
+        {/if}
+        {#if label}
+            <span class="Button-label">{label}</span>
+        {/if}
     {/if}
-    {#if label}
-      <span class="Button-label">{label}</span>
-    {/if}
-  {/if}
-</Skeleton>
+</button>
 
 <style>
-  :global(.Button) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--background-top);
-    color: var(--text-primary);
-    transition:
-      background-color 0.2s,
-      color 0.2s;
-    border-radius: 20px;
-    border: 0;
-    font-size: 15px;
-    gap: 5px;
-    padding: 10px 15px;
-  }
+    :global(.Button) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s,
+        color 0.2s;
+        border: 0;
+        font-size: 15px;
+        gap: 5px;
+    }
 
-  .Button.Button--square {
-    border-radius: var(--snt-border-radius, 12px);
-  }
+    :global(.Button--square) {
+        border-radius: var(--snt-border-radius, 12px);
+    }
 
-  .Button.Button--withIcon {
-    padding-right: 20px;
-  }
+    :global(.Button--with-icon) {
+        padding-right: 20px;
+    }
 
-  .Button.Button--disabled {
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
+    :global(.Button--disabled) {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
 
-  .Button:hover {
-    background-color: var(--background-elevated);
-  }
-
-  .Button:active {
-    background-color: var(--background-base);
-  }
-
-  .Button.Button--suggested {
-    background-color: var(--action-suggested);
-    color: var(--text-primary-alt);
-  }
-
-  .Button.Button--suggested:hover {
-    background-color: var(--action-suggested-hover);
-  }
-
-  .Button.Button--suggested:active {
-    background-color: var(--action-suggested-active);
-  }
-
-  .Button.Button--destructive {
-    background-color: var(--action-destructive);
-    color: var(--text-primary-alt);
-  }
-
-  .Button.Button--destructive:hover {
-    background-color: var(--action-destructive-hover);
-  }
-
-  .Button.Button--destructive:active {
-    background-color: var(--action-destructive-active);
-  }
-
-  .Button.Button--flat {
-    background-color: transparent;
-    color: var(--text-primary);
-    padding: 10px;
-  }
-
-  .Button.Button--flat:hover {
-    background-color: var(--background-elevated);
-  }
-
-  .Button.Button--flat:active {
-    background-color: var(--background-base);
-  }
-
-  .Button-label {
-    font-weight: 600;
-    position: relative;
-    top: -1px;
-  }
+    .Button-label {
+        font-weight: 600;
+        position: relative;
+        top: -1px;
+    }
 </style>

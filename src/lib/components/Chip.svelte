@@ -1,9 +1,9 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
   import PhX from "../icons/components/X.svelte";
-import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from "svelte";
 
-const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher();
 
   let {
     label = "",
@@ -12,53 +12,45 @@ const dispatch = createEventDispatcher();
     icon = undefined,
     color,
     textColor,
-    // Skeleton pass-through
-    margin = [0, 0, 0, 0],
-    padding = [2, 10, 2, 10],
-    bg,
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = "20px",
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
 
-  const finalBg = $derived(bg !== undefined ? bg : color || "var(--background-elevated)");
+  const finalBg = $derived(rest.bg !== undefined ? rest.bg : color || "var(--background-elevated)");
 
-function handleRemove(event) {
+  function handleRemove(event) {
     if (onRemove) onRemove(event);
     dispatch('remove', { originalEvent: event });
   }
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: rest.padding ?? [2, 10, 2, 10],
+      bg: finalBg,
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? "20px",
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      color: textColor,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="Chip {className}"
-  bind:ref
-  {margin}
-  {padding}
-  bg={finalBg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
-  color={textColor}
-  {...rest}
+  style={processedProps.styles}
+  {...processedProps.filteredRest}
 >
   {#if icon}
+    {@const Component = icon}
     <span class="Chip-icon">
-      <svelte:component this={icon} size={14} />
+      <Component size={14} />
     </span>
   {/if}
   {#if label}
@@ -74,7 +66,7 @@ function handleRemove(event) {
       <PhX size={12} />
     </button>
   {/if}
-</Skeleton>
+</div>
 
 <style>
   :global(.Chip) {

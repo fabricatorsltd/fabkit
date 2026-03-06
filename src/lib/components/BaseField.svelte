@@ -150,13 +150,14 @@
     bind:this={inputElement}
   />
   {#if icon}
+    {@const Component = icon}
     <span
       class="BaseField-icon"
       class:BaseField-icon--left={iconPosition === "left"}
       class:BaseField-icon--right={iconPosition === "right"}
       class:BaseField-icon--active={isDateLike || isActive || hasContent}
     >
-      <svelte:component this={icon} size={18} />
+      <Component size={18} />
     </span>
   {/if}
 </Skeleton>

@@ -1,29 +1,14 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
+
   let {
     label,
     action,
     children,
     class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding,
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius,
-    shadow = "none",
-    zIndex = 0,
+    // Collect expressive syntax props
     href,
     target,
-    ref = $bindable(),
     ...rest
   } = $props();
 
@@ -34,54 +19,60 @@
   }
 
   const finalPadding = $derived(
-    padding !== undefined ? padding : [10, 16, 10, 16],
+    rest.padding !== undefined ? rest.padding : [10, 16, 10, 16],
   );
   const finalBgHover = $derived(
-    bgHover !== undefined ? bgHover : "var(--background-elevated-2-hover)",
+    rest.bgHover !== undefined ? rest.bgHover : "var(--background-elevated-2-hover)",
   );
   const finalBgActive = $derived(
-    bgActive !== undefined ? bgActive : "var(--background-top)",
+    rest.bgActive !== undefined ? rest.bgActive : "var(--background-top)",
   );
   const finalBorderRadius = $derived(
-    borderRadius !== undefined
-      ? borderRadius
+    rest.borderRadius !== undefined
+      ? rest.borderRadius
       : "var(--snt-border-radius, 12px)",
   );
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: finalPadding,
+      bg: rest.bg ?? "transparent",
+      bgHover: finalBgHover,
+      bgFocus: rest.bgFocus,
+      bgActive: finalBgActive,
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: finalBorderRadius,
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<Skeleton
+<svelte:element
+  this={element}
   class="Menu-item {className}"
-  bind:ref
-  {element}
   {href}
   {target}
   onclick={handleClick}
-  style="text-decoration: none;"
-  {margin}
-  padding={finalPadding}
-  {bg}
-  bgHover={finalBgHover}
-  {bgFocus}
-  bgActive={finalBgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  {borderColor}
-  {borderStyle}
-  borderRadius={finalBorderRadius}
-  {shadow}
-  {zIndex}
-  {...rest}
+  style={[
+    'text-decoration: none;',
+    processedProps.styles
+  ].filter(Boolean).join('; ')}
+  {...processedProps.filteredRest}
 >
   {#if children}
     {@render children()}
   {:else}
-    <span class="Menu-item-label">{label}</span>
+    {label}
   {/if}
-</Skeleton>
+</svelte:element>
 
 <style>
   :global(.Menu-item) {

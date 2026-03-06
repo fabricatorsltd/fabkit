@@ -1,66 +1,46 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { setContext } from "svelte";
+  import { CARD_RADIUS_CONTEXT_KEY } from "../context.js";
+  import { resolveProps } from "../system.js";
+
   let {
     children,
     class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding,
-    bg,
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [1, 1, 1, 1],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "var(--border-primary)",
-    borderStyle = "solid",
-    borderRadius,
-    shadow,
-    zIndex = 0,
-    ref = $bindable(),
+    clip = false,
+    // Collect expressive syntax props
     ...rest
   } = $props();
 
-  const finalPadding = $derived(
-    padding !== undefined ? padding : [16, 16, 16, 16],
-  );
-  const finalBg = $derived(
-    bg !== undefined ? bg : "var(--background-elevated)",
-  );
-  const finalBorderRadius = $derived(
-    borderRadius !== undefined
-      ? borderRadius
-      : "var(--snt-border-radius, 12px)",
-  );
-  const finalShadow = $derived(
-    shadow !== undefined ? shadow : "var(--shadow-elevated-2)",
-  );
+  const finalBorderRadius = $derived(rest.radius ?? rest.borderRadius ?? "var(--snt-border-radius, 12px)");
+
+  // Apply defaults and process with system
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: rest.padding ?? [16, 16, 16, 16],
+      bg: rest.bg ?? "var(--background-elevated)",
+      borderWidth: rest.borderWidth ?? [1, 1, 1, 1],
+      borderColor: rest.borderColor ?? "var(--border-primary)",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: finalBorderRadius,
+      shadow: rest.shadow ?? "var(--shadow-elevated-2)",
+      zIndex: rest.zIndex ?? 0,
+      overflow: clip ? "hidden" : rest.overflow,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
+
+  setContext(CARD_RADIUS_CONTEXT_KEY, () => finalBorderRadius);
 </script>
 
-<Skeleton
+<div
   class="Card {className}"
-  bind:ref
-  {margin}
-  padding={finalPadding}
-  bg={finalBg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  {borderColor}
-  {borderStyle}
-  borderRadius={finalBorderRadius}
-  shadow={finalShadow}
-  {zIndex}
-  {...rest}
+  style={processedProps.styles}
+  {...processedProps.filteredRest}
 >
   {@render children?.()}
-</Skeleton>
+</div>
 
 <style>
   :global(.Card) {

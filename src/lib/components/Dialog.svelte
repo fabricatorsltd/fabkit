@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
   import Button from "./Button.svelte";
 
   let {
@@ -10,7 +10,6 @@
     confirmType = "suggested",
     cancel,
     cancelText = "Cancel",
-    ref = $bindable(),
     children,
   } = $props();
 
@@ -21,6 +20,17 @@
   function handleConfirm() {
     if (confirm) confirm();
   }
+
+  const dialogContentProps = $derived.by(() => {
+    return resolveProps({
+      padding: [20, 20, 20, 20],
+      bg: "var(--background-elevated)",
+      borderColor: "transparent",
+      borderWidth: [0, 0, 0, 0],
+      borderRadius: "var(--snt-border-radius, 12px)",
+      shadow: "var(--shadow-top)"
+    });
+  });
 </script>
 
 <div
@@ -28,15 +38,10 @@
   class:Dialog--confirm={!!confirm}
   class:Dialog--cancel={!!cancel}
 >
-  <Skeleton
+  <div
     class="Dialog-content"
-    bind:ref
-    padding={[20, 20, 20, 20]}
-    bg="var(--background-elevated)"
-    borderColor="transparent"
-    borderWidth={[0, 0, 0, 0]}
-    borderRadius="var(--snt-border-radius, 12px)"
-    shadow="var(--shadow-top)"
+    style={dialogContentProps.styles}
+    {...dialogContentProps.filteredRest}
   >
     <div class="Dialog-content-head">
       <h2 class="Dialog-head-title">{title}</h2>
@@ -57,7 +62,7 @@
         />
       {/if}
     </div>
-  </Skeleton>
+  </div>
 </div>
 
 <style>

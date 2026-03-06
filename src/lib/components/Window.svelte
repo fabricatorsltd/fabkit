@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
   import { onMount } from "svelte";
   import { getEngine } from "../EngineContext.js";
 
@@ -9,26 +9,11 @@
     flat = false,
     hideTitleBarOnScroll = false,
     class: className = "",
-    // Skeleton Props Pass-through
-    margin,
-    padding = [0, 0, 0, 0],
-    bg,
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = flat ? [0, 0, 0, 0] : [1, 1, 1, 1],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "var(--border-secondary)",
-    borderStyle = "solid",
-    borderRadius,
-    shadow,
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     ...rest
   } = $props();
 
+  let ref = $state(null);
   let maximized = $state(false);
   let resizing = $state(false);
 
@@ -36,7 +21,12 @@
   let topHidden = $state(false);
   let lastScrollTop = 0;
 
-  const engineInstance = getEngine();
+  let engineInstance = null;
+  try {
+    engineInstance = getEngine();
+  } catch {
+    engineInstance = null;
+  }
 
   let unsubscribeResize;
   let resizeInterval;
@@ -62,6 +52,8 @@
   }
 
   onMount(() => {
+    if (!engineInstance) return;
+
     unsubscribeResize = engineInstance.onResize(() => {
       if (ref) {
         const screenHeight = screen.availHeight - 20;
@@ -108,30 +100,46 @@
   });
 
   const finalMargin = $derived(
-    margin !== undefined
-      ? margin
+    rest.margin !== undefined
+      ? rest.margin
       : flat || maximized
         ? [0, 0, 0, 0]
         : [10, 10, 10, 10],
   );
-  const finalBg = $derived(bg !== undefined ? bg : "var(--background-base)");
+  const finalBg = $derived(rest.bg !== undefined ? rest.bg : "var(--background-base)");
   const finalBorderRadius = $derived(
-    borderRadius !== undefined
-      ? borderRadius
+    rest.borderRadius !== undefined
+      ? rest.borderRadius
       : flat || maximized
         ? [0, 0, 0, 0]
         : "var(--snt-border-radius, 12px)",
   );
   const finalShadow = $derived(
-    shadow !== undefined
-      ? shadow
+    rest.shadow !== undefined
+      ? rest.shadow
       : flat || maximized
         ? "none"
         : "0 0 10px rgba(0, 0, 0, 0.3)",
   );
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: finalMargin,
+      padding: rest.padding ?? [0, 0, 0, 0],
+      bg: finalBg,
+      borderWidth: rest.borderWidth ?? (flat ? [0, 0, 0, 0] : [1, 1, 1, 1]),
+      borderColor: rest.borderColor ?? "var(--border-secondary)",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: finalBorderRadius,
+      shadow: finalShadow,
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class={[
     "Window",
     className,
@@ -142,24 +150,12 @@
   ]
     .filter(Boolean)
     .join(" ")}
-  bind:ref
-  margin={finalMargin}
-  {padding}
-  bg={finalBg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  {borderColor}
-  {borderStyle}
-  borderRadius={finalBorderRadius}
-  shadow={finalShadow}
-  {zIndex}
-  style="height: {flat || maximized ? '100vh' : 'calc(100vh - 20px)'}"
-  {...rest}
+  bind:this={ref}
+  style={[
+    processedProps.styles,
+    `height: ${flat || maximized ? '100vh' : 'calc(100vh - 20px)'}`
+  ].filter(Boolean).join('; ')}
+  {...processedProps.filteredRest}
 >
   <div class="Window-top">
     {@render top?.()}
@@ -171,7 +167,7 @@
   >
     {@render content?.()}
   </div>
-</Skeleton>
+</div>
 
 <style>
   :global(.Window) {

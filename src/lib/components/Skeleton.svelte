@@ -1,80 +1,98 @@
 <script>
+  import { useSpacing, resolveToken } from "../style/index.js";
+
+  /**
+   * @typedef {Object} InteractionStateProps
+   * @property {string} [bg]
+   * @property {string} [shadow]
+   * @property {string} [transform]
+   * @property {string} [color]
+   * @property {number[]} [borderWidth]
+   * @property {string|string[]} [borderColor]
+   */
+
   /**
    * @typedef {Object} SkeletonProps
-   * @property {number[]} [margin=[0,0,0,0]] - [top, right, bottom, left]
-   * @property {number[]} [padding=[0,0,0,0]] - [top, right, bottom, left]
-   * @property {string} [bg="transparent"]
-   * @property {string} [bgHover]
-   * @property {string} [bgFocus]
-   * @property {string} [bgActive]
+   * @property {number[]} [margin] - [top, right, bottom, left]
+   * @property {number[]} [padding] - [top, right, bottom, left]
+   * @property {string} [bg="var(--background-base)"]
+   * @property {string} [bgHover] - Deprecated, use `hover.bg`
+   * @property {string} [bgFocus] - Deprecated, use `focus.bg`
+   * @property {string} [bgActive] - Deprecated, use `active.bg`
+   * @property {InteractionStateProps} [hover]
+   * @property {InteractionStateProps} [focus]
+   * @property {InteractionStateProps} [active]
    * @property {number[]} [borderWidth=[0,0,0,0]]
-   * @property {number[]} [borderWidthHover]
-   * @property {number[]} [borderWidthFocus]
-   * @property {number[]} [borderWidthActive]
-   * @property {string|string[]} [borderColor="transparent"]
-   * @property {string|string[]} [borderColorHover]
-   * @property {string|string[]} [borderColorFocus]
-   * @property {string|string[]} [borderColorActive]
+   * @property {number[]} [borderWidthHover] - Deprecated, use `hover.borderWidth`
+   * @property {number[]} [borderWidthFocus] - Deprecated, use `focus.borderWidth`
+   * @property {number[]} [borderWidthActive] - Deprecated, use `active.borderWidth`
+   * @property {string|string[]} [borderColor="var(--border-primary)"]
+   * @property {string|string[]} [borderColorHover] - Deprecated, use `hover.borderColor`
+   * @property {string|string[]} [borderColorFocus] - Deprecated, use `focus.borderColor`
+   * @property {string|string[]} [borderColorActive] - Deprecated, use `active.borderColor`
    * @property {string} [borderStyle="solid"]
-   * @property {string} [shadow="none"]
-   * @property {string} [shadowSecondary]
-   * @property {string} [shadowActive]
-   * @property {string} [transformHover]
-   * @property {string} [transformFocus]
-   * @property {string} [transformActive]
+   * @property {string} [shadow="var(--shadow-base)"]
+   * @property {string} [shadowSecondary] - Deprecated, use `hover.shadow`
+   * @property {string} [shadowActive] - Deprecated, use `active.shadow`
+   * @property {string} [transformHover] - Deprecated, use `hover.transform`
+   * @property {string} [transformFocus] - Deprecated, use `focus.transform`
+   * @property {string} [transformActive] - Deprecated, use `active.transform`
    * @property {number} [zIndex=0]
    * @property {string} [class=""]
    * @property {import('svelte').Snippet} [children]
    * @property {string} [color]
-   * @property {string} [colorHover]
-   * @property {string} [colorFocus]
-   * @property {string} [colorActive]
+   * @property {string} [colorHover] - Deprecated, use `hover.color`
+   * @property {string} [colorFocus] - Deprecated, use `focus.color`
+   * @property {string} [colorActive] - Deprecated, use `active.color`
    */
 
   let {
     element = "div",
     ref = $bindable(),
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
+    margin = undefined,
+    padding = undefined,
+    bg = "surface",
+    bgHover = undefined,
+    bgFocus = undefined,
+    bgActive = undefined,
+    hover = undefined,
+    focus = undefined,
+    active = undefined,
     borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "transparent",
-    borderColorHover,
-    borderColorFocus,
-    borderColorActive,
+    borderWidthHover = undefined,
+    borderWidthFocus = undefined,
+    borderWidthActive = undefined,
+    borderColor = "border-primary",
+    borderColorHover = undefined,
+    borderColorFocus = undefined,
+    borderColorActive = undefined,
     borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    shadowSecondary,
-    shadowActive,
-    transformHover,
-    transformFocus,
-    transformActive,
+    borderRadius = "var(--snt-border-radius)",
+    shadow = "shadow-base",
+    shadowSecondary = undefined,
+    shadowActive = undefined,
+    transformHover = undefined,
+    transformFocus = undefined,
+    transformActive = undefined,
     zIndex = 0,
-    width,
-    height,
-    minWidth,
-    minHeight,
-    maxWidth,
-    maxHeight,
-    display,
-    position,
-    opacity,
-    overflow,
-    flex,
-    color,
-    colorHover,
-    colorFocus,
-    colorActive,
-    fontSize,
-    fontWeight,
-    textAlign,
+    width = undefined,
+    height = undefined,
+    minWidth = undefined,
+    minHeight = undefined,
+    maxWidth = undefined,
+    maxHeight = undefined,
+    display = undefined,
+    position = undefined,
+    opacity = undefined,
+    overflow = undefined,
+    flex = undefined,
+    color = undefined,
+    colorHover = undefined,
+    colorFocus = undefined,
+    colorActive = undefined,
+    fontSize = undefined,
+    fontWeight = undefined,
+    textAlign = undefined,
     class: className = "",
     children,
     ...rest
@@ -89,44 +107,48 @@
   }
 
   function formatBorderColor(val) {
-    if (!Array.isArray(val)) return val;
-    return val.join(" ");
+    if (!Array.isArray(val)) return resolveToken(val);
+    return val.map(resolveToken).join(" ");
   }
 
   function formatValue(val) {
     if (typeof val === "number") return `${val}px`;
-    return val;
+    return resolveToken(val);
   }
 
   let derivedStyle = $derived.by(() => {
+    const resolvedBg = resolveToken(bg);
+    const resolvedBorderColor = formatBorderColor(borderColor);
+    const resolvedShadow = resolveToken(shadow);
+    const resolvedColor = resolveToken(color);
+
     const styles = [
-      `margin: ${formatBox(margin)}`,
-      `padding: ${formatBox(padding)}`,
-      `background-color: ${bg}`,
+      ...useSpacing({ margin, padding, ...rest }),
+      `background-color: ${resolvedBg}`,
       `border-width: ${formatBox(borderWidth)}`,
-      `border-color: ${formatBorderColor(borderColor)}`,
+      `border-color: ${resolvedBorderColor}`,
       `border-style: ${borderStyle}`,
       `border-radius: ${formatBox(borderRadius)}`,
-      `box-shadow: ${shadow}`,
+      `box-shadow: ${resolvedShadow}`,
       `z-index: ${zIndex}`,
-      `--snt-bg-hover: ${bgHover || bg}`,
-      `--snt-bg-focus: ${bgFocus || bgHover || bg}`,
-      `--snt-bg-active: ${bgActive || bgHover || bg}`,
-      `--snt-bc-hover: ${formatBorderColor(borderColorHover || borderColor)}`,
-      `--snt-bc-focus: ${formatBorderColor(borderColorFocus || borderColorHover || borderColor)}`,
-      `--snt-bc-active: ${formatBorderColor(borderColorActive || borderColorHover || borderColor)}`,
-      `--snt-bw-hover: ${formatBox(borderWidthHover || borderWidth)}`,
-      `--snt-bw-focus: ${formatBox(borderWidthFocus || borderWidthHover || borderWidth)}`,
-      `--snt-bw-active: ${formatBox(borderWidthActive || borderWidthHover || borderWidth)}`,
-      `--snt-sh-hover: ${shadowSecondary || shadow}`,
-      `--snt-sh-focus: ${shadowSecondary || shadow}`,
-      `--snt-sh-active: ${shadowActive || shadowSecondary || shadow}`,
-      `--snt-tr-hover: ${transformHover || rest.transform || "none"}`,
-      `--snt-tr-focus: ${transformFocus || rest.transform || "none"}`,
-      `--snt-tr-active: ${transformActive || rest.transform || "none"}`,
-      `--snt-color-hover: ${colorHover || color || "inherit"}`,
-      `--snt-color-focus: ${colorFocus || colorHover || color || "inherit"}`,
-      `--snt-color-active: ${colorActive || colorHover || color || "inherit"}`,
+      `--snt-bg-hover: ${resolveToken(hover?.bg || bgHover || bg)}`,
+      `--snt-bg-focus: ${resolveToken(focus?.bg || bgFocus || hover?.bg || bgHover || bg)}`,
+      `--snt-bg-active: ${resolveToken(active?.bg || bgActive || hover?.bg || bgHover || bg)}`,
+      `--snt-bc-hover: ${formatBorderColor(hover?.borderColor || borderColorHover || borderColor)}`,
+      `--snt-bc-focus: ${formatBorderColor(focus?.borderColor || borderColorFocus || hover?.borderColor || borderColorHover || borderColor)}`,
+      `--snt-bc-active: ${formatBorderColor(active?.borderColor || borderColorActive || hover?.borderColor || borderColorHover || borderColor)}`,
+      `--snt-bw-hover: ${formatBox(hover?.borderWidth || borderWidthHover || borderWidth)}`,
+      `--snt-bw-focus: ${formatBox(focus?.borderWidth || borderWidthFocus || hover?.borderWidth || borderWidthHover || borderWidth)}`,
+      `--snt-bw-active: ${formatBox(active?.borderWidth || borderWidthActive || hover?.borderWidth || borderWidthHover || borderWidth)}`,
+      `--snt-sh-hover: ${resolveToken(hover?.shadow || shadowSecondary || shadow)}`,
+      `--snt-sh-focus: ${resolveToken(focus?.shadow || shadowSecondary || shadow)}`,
+      `--snt-sh-active: ${resolveToken(active?.shadow || shadowActive || shadowSecondary || shadow)}`,
+      `--snt-tr-hover: ${hover?.transform || transformHover || rest.transform || "none"}`,
+      `--snt-tr-focus: ${focus?.transform || transformFocus || hover?.transform || transformHover || rest.transform || "none"}`,
+      `--snt-tr-active: ${active?.transform || transformActive || hover?.transform || transformHover || rest.transform || "none"}`,
+      `--snt-color-hover: ${resolveToken(hover?.color || colorHover || color || "inherit")}`,
+      `--snt-color-focus: ${resolveToken(focus?.color || colorFocus || hover?.color || colorHover || color || "inherit")}`,
+      `--snt-color-active: ${resolveToken(active?.color || colorActive || hover?.color || colorHover || color || "inherit")}`,
     ];
 
     if (width !== undefined) styles.push(`width: ${formatValue(width)}`);
@@ -164,7 +186,7 @@
     if (overflow !== undefined) styles.push(`overflow: ${overflow}`);
     if (flex !== undefined) styles.push(`flex: ${flex}`);
     if (rest.flexWrap !== undefined) styles.push(`flex-wrap: ${rest.flexWrap}`);
-    if (color !== undefined) styles.push(`color: ${color}`);
+    if (color !== undefined) styles.push(`color: ${resolvedColor}`);
     if (fontSize !== undefined)
       styles.push(`font-size: ${formatValue(fontSize)}`);
     if (fontWeight !== undefined) styles.push(`font-weight: ${fontWeight}`);
