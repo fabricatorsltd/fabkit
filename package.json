@@ -1,5 +1,5 @@
 {
-  "name": "fabkit",
+  "name": "@fabricatorsltd/fabkit",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
