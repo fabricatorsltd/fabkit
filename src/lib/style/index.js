@@ -12,6 +12,16 @@ const TOKEN_MAP = {
 export function resolveToken(token) {
   if (typeof token !== "string") return token;
 
+  // opacity syntax in color tokens
+  if (token.includes("/")) {
+    const [color, opacity] = token.split("/");
+    const opacityValue = parseInt(opacity, 10);
+    if (!isNaN(opacityValue)) {
+      const resolvedColor = resolveToken(color);
+      return `color-mix(in srgb, ${resolvedColor} ${opacityValue}%, transparent)`;
+    }
+  }
+
   // Direct mapping for simple tokens
   if (TOKEN_MAP[token]) {
     return TOKEN_MAP[token];
@@ -21,6 +31,11 @@ export function resolveToken(token) {
   if (token.includes(".")) {
     const [color, weight] = token.split(".");
     return `var(--${color}-${weight})`;
+  }
+
+  // Sanitize rgba strings by removing spaces
+  if (token.startsWith("rgba(")) {
+    return token.replace(/ /g, "");
   }
 
   // Return the original string if it's not a token
