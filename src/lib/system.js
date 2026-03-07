@@ -24,6 +24,8 @@ function expandSpacingProp(prop, value) {
     result['margin-left'] = formatted;
   } else if (prop === 'mr') {
     result['margin-right'] = formatted;
+  } else if (prop === 'm') {
+    result['margin'] = formatted;
   } else if (prop === 'px') {
     result['padding-left'] = formatted;
     result['padding-right'] = formatted;
@@ -38,6 +40,8 @@ function expandSpacingProp(prop, value) {
     result['padding-left'] = formatted;
   } else if (prop === 'pr') {
     result['padding-right'] = formatted;
+  } else if (prop === 'p') {
+    result['padding'] = formatted;
   }
 
   return result;
@@ -102,8 +106,8 @@ export function resolveProps(props) {
   // List of recognized expressive props to filter out
   const expressiveProps = new Set([
     // Spacing shortcuts
-    'mx', 'my', 'mt', 'mb', 'ml', 'mr',
-    'px', 'py', 'pt', 'pb', 'pl', 'pr',
+    'm', 'mx', 'my', 'mt', 'mb', 'ml', 'mr',
+    'p', 'px', 'py', 'pt', 'pb', 'pl', 'pr',
     'margin', 'padding',
     // Sizing shortcuts
     'w', 'h', 'minW', 'minH', 'maxW', 'maxH',
@@ -124,24 +128,32 @@ export function resolveProps(props) {
     if (value === undefined || value === null) continue;
 
     // Handle spacing shortcuts (mx, my, pt, etc.)
-    if (key.match(/^(mx|my|mt|mb|ml|mr|px|py|pt|pb|pl|pr)$/)) {
+    if (key.match(/^(m|mx|my|mt|mb|ml|mr|p|px|py|pt|pb|pl|pr)$/)) {
       Object.assign(styles, expandSpacingProp(key, value));
     }
-    // Handle traditional margin array [top, right, bottom, left]
-    else if (key === 'margin' && Array.isArray(value)) {
-      const [t, r, b, l] = value;
-      styles['margin-top'] = formatValue(t);
-      styles['margin-right'] = formatValue(r);
-      styles['margin-bottom'] = formatValue(b);
-      styles['margin-left'] = formatValue(l);
+    // Handle margin (array or single value)
+    else if (key === 'margin') {
+      if (Array.isArray(value)) {
+        const [t, r, b, l] = value;
+        styles['margin-top'] = formatValue(t);
+        styles['margin-right'] = formatValue(r);
+        styles['margin-bottom'] = formatValue(b);
+        styles['margin-left'] = formatValue(l);
+      } else {
+        styles['margin'] = formatValue(value);
+      }
     }
-    // Handle traditional padding array [top, right, bottom, left]
-    else if (key === 'padding' && Array.isArray(value)) {
-      const [t, r, b, l] = value;
-      styles['padding-top'] = formatValue(t);
-      styles['padding-right'] = formatValue(r);
-      styles['padding-bottom'] = formatValue(b);
-      styles['padding-left'] = formatValue(l);
+    // Handle padding (array or single value)
+    else if (key === 'padding') {
+      if (Array.isArray(value)) {
+        const [t, r, b, l] = value;
+        styles['padding-top'] = formatValue(t);
+        styles['padding-right'] = formatValue(r);
+        styles['padding-bottom'] = formatValue(b);
+        styles['padding-left'] = formatValue(l);
+      } else {
+        styles['padding'] = formatValue(value);
+      }
     }
     // Handle border radius
     else if ((key === 'radius' || key === 'borderRadius') && value !== undefined) {
@@ -271,4 +283,3 @@ export function resolveProps(props) {
 export default {
   resolveProps
 };
-
