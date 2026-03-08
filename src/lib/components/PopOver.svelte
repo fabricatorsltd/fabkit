@@ -108,9 +108,16 @@
     top: 100%;
     text-align: left;
     transition: opacity 0.1s ease-out;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    background: var(--background-elevated, #fff);
+    min-width: 160px;
+    max-width: 260px;
+    padding: 0;
   }
 
   .PopOver-content {
-    max-width: 300px;
+    padding: 10px 14px;
+    max-width: 240px;
   }
 </style>
