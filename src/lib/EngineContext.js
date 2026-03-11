@@ -1,7 +1,7 @@
 import { setContext, getContext } from "svelte";
 import BrowserEngine from "./engines/Browser.js";
 
-const ENGINE_CONTEXT_KEY = {};
+const ENGINE_CONTEXT_KEY = "FABKIT_ENGINE_CONTEXT";
 
 /**
  * Provides an Engine instance to its children components via Svelte's context API.

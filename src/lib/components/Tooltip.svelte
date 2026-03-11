@@ -1,25 +1,12 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
 
   let {
     text = "",
     position = "top",
     delay = 300,
     children,
-    // Skeleton pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
@@ -35,26 +22,30 @@
     clearTimeout(timer);
     visible = false;
   }
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: rest.padding ?? [0, 0, 0, 0],
+      bg: rest.bg ?? "transparent",
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? [0, 0, 0, 0],
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="Tooltip-wrapper {className}"
-  bind:ref
-  {margin}
-  {padding}
-  {bg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
+  style={processedProps.styles}
   onmouseenter={show}
   onmouseleave={hide}
-  {...rest}
+  {...processedProps.filteredRest}
 >
   {#if children}
     {@render children()}
@@ -64,7 +55,7 @@
       {text}
     </div>
   {/if}
-</Skeleton>
+</div>
 
 <style>
   :global(.Tooltip-wrapper) {

@@ -1,4 +1,6 @@
 <script>
+  import { getContext } from "svelte";
+  import { CARD_RADIUS_CONTEXT_KEY } from "../context.js";
   import Skeleton from "./Skeleton.svelte";
 
   /**
@@ -101,6 +103,11 @@
   if (rest.onload !== undefined) delete rest.onload;
   if (rest.onerror !== undefined) delete rest.onerror;
 
+  const getParentCardRadius = getContext(CARD_RADIUS_CONTEXT_KEY);
+  const parentCardRadius = $derived(
+    getParentCardRadius ? getParentCardRadius() : undefined,
+  );
+
   let loaded = $state(false);
   let errored = $state(false);
   let imgElement = $state();
@@ -178,7 +185,7 @@
   {borderWidth}
   {borderColor}
   {borderStyle}
-  borderRadius={borderRadius ?? [0,0,0,0]}
+  borderRadius={borderRadius ?? parentCardRadius ?? [0,0,0,0]}
   {shadow}
   {shadowSecondary}
   {zIndex}
