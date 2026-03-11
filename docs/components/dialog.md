@@ -19,7 +19,7 @@ import { Dialog } from 'fabkit';
   let show = $state(false);
 </script>
 
-<Button label="Delete" type="destructive" onclick={() => show = true} />
+<Button label="Delete" type="destructive" onClick={() => show = true} />
 
 {#if show}
   <Dialog

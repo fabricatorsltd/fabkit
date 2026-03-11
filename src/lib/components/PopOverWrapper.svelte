@@ -2,7 +2,7 @@
   import PopOver from "./PopOver.svelte";
   import Button from "./Button.svelte";
 
-  let { children, trigger, ref = $bindable(), ...props } = $props();
+  let { trigger, children, ref = $bindable(), ...props } = $props();
 
   let buttonElement = $state();
   let showPopover = $state(false);
@@ -13,9 +13,12 @@
 </script>
 
 <div class="PopOverWrapper" bind:this={ref}>
-  {@render trigger?.()}
-  {#if !trigger}
-    <Button label="Click me" onclick={togglePopover} bind:ref={buttonElement} />
+  {#if trigger}
+    <div class="PopOverWrapper-trigger" bind:this={buttonElement} onclick={togglePopover}>
+      {@render trigger()}
+    </div>
+  {:else}
+    <Button label="Click me" onClick={togglePopover} bind:ref={buttonElement} />
   {/if}
 
   {#if showPopover && buttonElement}
@@ -32,6 +35,10 @@
 <style>
   .PopOverWrapper {
     position: relative;
+    display: inline-block;
+  }
+
+  .PopOverWrapper-trigger {
     display: inline-block;
   }
 </style>

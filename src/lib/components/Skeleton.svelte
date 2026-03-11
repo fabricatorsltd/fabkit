@@ -94,7 +94,7 @@
     fontWeight = undefined,
     textAlign = undefined,
     class: className = "",
-    children,
+    children = undefined,
     ...rest
   } = $props();
 

@@ -9,7 +9,7 @@ export interface ButtonProps {
   disabled?: boolean;
   type?: string;
   square?: boolean;
-  onclick?: (event: MouseEvent) => void;
+  onClick?: (event: MouseEvent) => void;
   class?: string;
   [key: string]: unknown;
 }
