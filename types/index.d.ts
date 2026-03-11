@@ -720,6 +720,7 @@ export const PopOver: Component<PopOverProps>;
 export const PopOverWrapper: Component<PopOverWrapperProps>;
 export const SelectField: Component<SelectFieldProps>;
 export const SideLayout: Component<SideLayoutProps>;
+export const Leaflet: Component<Record<string, any>>;
 export const Slider: Component<SliderProps>;
 export const TextField: Component<TextFieldProps>;
 export const VBox: Component<VBoxProps>;

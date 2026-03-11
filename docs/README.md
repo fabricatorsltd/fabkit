@@ -20,6 +20,7 @@
 - [Window](./components/window.md) — app shell
 - [TitleBar](./components/title-bar.md) — window title bar
 - [SideLayout](./components/side-layout.md) — sidebar + content
+- [Leaflet](./components/leaflet.md) — adaptive two-pane stack
 - [Paned](./components/paned.md) — resizable two-panel split
 - [HBox](./components/hbox.md) — horizontal flexbox row
 - [VBox](./components/vbox.md) — vertical flexbox column
