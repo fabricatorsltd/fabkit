@@ -7,7 +7,7 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     attachTo: { control: "object" },
-    onclose: { action: "closed" },
+    onClose: { action: "closed" },
   },
 };
 

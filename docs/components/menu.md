@@ -95,7 +95,7 @@ Accepts all [Skeleton props](./skeleton.md).
 </Button>
 
 {#if open}
-  <PopOver attachTo={popBtn} onclose={() => open = false}>
+  <PopOver attachTo={popBtn} onClose={() => open = false}>
     <Menu items={menuItems} />
   </PopOver>
 {/if}

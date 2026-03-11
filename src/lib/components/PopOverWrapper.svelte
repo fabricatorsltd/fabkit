@@ -2,10 +2,22 @@
   import PopOver from "./PopOver.svelte";
   import Button from "./Button.svelte";
 
-  let { trigger, children, ref = $bindable(), ...props } = $props();
+  let {
+    trigger,
+    children,
+    onClose,
+    onclose,
+    ref = $bindable(),
+    ...props
+  } = $props();
 
   let buttonElement = $state();
   let showPopover = $state(false);
+
+  function handleClose() {
+    showPopover = false;
+    (onClose ?? onclose)?.();
+  }
 
   function togglePopover() {
     showPopover = !showPopover;
@@ -22,11 +34,7 @@
   {/if}
 
   {#if showPopover && buttonElement}
-    <PopOver
-      attachTo={buttonElement}
-      onclose={() => (showPopover = false)}
-      {...props}
-    >
+    <PopOver attachTo={buttonElement} onClose={handleClose} {...props}>
       {@render children?.()}
     </PopOver>
   {/if}
