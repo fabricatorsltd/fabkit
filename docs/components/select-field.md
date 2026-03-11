@@ -40,6 +40,10 @@ import { SelectField } from 'fabkit';
 | `icon` | `SvelteComponent` | `""` | Phosphor icon component shown inside the field |
 | `iconPosition` | `"left" \| "right"` | `"right"` | Icon placement |
 | `flat` | `boolean` | `false` | Removes the underline |
+| `dropdownBg` | `string` | `"var(--background-base)"` | Dropdown panel background color |
+| `dropdownColor` | `string` | `"var(--text-primary)"` | Text/icon color inside the dropdown panel |
+| `optionHoverBg` | `string` | `"var(--background-elevated-2-hover)"` | Option background color on hover |
+| `optionActiveBg` | `string` | `"var(--background-top)"` | Option background color on active |
 | `zIndex` | `number \| string` | `"auto"` | Sets the stacking context for the field; dropdown renders above it (`zIndex + 1`) |
 | `ref` | `bindable` | — | DOM element reference |
 

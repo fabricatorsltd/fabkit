@@ -15,6 +15,10 @@
     icon = "",
     iconPosition = "right",
     flat = false,
+    dropdownBg = "var(--background-base)",
+    dropdownColor = "var(--text-primary)",
+    optionHoverBg = "var(--background-elevated-2-hover)",
+    optionActiveBg = "var(--background-top)",
     class: className = "",
     // Collect expressive syntax props
     ...rest
@@ -58,6 +62,16 @@
   let dropdownZIndex = $derived(
     typeof rest.zIndex === "number" ? rest.zIndex + 1 : 1000,
   );
+
+  const dropdownStyle = $derived.by(() => {
+    return [
+      `z-index: ${dropdownZIndex}`,
+      `--snt-select-dropdown-bg: ${dropdownBg}`,
+      `--snt-select-dropdown-color: ${dropdownColor}`,
+      `--snt-select-option-hover-bg: ${optionHoverBg}`,
+      `--snt-select-option-active-bg: ${optionActiveBg}`,
+    ].join("; ");
+  });
 
   const finalPadding = $derived(
     rest.padding !== undefined
@@ -134,7 +148,7 @@
     </div>
   {/if}
   {#if isOpen}
-    <div class="SelectField-dropdown" style:z-index={dropdownZIndex}>
+    <div class="SelectField-dropdown" style={dropdownStyle}>
       {#each options as option}
         <div
           class="SelectField-option"
@@ -197,7 +211,8 @@
     position: absolute;
     top: 100%;
     width: calc(100% - 20px);
-    background-color: var(--background-base);
+    background-color: var(--snt-select-dropdown-bg, var(--background-base));
+    color: var(--snt-select-dropdown-color, var(--text-primary));
     border: 1px solid var(--border-primary);
     border-radius: var(--snt-border-radius, 12px);
     box-shadow: var(--shadow-elevated);
@@ -214,14 +229,18 @@
     background-color: transparent;
     border-radius: var(--snt-border-radius, 12px);
     text-align: left;
+    color: inherit;
   }
 
   .SelectField-option:hover {
-    background-color: var(--background-elevated-2-hover);
+    background-color: var(
+      --snt-select-option-hover-bg,
+      var(--background-elevated-2-hover)
+    );
   }
 
   .SelectField-option:active {
-    background-color: var(--background-top);
+    background-color: var(--snt-select-option-active-bg, var(--background-top));
   }
 
   .SelectField-icon {
