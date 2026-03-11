@@ -26,6 +26,7 @@
 - [Grid](./components/grid.md) — CSS Grid wrapper
 - [Card](./components/card.md) — bordered container
 - [Wrapper](./components/wrapper.md) — generic container
+- [Clamp](./components/clamp.md) — constrain content size
 
 ### Navigation & Tabs
 
