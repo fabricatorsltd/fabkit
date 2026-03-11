@@ -201,7 +201,6 @@
 
     const gap = formatGap(spacing);
     if (gap !== undefined) styles.push(`gap: ${gap}`);
-
     if (color !== undefined) styles.push(`color: ${resolvedColor}`);
     if (fontSize !== undefined)
       styles.push(`font-size: ${formatValue(fontSize)}`);
