@@ -79,8 +79,8 @@
   {borderRadius}
   {shadow}
   {zIndex}
+  spacing={spacing}
   style={[
-    `gap: ${spacing}px`,
     `align-items: ${_align}`,
     `justify-content: ${_justify}`,
   ].join("; ")}

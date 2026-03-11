@@ -1,8 +1,9 @@
 <script>
   /**
    * @typedef {Object} SkeletonProps
-   * @property {number[]} [margin=[0,0,0,0]] - [top, right, bottom, left]
-   * @property {number[]} [padding=[0,0,0,0]] - [top, right, bottom, left]
+   * @property {number[]|number} [margin=[0,0,0,0]] - CSS shorthand (1–4 values)
+   * @property {number[]|number} [padding=[0,0,0,0]] - CSS shorthand (1–4 values)
+   * @property {number|string|Array<number|string>} [spacing] - CSS gap (1 value = gap, 2 values = row/column gap)
    * @property {string} [bg="transparent"]
    * @property {string} [bgHover]
    * @property {string} [bgFocus]
@@ -36,47 +37,48 @@
     ref = $bindable(),
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
+    spacing = undefined,
     bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
+    bgHover = undefined,
+    bgFocus = undefined,
+    bgActive = undefined,
     borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
+    borderWidthHover = undefined,
+    borderWidthFocus = undefined,
+    borderWidthActive = undefined,
     borderColor = "transparent",
-    borderColorHover,
-    borderColorFocus,
-    borderColorActive,
+    borderColorHover = undefined,
+    borderColorFocus = undefined,
+    borderColorActive = undefined,
     borderStyle = "solid",
     borderRadius = [0, 0, 0, 0],
     shadow = "none",
-    shadowSecondary,
-    shadowActive,
-    transformHover,
-    transformFocus,
-    transformActive,
+    shadowSecondary = undefined,
+    shadowActive = undefined,
+    transformHover = undefined,
+    transformFocus = undefined,
+    transformActive = undefined,
     zIndex = 0,
-    width,
-    height,
-    minWidth,
-    minHeight,
-    maxWidth,
-    maxHeight,
-    display,
-    position,
-    opacity,
-    overflow,
-    flex,
-    color,
-    colorHover,
-    colorFocus,
-    colorActive,
-    fontSize,
-    fontWeight,
-    textAlign,
+    width = undefined,
+    height = undefined,
+    minWidth = undefined,
+    minHeight = undefined,
+    maxWidth = undefined,
+    maxHeight = undefined,
+    display = undefined,
+    position = undefined,
+    opacity = undefined,
+    overflow = undefined,
+    flex = undefined,
+    color = undefined,
+    colorHover = undefined,
+    colorFocus = undefined,
+    colorActive = undefined,
+    fontSize = undefined,
+    fontWeight = undefined,
+    textAlign = undefined,
     class: className = "",
-    children,
+    children = undefined,
     ...rest
   } = $props();
 
@@ -96,6 +98,16 @@
   function formatValue(val) {
     if (typeof val === "number") return `${val}px`;
     return val;
+  }
+
+  function formatGap(val) {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) {
+      if (val.length === 0) return undefined;
+      if (val.length === 1) return formatValue(val[0]);
+      return `${formatValue(val[0])} ${formatValue(val[1])}`;
+    }
+    return formatValue(val);
   }
 
   let derivedStyle = $derived.by(() => {
@@ -164,6 +176,10 @@
     if (overflow !== undefined) styles.push(`overflow: ${overflow}`);
     if (flex !== undefined) styles.push(`flex: ${flex}`);
     if (rest.flexWrap !== undefined) styles.push(`flex-wrap: ${rest.flexWrap}`);
+
+    const gap = formatGap(spacing);
+    if (gap !== undefined) styles.push(`gap: ${gap}`);
+
     if (color !== undefined) styles.push(`color: ${color}`);
     if (fontSize !== undefined)
       styles.push(`font-size: ${formatValue(fontSize)}`);

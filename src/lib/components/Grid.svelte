@@ -52,8 +52,8 @@
   {borderRadius}
   {shadow}
   {zIndex}
+  spacing={spacing}
   style={[
-    `gap: ${spacing}px`,
     `grid-template-columns: ${columns}`,
     `grid-template-rows: ${rows}`,
     `align-items: ${align}`,

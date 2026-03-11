@@ -28,7 +28,7 @@ import { VBox } from 'fabkit';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `spacing` | `number` | `0` | Gap between children in px |
+| `spacing` | `number \| string \| (number \| string)[]` | `0` | CSS `gap` (px if number). Use 2 values for row/column gap |
 | `align` | `string` | `"center"` | `align-items` value (`start`, `center`, `end`, `stretch`, `fill`) |
 | `justify` | `string` | `"start"` | `justify-content` value |
 | `children` | `Snippet` | — | Column content |
