@@ -14,6 +14,11 @@
     ...rest
   } = $props();
 
+  const gapPx = $derived.by(() => {
+    const n = typeof spacing === "number" ? spacing : parseFloat(String(spacing));
+    return Number.isFinite(n) ? n : 0;
+  });
+
   const processedProps = $derived.by(() => {
     const defaults = {
       bg: rest.bg ?? "transparent",
@@ -33,7 +38,7 @@
   class="Grid {className}"
   style={[
     processedProps.styles,
-    `gap: ${spacing}px`,
+    `gap: ${gapPx}px`,
     `grid-template-columns: ${columns}`,
     `grid-template-rows: ${rows}`,
     `align-items: ${align}`,

@@ -41,6 +41,11 @@
     }
   });
 
+  const gapPx = $derived.by(() => {
+    const n = typeof spacing === "number" ? spacing : parseFloat(String(spacing));
+    return Number.isFinite(n) ? n : 0;
+  });
+
   const processedProps = $derived.by(() => {
     const defaults = {
       bg: rest.bg ?? "transparent",
@@ -60,7 +65,7 @@
   class="VBox {className}"
   style={[
     processedProps.styles,
-    `gap: ${spacing}px`,
+    `gap: ${gapPx}px`,
     `align-items: ${_align}`,
     `justify-content: ${_justify}`,
   ].filter(Boolean).join("; ")}

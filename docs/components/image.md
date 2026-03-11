@@ -84,7 +84,7 @@ Fallback resolution order on error:
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `blur` | `boolean` | `false` | Animates image from blurred to sharp on load |
-| `blurAmount` | `number` | `12` | Initial blur in px |
+| `blurAmount` | `number` | `12` | Initial blur (number = px, no units) |
 
 ### Zoom on Hover
 
