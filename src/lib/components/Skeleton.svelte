@@ -3,6 +3,7 @@
    * @typedef {Object} SkeletonProps
    * @property {number[]} [margin=[0,0,0,0]] - [top, right, bottom, left]
    * @property {number[]} [padding=[0,0,0,0]] - [top, right, bottom, left]
+   * @property {number|string} [spacing] - CSS gap (works with flex/grid layouts)
    * @property {string} [bg="transparent"]
    * @property {string} [bgHover]
    * @property {string} [bgFocus]
@@ -36,47 +37,48 @@
     ref = $bindable(),
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
+    spacing = undefined,
     bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
+    bgHover = undefined,
+    bgFocus = undefined,
+    bgActive = undefined,
     borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
+    borderWidthHover = undefined,
+    borderWidthFocus = undefined,
+    borderWidthActive = undefined,
     borderColor = "transparent",
-    borderColorHover,
-    borderColorFocus,
-    borderColorActive,
+    borderColorHover = undefined,
+    borderColorFocus = undefined,
+    borderColorActive = undefined,
     borderStyle = "solid",
     borderRadius = [0, 0, 0, 0],
     shadow = "none",
-    shadowSecondary,
-    shadowActive,
-    transformHover,
-    transformFocus,
-    transformActive,
+    shadowSecondary = undefined,
+    shadowActive = undefined,
+    transformHover = undefined,
+    transformFocus = undefined,
+    transformActive = undefined,
     zIndex = 0,
-    width,
-    height,
-    minWidth,
-    minHeight,
-    maxWidth,
-    maxHeight,
-    display,
-    position,
-    opacity,
-    overflow,
-    flex,
-    color,
-    colorHover,
-    colorFocus,
-    colorActive,
-    fontSize,
-    fontWeight,
-    textAlign,
+    width = undefined,
+    height = undefined,
+    minWidth = undefined,
+    minHeight = undefined,
+    maxWidth = undefined,
+    maxHeight = undefined,
+    display = undefined,
+    position = undefined,
+    opacity = undefined,
+    overflow = undefined,
+    flex = undefined,
+    color = undefined,
+    colorHover = undefined,
+    colorFocus = undefined,
+    colorActive = undefined,
+    fontSize = undefined,
+    fontWeight = undefined,
+    textAlign = undefined,
     class: className = "",
-    children,
+    children = undefined,
     ...rest
   } = $props();
 
@@ -164,6 +166,7 @@
     if (overflow !== undefined) styles.push(`overflow: ${overflow}`);
     if (flex !== undefined) styles.push(`flex: ${flex}`);
     if (rest.flexWrap !== undefined) styles.push(`flex-wrap: ${rest.flexWrap}`);
+    if (spacing !== undefined) styles.push(`gap: ${formatValue(spacing)}`);
     if (color !== undefined) styles.push(`color: ${color}`);
     if (fontSize !== undefined)
       styles.push(`font-size: ${formatValue(fontSize)}`);

@@ -40,6 +40,7 @@ import { Skeleton } from 'fabkit';
 | `ref` | `bindable` | — | Bind to get the DOM element reference |
 | `margin` | `number[] \| number` | `[0,0,0,0]` | CSS margin — `[top, right, bottom, left]` in px |
 | `padding` | `number[] \| number` | `[0,0,0,0]` | CSS padding — `[top, right, bottom, left]` in px |
+| `spacing` | `number \| string` | — | CSS `gap` (works with `display: flex` / `grid`) |
 | `width` | `number \| string` | — | Width (number = px, string = any CSS unit) |
 | `height` | `number \| string` | — | Height |
 | `minWidth` | `number \| string` | — | min-width |
