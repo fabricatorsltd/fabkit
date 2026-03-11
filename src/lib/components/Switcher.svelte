@@ -136,6 +136,15 @@
   padding={[0, 0, 0, 0]}
   {margin}
   {zIndex}
+  role="switch"
+  aria-checked={value}
+  tabindex="0"
+  onkeydown={(e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick();
+    }
+  }}
   {...rest}
 >
   <div
@@ -147,6 +156,7 @@
       e.preventDefault();
       startDrag(e);
     }}
+    role="none"
   ></div>
 </Skeleton>
 
@@ -157,6 +167,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
   }
 
   :global(.Switcher--activated) {

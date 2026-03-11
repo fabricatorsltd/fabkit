@@ -59,6 +59,7 @@
           label={item.label}
           action={item.action}
           href={item.link || item.href}
+          icon={item.icon}
         />
       {/each}
     {/if}

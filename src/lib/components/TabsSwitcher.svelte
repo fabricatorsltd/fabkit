@@ -239,6 +239,7 @@
     class="TabsSwitcher-items"
     onwheel={handleWheel}
     bind:this={tabsSwitcherItemsElement}
+    role="tablist"
   >
     {#each orderedTabs as tab, index (tab.id)}
       <div
@@ -256,6 +257,14 @@
           drop(index, e);
         }}
         bind:this={tabElements[tab.id]}
+        role="tab"
+        tabindex={activeTab === tab.id ? 0 : -1}
+        aria-selected={activeTab === tab.id}
+        onkeydown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            setActiveTab(tab.id);
+          }
+        }}
       >
         <div
           class="TabsSwitcher-items-item-title"
@@ -263,6 +272,13 @@
           onclick={() => setActiveTab(tab.id)}
           onmouseup={(e) => {
             if (e.button === 1) closeTab(tab.id);
+          }}
+          role="button"
+          tabindex="0"
+          onkeydown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              setActiveTab(tab.id);
+            }
           }}
         >
           {tab.title.length > 20 ? tab.title.slice(0, 20) + "…" : tab.title}

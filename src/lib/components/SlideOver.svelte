@@ -99,62 +99,64 @@
 
 {#if isVisible}
   <!-- Overlay Backdrop -->
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <!-- svelte-ignore a11y_click_events_have_key_events -->
-  <div
-    class="SlideOver-backdrop"
-    style="
-			position: absolute;
-			inset: 0;
-			background: rgba(0, 0, 0, 0.2);
-			display: flex;
-			justify-content: center;
-			align-items: {modal ? 'center' : 'flex-end'};
-			z-index: 9999;
-			{modal ? 'backdrop-filter: blur(4px);' : ''}
-		"
-    onclick={handleBackdropClick}
-    transition:fade={{ duration: 300 }}
-  >
+<div
+  class="SlideOver-backdrop"
+  style="
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.18);
+    display: flex;
+    justify-content: center;
+    align-items: {modal ? 'center' : 'flex-end'};
+    z-index: 9999;
+    {modal ? 'backdrop-filter: blur(3px);' : ''}
+  "
+  onclick={handleBackdropClick}
+  onkeydown={(e) => e.key === 'Escape' && handleClose()}
+  role="button"
+  tabindex="0"
+  aria-modal="true"
+  transition:fade={{ duration: 300 }}
+>
     <Card
       bind:ref={container}
-      padding={[28, 71, 0, 71]}
+      padding={[18, 24, 0, 24]}
       bg="white"
       borderColor="transparent"
-      borderRadius={modal ? [16, 16, 16, 16] : [24, 24, 0, 0]}
-      shadow="0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+      borderRadius={modal ? [12, 12, 12, 12] : [16, 16, 0, 0]}
+      shadow="0 8px 24px rgba(0,0,0,0.10)"
       style="
-				width: {modal ? '90%' : '100%'};
-				max-width: {modal ? '800px' : 'none'};
-				height: {modal ? 'auto' : `${popupHeight}vh`};
-				transition: {isDragging
-        ? 'none'
-        : 'height 0.3s ease-out, transform 0.3s ease-out'};
-				position: relative;
-				user-select: {isDragging ? 'none' : 'auto'};
+        width: {modal ? '92%' : '100%'};
+        max-width: {modal ? '420px' : 'none'};
+        height: {modal ? 'auto' : `${popupHeight}vh`};
+        transition: {isDragging ? 'none' : 'height 0.3s ease-out, transform 0.3s ease-out'};
+        position: relative;
+        user-select: {isDragging ? 'none' : 'auto'};
         overflow: {allowOverflow ? 'visible' : 'hidden'};
-			"
+      "
     >
-      <VBox spacing={12} align="fill" style="height: 100%; max-height: 100%;">
+      <VBox spacing={10} align="fill" style="height: 100%; max-height: 100%;">
         <!-- Drag Handle -->
         {#if !modal}
-          <!-- svelte-ignore a11y_no_static_element_interactions -->
           <div
             class="SlideOver-handle-container"
             style="
-							width: 100%;
-							display: flex;
-							justify-content: center;
-							cursor: {isDragging ? 'grabbing' : 'grab'};
-							padding: 8px 0;
-							margin-top: -16px;
-							flex-shrink: 0;
-						"
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              cursor: {isDragging ? 'grabbing' : 'grab'};
+              padding: 6px 0;
+              margin-top: -10px;
+              flex-shrink: 0;
+            "
             onmousedown={handleDragStart}
+            role="button"
+            tabindex="0"
+            aria-label="Drag to resize or close"
             ontouchstart={handleDragStart}
           >
             <div
-              style="width: 96px; height: 5px; background: #e5e7eb; border-radius: 999px;"
+              style="width: 64px; height: 4px; background: #e5e7eb; border-radius: 999px;"
             ></div>
           </div>
         {/if}
@@ -162,20 +164,20 @@
         <!-- Header Section -->
         <div style="flex-shrink: 0;">
           <HBox justify="space-between" align="start">
-            <VBox spacing={4} align="start">
+            <VBox spacing={3} align="start">
               <h2
-                style="font-size: 24px; font-weight: 800; text-transform: uppercase; margin: 0; letter-spacing: -0.02em; padding-bottom: 5px; padding-top: 5px;"
+                style="font-size: 18px; font-weight: 700; text-transform: none; margin: 0; letter-spacing: -0.01em; padding-bottom: 3px; padding-top: 3px;"
               >
                 {title}
               </h2>
               {#if description}
-                <p style="font-size: 16px; color: #71717a; margin: 0;">
+                <p style="font-size: 14px; color: #71717a; margin: 0;">
                   {description}
                 </p>
               {/if}
             </VBox>
 
-            <HBox spacing={16}>
+            <HBox spacing={10}>
               {#if !hideCancel}
                 <Button
                   label={closeLabel}
@@ -183,8 +185,8 @@
                   bg="#f4f4f5"
                   bgHover="#e4e4e7"
                   bgFocus="#e4e4e7"
-                  padding={[10, 24, 10, 24]}
-                  style="font-weight: 600; border-radius: 12px; color: black;"
+                  padding={[8, 18, 8, 18]}
+                  style="font-weight: 600; border-radius: 8px; color: black;"
                 />
               {/if}
               <Button
@@ -194,8 +196,8 @@
                 bg="var(--snt-color-primary)"
                 bgHover="var(--snt-color-primary-hover)"
                 bgFocus="var(--snt-color-primary-hover)"
-                padding={[10, 32, 10, 32]}
-                style="font-weight: 700; border-radius: 12px; color: white;"
+                padding={[8, 22, 8, 22]}
+                style="font-weight: 700; border-radius: 8px; color: white;"
                 class="slideover-action-btn"
               />
             </HBox>
@@ -206,12 +208,12 @@
         <div
           class="SlideOver-content"
           style="
-						flex: 1; 
-						overflow-y: {allowOverflow ? 'visible' : 'auto'}; 
-						padding-right: 8px;
-						margin-right: -8px;
-            padding-top: 24px;
-					"
+            flex: 1;
+            overflow-y: {allowOverflow ? 'visible' : 'auto'};
+            padding-right: 6px;
+            margin-right: -6px;
+            padding-top: 14px;
+          "
         >
           {@render children?.()}
         </div>
@@ -235,17 +237,13 @@
   }
 
   :global(.slideover-action-btn) {
-    box-shadow:
-      0 10px 15px -3px #e9a57173,
-      0 4px 6px -4px #e9a57173 !important;
+    box-shadow: 0 4px 12px -2px #e9a57173, 0 2px 4px -2px #e9a57173 !important;
     border-bottom: 1px solid #c46854 !important;
     transition: all 0.1s ease-in-out;
   }
 
   :global(.slideover-action-btn:active) {
-    box-shadow:
-      0 1px 3px 0 #e9a57173,
-      0 1px 2px -1px #e9a57173 !important;
+    box-shadow: 0 1px 2px 0 #e9a57173, 0 1px 1px -1px #e9a57173 !important;
     border-bottom: none !important;
     border-bottom-width: 0 !important;
     transform: translateY(1px);

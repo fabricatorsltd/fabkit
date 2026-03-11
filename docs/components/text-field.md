@@ -35,7 +35,7 @@ import { TextField } from 'fabkit';
 | `icon` | `SvelteComponent` | `""` | Phosphor icon component rendered inside the field |
 | `iconPosition` | `"left" \| "right"` | `"right"` | Icon placement |
 | `readOnly` | `boolean` | `false` | Makes the field read-only |
-| `flat` | `boolean` | `false` | Removes background and border — inline style |
+| `flat` | `boolean` | `false` | Removes the underline (and keeps focus from re-adding it) |
 | `ref` | `bindable` | — | DOM element reference |
 
 ---

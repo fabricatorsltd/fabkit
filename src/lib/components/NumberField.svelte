@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
   import PhPlus from "../icons/components/Plus.svelte";
   import PhMinus from "../icons/components/Minus.svelte";
 
@@ -11,20 +11,7 @@
     step = 1,
     icon = "",
     iconPosition = "right",
-    // Skeleton pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
@@ -50,24 +37,28 @@
   function handleInput(event) {
     value = clamp(event.target.value);
   }
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: rest.padding ?? [0, 0, 0, 0],
+      bg: rest.bg ?? "transparent",
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? [0, 0, 0, 0],
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="NumberField {className}"
-  bind:ref
-  {margin}
-  {padding}
-  {bg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
-  {...rest}
+  style={processedProps.styles}
+  {...processedProps.filteredRest}
 >
   {#if label}
     <!-- svelte-ignore a11y_label_has_associated_control -->
@@ -101,7 +92,7 @@
       </button>
     </div>
   </div>
-</Skeleton>
+</div>
 
 <style>
   :global(.NumberField) {

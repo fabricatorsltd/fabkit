@@ -23,7 +23,7 @@ import { BaseField } from 'fabkit';
 | `icon` | `SvelteComponent` | `""` | Phosphor icon component |
 | `iconPosition` | `"left" \| "right"` | `"right"` | Icon placement |
 | `readOnly` | `boolean` | `false` | Read-only mode |
-| `flat` | `boolean` | `false` | No background/border |
+| `flat` | `boolean` | `false` | Removes the underline (and keeps focus from re-adding it) |
 | `contained` | `boolean` | `false` | Compact variant without floating label animation |
 | `ref` | `bindable` | — | DOM element reference |
 

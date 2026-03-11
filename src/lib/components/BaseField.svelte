@@ -144,18 +144,20 @@
     class="BaseField-input"
     class:BaseField-input--icon-left={icon && iconPosition === "left"}
     class:BaseField-input--icon-right={icon && iconPosition === "right"}
+    class:BaseField-input--flat={flat || contained}
     style:border-bottom-width={flat || contained ? "0" : "1px"}
     readonly={readOnly}
     bind:this={inputElement}
   />
   {#if icon}
+    {@const Component = icon}
     <span
       class="BaseField-icon"
       class:BaseField-icon--left={iconPosition === "left"}
       class:BaseField-icon--right={iconPosition === "right"}
       class:BaseField-icon--active={isDateLike || isActive || hasContent}
     >
-      <svelte:component this={icon} size={18} />
+      <Component size={18} />
     </span>
   {/if}
 </Skeleton>
@@ -175,10 +177,28 @@
     color: var(--text-primary);
     outline: none;
     line-height: normal;
+    border-radius: inherit;
   }
 
-  .BaseField-input:focus {
+  .BaseField-input:focus:not(.BaseField-input--flat) {
     border-bottom: 2px solid var(--action-suggested);
+  }
+
+  .BaseField-input:-webkit-autofill,
+  .BaseField-input:-webkit-autofill:hover,
+  .BaseField-input:-webkit-autofill:focus,
+  .BaseField-input:-internal-autofill-selected {
+    border-radius: inherit;
+    -webkit-text-fill-color: var(--text-primary);
+    caret-color: var(--text-primary);
+    background-color: transparent !important;
+    box-shadow: 0 0 0px 1000px transparent inset;
+  }
+
+  :global(.BaseField:has(input:-webkit-autofill)) .BaseField-label {
+    transform: translateY(-15px);
+    font-size: 0.85rem;
+    left: 0 !important;
   }
 
   .BaseField-label {

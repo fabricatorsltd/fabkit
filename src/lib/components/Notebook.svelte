@@ -30,7 +30,13 @@
   } = $props();
 
   let pages = $state([]);
-  let activePage = $state(context ? 1 : null);
+  let activePage = $state(null);
+
+  $effect(() => {
+    if (activePage === null && context) {
+      activePage = 1;
+    }
+  });
 
   let declarativeTabs = $state([]);
   let activeTabId = writable(null);
