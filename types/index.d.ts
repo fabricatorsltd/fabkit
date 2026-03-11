@@ -28,6 +28,7 @@ export const PopOver: Component<Record<string, any>>;
 export const PopOverWrapper: Component<Record<string, any>>;
 export const SelectField: Component<Record<string, any>>;
 export const SideLayout: Component<Record<string, any>>;
+export const Leaflet: Component<Record<string, any>>;
 export const Slider: Component<Record<string, any>>;
 export const TextField: Component<Record<string, any>>;
 export const VBox: Component<Record<string, any>>;
