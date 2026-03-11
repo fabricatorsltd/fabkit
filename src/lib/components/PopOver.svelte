@@ -8,6 +8,8 @@
     align = "start",
     offset = [0, 5],
     initialStyle = "",
+    bg = "var(--background-base)",
+    color,
     class: className = "",
     ref = $bindable(),
     ...rest
@@ -90,7 +92,8 @@
   class="PopOver {className}"
   bind:ref
   padding={[0]}
-  bg="var(--background-base)"
+  {bg}
+  {color}
   borderColor="var(--border-primary)"
   borderWidth={[1, 1, 1, 1]}
   borderRadius="var(--snt-border-radius, 12px)"
