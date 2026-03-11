@@ -28,6 +28,7 @@ export { default as PopOver } from "./components/PopOver.svelte";
 export { default as PopOverWrapper } from "./components/PopOverWrapper.svelte";
 export { default as SelectField } from "./components/SelectField.svelte";
 export { default as SideLayout } from "./components/SideLayout.svelte";
+export { default as Leaflet } from "./components/Leaflet.svelte";
 export { default as Slider } from "./components/Slider.svelte";
 export { default as TextField } from "./components/TextField.svelte";
 export { default as VBox } from "./components/VBox.svelte";
