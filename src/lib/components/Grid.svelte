@@ -32,6 +32,11 @@
   const finalMargin = $derived(
     Array.isArray(margin) ? margin : [margin, margin, margin, margin],
   );
+
+  const gapPx = $derived.by(() => {
+    const n = typeof spacing === "number" ? spacing : parseFloat(String(spacing));
+    return Number.isFinite(n) ? n : 0;
+  });
 </script>
 
 <Skeleton
@@ -53,7 +58,7 @@
   {shadow}
   {zIndex}
   style={[
-    `gap: ${spacing}px`,
+    `gap: ${gapPx}px`,
     `grid-template-columns: ${columns}`,
     `grid-template-rows: ${rows}`,
     `align-items: ${align}`,

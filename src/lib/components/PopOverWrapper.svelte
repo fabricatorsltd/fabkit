@@ -2,7 +2,7 @@
   import PopOver from "./PopOver.svelte";
   import Button from "./Button.svelte";
 
-  let { children, ref = $bindable(), ...props } = $props();
+  let { ref = $bindable(), ...props } = $props();
 
   let buttonElement = $state();
   let showPopover = $state(false);
@@ -23,9 +23,7 @@
       onclose={() => (showPopover = false)}
       {...props}
     >
-      <slot>
-        {@render children?.()}
-      </slot>
+      <slot />
     </PopOver>
   {/if}
 </div>

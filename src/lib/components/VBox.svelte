@@ -59,6 +59,11 @@
   const finalMargin = $derived(
     Array.isArray(margin) ? margin : [margin, margin, margin, margin],
   );
+
+  const gapPx = $derived.by(() => {
+    const n = typeof spacing === "number" ? spacing : parseFloat(String(spacing));
+    return Number.isFinite(n) ? n : 0;
+  });
 </script>
 
 <Skeleton
@@ -80,7 +85,7 @@
   {shadow}
   {zIndex}
   style={[
-    `gap: ${spacing}px`,
+    `gap: ${gapPx}px`,
     `align-items: ${_align}`,
     `justify-content: ${_justify}`,
   ].join("; ")}

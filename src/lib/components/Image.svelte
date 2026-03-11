@@ -145,7 +145,9 @@
       `display: block`,
     ];
     if (blur && !loaded) {
-      parts.push(`filter: blur(${blurAmount}px)`);
+      const amount =
+        typeof blurAmount === "number" ? blurAmount : parseFloat(String(blurAmount));
+      parts.push(`filter: blur(${Number.isFinite(amount) ? amount : 0}px)`);
       parts.push(`transform: scale(1.05)`);
     } else if (blur && loaded) {
       parts.push(`filter: none`);
