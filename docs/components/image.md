@@ -27,7 +27,7 @@ import { Image } from 'fabkit';
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `src` | `string` | `""` | Image URL or data URI |
-| `srcset` | `string` | `""` | Responsive srcset attribute |
+| `srcSet` | `string` | `""` | Responsive srcset attribute |
 | `sizes` | `string` | `""` | Sizes attribute for responsive images |
 | `alt` | `string` | `""` | Alt text (accessibility) |
 
@@ -55,8 +55,8 @@ import { Image } from 'fabkit';
 |------|------|---------|-------------|
 | `loading` | `"lazy" \| "eager"` | `"lazy"` | Native lazy loading |
 | `decoding` | `"async" \| "sync" \| "auto"` | `"async"` | Image decoding hint |
-| `fetchpriority` | `"auto" \| "high" \| "low"` | `"auto"` | Fetch priority hint |
-| `crossorigin` | `"anonymous" \| "use-credentials"` | — | CORS attribute |
+| `fetchPriority` | `"auto" \| "high" \| "low"` | `"auto"` | Fetch priority hint |
+| `crossOrigin` | `"anonymous" \| "use-credentials"` | — | CORS attribute |
 | `draggable` | `boolean` | `false` | Whether the image is draggable |
 
 ### Placeholder
@@ -84,7 +84,7 @@ Fallback resolution order on error:
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `blur` | `boolean` | `false` | Animates image from blurred to sharp on load |
-| `blurAmount` | `number` | `12` | Initial blur in px |
+| `blurAmount` | `number` | `12` | Initial blur (number = px, no units) |
 
 ### Zoom on Hover
 
@@ -108,9 +108,9 @@ Fallback resolution order on error:
 
 | Prop | Type | Description |
 |------|------|-------------|
-| `onload` | `() => void` | Called when the image loads successfully |
-| `onerror` | `() => void` | Called when the image fails to load |
-| `onclick` | `(e: Event) => void` | Click handler — adds `cursor: pointer` |
+| `onLoad` | `() => void` | Called when the image loads successfully |
+| `onError` | `() => void` | Called when the image fails to load |
+| `onClick` | `(e: Event) => void` | Click handler — adds `cursor: pointer` |
 
 ---
 
@@ -195,15 +195,15 @@ Image accepts all [Skeleton props](./skeleton.md). Notable defaults:
   src="/banner.jpg"
   alt="Banner"
   lazy={false}
-  fetchpriority="high"
+  fetchPriority="high"
   width="100%"
   height={300}
 />
 
-<!-- Responsive with srcset -->
+<!-- Responsive with srcSet -->
 <Image
   src="/photo-800.jpg"
-  srcset="/photo-400.jpg 400w, /photo-800.jpg 800w, /photo-1600.jpg 1600w"
+  srcSet="/photo-400.jpg 400w, /photo-800.jpg 800w, /photo-1600.jpg 1600w"
   sizes="(max-width: 600px) 400px, (max-width: 1200px) 800px, 1600px"
   alt="Responsive photo"
   landscape

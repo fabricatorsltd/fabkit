@@ -18,7 +18,7 @@
       {@render trigger()}
     </div>
   {:else}
-    <Button label="Click me" onclick={togglePopover} bind:ref={buttonElement} />
+    <Button label="Click me" onClick={togglePopover} bind:ref={buttonElement} />
   {/if}
 
   {#if showPopover && buttonElement}

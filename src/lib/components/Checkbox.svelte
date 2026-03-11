@@ -8,16 +8,19 @@
     label = "",
     indeterminate = false,
     disabled = false,
-    onchange,
+    onChange,
     // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
 
+  if (rest.onchange !== undefined) delete rest.onchange;
+  if (rest.onChange !== undefined) delete rest.onChange;
+
   function toggle() {
     if (disabled) return;
     checked = !checked;
-    if (onchange) onchange(checked);
+    onChange?.(checked);
   }
 
   const processedProps = $derived.by(() => {
