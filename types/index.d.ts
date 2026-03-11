@@ -31,6 +31,7 @@ export const SideLayout: Component<Record<string, any>>;
 export const AdaptiveLayout: Component<Record<string, any>>;
 export const Breakpoint: Component<Record<string, any>>;
 export const Leaflet: Component<Record<string, any>>;
+export const Flap: Component<Record<string, any>>;
 export const Slider: Component<Record<string, any>>;
 export const TextField: Component<Record<string, any>>;
 export const VBox: Component<Record<string, any>>;
