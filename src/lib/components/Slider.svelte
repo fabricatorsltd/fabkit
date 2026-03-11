@@ -1,5 +1,6 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
+
   let {
     value = $bindable(0),
     min = 0,
@@ -7,26 +8,11 @@
     points = [],
     labels = [],
     class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg,
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [1, 1, 1, 1],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "var(--border-primary)",
-    borderStyle = "solid",
-    borderRadius = "var(--snt-border-radius, 100px)",
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     ...rest
   } = $props();
 
+  let ref = $state(null);
   let dragging = $state(false);
   let startX = 0;
   let startValue = 0;
@@ -89,37 +75,45 @@
     value = newValue;
   }
 
-  const finalBg = $derived(bg !== undefined ? bg : "var(--background-top)");
+  const finalBg = $derived(rest.bg !== undefined ? rest.bg : "var(--background-top)");
+
+  const containerProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: rest.padding ?? [0, 0, 0, 0],
+      bg: "transparent",
+      borderWidth: [0, 0, 0, 0],
+      borderColor: "transparent",
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
+
+  const trackProps = $derived.by(() => {
+    return resolveProps({
+      bg: finalBg,
+      borderWidth: rest.borderWidth ?? [1, 1, 1, 1],
+      borderColor: rest.borderColor ?? "var(--border-primary)",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? "var(--snt-border-radius, 100px)"
+    });
+  });
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<Skeleton
+<div
   class="Slider {className}"
   onclick={onClick}
-  bind:ref
-  {margin}
-  {padding}
-  bg="transparent"
-  borderWidth={[0, 0, 0, 0]}
-  borderColor="transparent"
-  {shadow}
-  {zIndex}
-  {...rest}
+  bind:this={ref}
+  style={containerProps.styles}
+  {...containerProps.filteredRest}
 >
-  <Skeleton
+  <div
     class="Slider-track"
-    bg={finalBg}
-    {bgHover}
-    {bgFocus}
-    {bgActive}
-    {borderWidth}
-    {borderWidthHover}
-    {borderWidthFocus}
-    {borderWidthActive}
-    {borderColor}
-    {borderStyle}
-    {borderRadius}
+    style={trackProps.styles}
   />
   <div
     class="Slider-handle"
@@ -136,7 +130,7 @@
       {/each}
     </div>
   {/if}
-</Skeleton>
+</div>
 
 <style>
   .Slider {

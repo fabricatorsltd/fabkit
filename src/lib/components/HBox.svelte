@@ -1,27 +1,12 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
+
   let {
     spacing = 0,
     align = "center",
     children,
     class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     justify = "start",
     ...rest
   } = $props();
@@ -56,38 +41,33 @@
     }
   });
 
-  const finalMargin = $derived(
-    Array.isArray(margin) ? margin : [margin, margin, margin, margin],
-  );
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      bg: rest.bg ?? "transparent",
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? [0, 0, 0, 0],
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="HBox {className}"
-  bind:ref
-  margin={finalMargin}
-  {padding}
-  {bg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
   style={[
+    processedProps.styles,
     `gap: ${spacing}px`,
     `align-items: ${_align}`,
     `justify-content: ${_justify}`,
-  ].join("; ")}
-  {...rest}
+  ].filter(Boolean).join("; ")}
+  {...processedProps.filteredRest}
 >
   {@render children?.()}
-</Skeleton>
+</div>
 
 <style>
   :global(.HBox) {

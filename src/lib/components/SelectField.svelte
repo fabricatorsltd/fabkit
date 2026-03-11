@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
   import PhCaretUp from "../icons/components/CaretUp.svelte";
   import PhCaretDown from "../icons/components/CaretDown.svelte";
   /**
@@ -14,28 +14,14 @@
     options = [],
     icon = "",
     iconPosition = "right",
+    flat = false,
     class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding,
-    bg,
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth,
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor,
-    borderStyle = "solid",
-    borderRadius,
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     ...rest
   } = $props();
 
   let isOpen = $state(false);
+  let ref = $state(null);
   let displayText = $derived(
     options.find((option) => option.value === value)?.text ?? "",
   );
@@ -69,45 +55,51 @@
     };
   });
 
+  let dropdownZIndex = $derived(
+    typeof rest.zIndex === "number" ? rest.zIndex + 1 : 1000,
+  );
+
   const finalPadding = $derived(
-    padding !== undefined
-      ? padding
+    rest.padding !== undefined
+      ? rest.padding
       : iconPosition === "left" && !isOpen && !hasContent
         ? [8, 0, 8, 34]
         : [8, 0, 8, 0],
   );
 
-  const finalBg = $derived(bg !== undefined ? bg : "transparent");
+  const finalBg = $derived(rest.bg !== undefined ? rest.bg : "transparent");
   const finalBorderRadius = $derived(
-    borderRadius !== undefined ? borderRadius : [0, 0, 0, 0],
+    rest.borderRadius !== undefined ? rest.borderRadius : [0, 0, 0, 0],
   );
   const finalBorderColor = $derived(
-    borderColor !== undefined ? borderColor : "transparent",
+    rest.borderColor !== undefined ? rest.borderColor : "transparent",
   );
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: finalPadding,
+      bg: finalBg,
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: finalBorderColor,
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: finalBorderRadius,
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? "auto",
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
-<Skeleton
+<div
   class="SelectField {className}"
   onclick={toggleDropdown}
-  bind:ref
-  {margin}
-  padding={finalPadding}
-  bg={finalBg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  borderColor={finalBorderColor}
-  {borderStyle}
-  borderRadius={finalBorderRadius}
-  {shadow}
-  {zIndex}
-  {...rest}
+  bind:this={ref}
+  style={processedProps.styles}
+  {...processedProps.filteredRest}
 >
   <!-- svelte-ignore a11y_label_has_associated_control -->
   <label
@@ -118,10 +110,12 @@
   </label>
   <div
     class="SelectField-display"
-    style:border-bottom-width={isOpen ? "2px" : "1px"}
-    style:border-bottom-color={isOpen
-      ? "var(--action-suggested)"
-      : "var(--border-tertiary)"}
+    style:border-bottom-width={flat ? "0" : isOpen ? "2px" : "1px"}
+    style:border-bottom-color={flat
+      ? "transparent"
+      : isOpen
+        ? "var(--action-suggested)"
+        : "var(--border-tertiary)"}
   >
     {displayText}
     <span class="SelectField-expand-icon">
@@ -129,17 +123,18 @@
     </span>
   </div>
   {#if icon}
+    {@const Component = icon}
     <div
       class="SelectField-icon"
       class:SelectField-icon--left={iconPosition === "left"}
       class:SelectField-icon--right={iconPosition === "right"}
       class:SelectField-icon--active={isOpen || hasContent}
     >
-      <svelte:component this={icon} size={18} />
+      <Component size={18} />
     </div>
   {/if}
   {#if isOpen}
-    <div class="SelectField-dropdown">
+    <div class="SelectField-dropdown" style:z-index={dropdownZIndex}>
       {#each options as option}
         <div
           class="SelectField-option"
@@ -153,7 +148,7 @@
       {/each}
     </div>
   {/if}
-</Skeleton>
+</div>
 
 <style>
   :global(.SelectField) {
@@ -206,7 +201,7 @@
     border: 1px solid var(--border-primary);
     border-radius: var(--snt-border-radius, 12px);
     box-shadow: var(--shadow-elevated);
-    z-index: 10;
+    z-index: 1000;
     max-height: 200px;
     overflow-y: auto;
     padding: 10px;

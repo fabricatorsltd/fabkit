@@ -29,6 +29,8 @@ import { TitleBar } from 'fabkit';
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `area` | `Snippet` | — | Custom content rendered in the title bar area (title text, tabs, toolbar, etc.) |
+| `onScrollTop` | `() => void` | — | Called when scrolling direction changes to up (closest `Window` content scroll, otherwise `window`) |
+| `onScrollBottom` | `() => void` | — | Called when scrolling direction changes to down (closest `Window` content scroll, otherwise `window`) |
 | `ref` | `bindable` | — | DOM element reference |
 
 ---

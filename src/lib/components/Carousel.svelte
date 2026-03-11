@@ -11,16 +11,10 @@
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
     bg,
-    bgHover,
-    bgFocus,
-    bgActive,
     borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
     borderColor = "transparent",
     borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
+    borderRadius = "0px",
     shadow = "none",
     zIndex = 0,
     ref = $bindable(),
@@ -64,13 +58,7 @@
   {margin}
   {padding}
   bg={finalBg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
   {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
   {borderColor}
   {borderStyle}
   {borderRadius}

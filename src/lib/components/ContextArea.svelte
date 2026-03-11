@@ -122,7 +122,8 @@
       <div class="ContextArea-menu-item" onclick={item.action}>
         <div class="ContextArea-menu-item-icon">
           {#if item.icon}
-            <svelte:component this={item.icon} size={16} />
+            {@const Component = icon}
+            <Component size={16} />
           {:else}
             <span class="mdi-placeholder"></span>
           {/if}

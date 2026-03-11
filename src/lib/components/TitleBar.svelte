@@ -1,5 +1,6 @@
 <script>
   import Skeleton from "./Skeleton.svelte";
+  import { onMount, onDestroy } from "svelte";
   import { getEngine } from "../EngineContext.js";
   import PhMinus from "../icons/components/Minus.svelte";
   import PhSquare from "../icons/components/Square.svelte";
@@ -16,6 +17,8 @@
     area,
     class: className = "",
     showWindowControls = engineInstance !== null && engineInstance !== undefined,
+    onScrollTop,
+    onScrollBottom,
     // Skeleton Props Pass-through
     margin = [0, 0, 0, 0],
     padding,
@@ -48,9 +51,44 @@
     engineInstance?.maximize();
   }
 
+  let cleanupScroll;
+  let lastScrollTop = 0;
+  let lastScrollDirection = null;
+
   function closeWindow() {
     engineInstance?.close();
   }
+
+  onMount(() => {
+    if (!onScrollTop && !onScrollBottom) return;
+
+    const windowRoot = ref?.closest?.(".Window");
+    const contentElement = windowRoot?.querySelector?.(".Window-content");
+
+    const target = contentElement || window;
+    lastScrollTop = contentElement ? contentElement.scrollTop : window.scrollY;
+
+    const handler = () => {
+      const current = contentElement ? contentElement.scrollTop : window.scrollY;
+
+      if (current > lastScrollTop && lastScrollDirection !== "down") {
+        lastScrollDirection = "down";
+        onScrollBottom?.();
+      } else if (current < lastScrollTop && lastScrollDirection !== "up") {
+        lastScrollDirection = "up";
+        onScrollTop?.();
+      }
+
+      lastScrollTop = current;
+    };
+
+    target.addEventListener("scroll", handler, { passive: true });
+    cleanupScroll = () => target.removeEventListener("scroll", handler);
+  });
+
+  onDestroy(() => {
+    cleanupScroll?.();
+  });
 
   const finalPadding = $derived(
     padding !== undefined ? padding : [0, 10, 0, 10],
