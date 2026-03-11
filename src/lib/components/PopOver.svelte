@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
 
   let {
     attachTo,
@@ -11,9 +11,11 @@
     bg = "var(--background-base)",
     color,
     class: className = "",
-    ref = $bindable(),
     ...rest
   } = $props();
+
+  let ref = $state(null);
+
   function handleClickOutside(event) {
     if (
       ref &&
@@ -35,17 +37,16 @@
     if (!ref) return;
 
     const updatePosition = () => {
-      // Step 1: Set initial alignment base style
+      const [offX, offY] = offset;
       const baseStyle =
-        initialStyle ||
-        (align === "center"
-          ? "left: 50%; transform: translateX(-50%);"
-          : align === "end"
-            ? "left: auto; right: 0;"
-            : "left: 0;");
+              initialStyle ||
+              (align === "center"
+                      ? `left: 50%; transform: translateX(calc(-50% + ${offX}px));`
+                      : align === "end"
+                              ? `left: auto; right: 0; transform: translateX(${offX}px);`
+                              : `left: 0; transform: translateX(${offX}px);`);
 
-      // Hide and set initial to measure
-      smartStyle = `${baseStyle} opacity: 0;`;
+      smartStyle = `${baseStyle} margin-top: ${offY}px; opacity: 0;`;
 
       requestAnimationFrame(() => {
         if (!ref || !ref.parentElement) return;
@@ -55,27 +56,17 @@
         const viewportWidth = window.innerWidth;
         const margin = 20;
 
-        const [offX, offY] = offset;
         let newStyle = baseStyle + ` margin-top: ${offY}px;`;
 
-        // Check for viewport overflows
         const isClippingLeft = rect.left < margin;
         const isClippingRight = rect.right > viewportWidth - margin;
 
         if (isClippingLeft && !isClippingRight) {
-          // Snap to left edge: margin - parent.left
           const targetLeft = margin - parentRect.left;
           newStyle = `left: ${targetLeft}px; right: auto; transform: translateX(${offX}px); margin-top: ${offY}px;`;
         } else if (isClippingRight && !isClippingLeft) {
-          // Snap to right edge: (parent.right - (viewportWidth - margin))
           const targetRight = parentRect.right - (viewportWidth - margin);
           newStyle = `left: auto; right: ${targetRight}px; transform: translateX(${offX}px); margin-top: ${offY}px;`;
-        } else if (offX !== 0) {
-          if (align === "center") {
-            newStyle = `left: 50%; right: auto; transform: translateX(calc(-50% + ${offX}px)); margin-top: ${offY}px;`;
-          } else {
-            newStyle += ` transform: translateX(${offX}px);`;
-          }
         }
 
         smartStyle = newStyle + " opacity: 1;";
@@ -86,26 +77,33 @@
     window.addEventListener("resize", updatePosition);
     return () => window.removeEventListener("resize", updatePosition);
   });
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      padding: [0],
+      bg,
+      color,
+      borderColor: "var(--border-primary)",
+      borderWidth: [1, 1, 1, 1],
+      borderRadius: "var(--snt-border-radius, 12px)",
+      shadow: "var(--shadow-elevated)",
+      zIndex: 1000,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="PopOver {className}"
-  bind:ref
-  padding={[0]}
-  {bg}
-  {color}
-  borderColor="var(--border-primary)"
-  borderWidth={[1, 1, 1, 1]}
-  borderRadius="var(--snt-border-radius, 12px)"
-  shadow="var(--shadow-elevated)"
-  zIndex={1000}
-  style="{smartStyle} {rest.style || ''}"
-  {...rest}
+  bind:this={ref}
+  style={[smartStyle, processedProps.styles].filter(Boolean).join('; ')}
+  {...processedProps.filteredRest}
 >
   <div class="PopOver-content">
     {@render children?.()}
   </div>
-</Skeleton>
+</div>
 
 <style>
   :global(.PopOver) {
@@ -113,9 +111,16 @@
     top: 100%;
     text-align: left;
     transition: opacity 0.1s ease-out;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+    background: var(--background-elevated, #fff);
+    min-width: 160px;
+    max-width: 260px;
+    padding: 0;
   }
 
   .PopOver-content {
-    max-width: 300px;
+    padding: 10px 14px;
+    max-width: 240px;
   }
 </style>

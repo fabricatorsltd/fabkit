@@ -49,8 +49,9 @@
 >
   <div class="ActionRow-inner">
     {#if icon}
+      {@const Component = icon}
       <span class="ActionRow-icon">
-        <svelte:component this={icon} size={20} />
+        <Component size={20} />
       </span>
     {/if}
     <div class="ActionRow-text">

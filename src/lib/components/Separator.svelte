@@ -1,47 +1,23 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
 
   let {
     orientation = "horizontal",
     label = "",
     color,
-    // Skeleton pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
-    class: className = "",
+    // Collect everything else: mx, my, p, radius, hover, etc.
     ...rest
   } = $props();
 
+  // This single line replaces 20+ manual prop definitions
+  const { styles, className: resolvedClassName, filteredRest } = $derived(resolveProps(rest));
   const lineColor = $derived(color || "var(--border-primary)");
 </script>
 
-<Skeleton
-  class="Separator Separator--{orientation} {className}"
-  bind:ref
-  {margin}
-  {padding}
-  {bg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
-  {...rest}
+<div
+  class="Separator Separator--{orientation} {resolvedClassName}"
+  style={styles}
+  {...filteredRest}
 >
   {#if orientation === "horizontal"}
     {#if label}
@@ -56,7 +32,7 @@
   {:else}
     <div class="Separator-vline" style:background={lineColor}></div>
   {/if}
-</Skeleton>
+</div>
 
 <style>
   :global(.Separator) {

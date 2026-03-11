@@ -77,8 +77,11 @@
   }
 
   $effect(() => {
-    // Init
+    // Sync with prop changes
     _size = { left: size.left, right: size.right };
+  });
+
+  $effect(() => {
     checkMinLeft();
 
     if (leftTrigger > 0) {
