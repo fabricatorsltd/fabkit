@@ -20,6 +20,8 @@
 - [Window](./components/window.md) — app shell
 - [TitleBar](./components/title-bar.md) — window title bar
 - [SideLayout](./components/side-layout.md) — sidebar + content
+- [AdaptiveLayout](./components/adaptive-layout.md) — container-driven breakpoints
+- [Breakpoint](./components/breakpoint.md) — breakpoint rule for AdaptiveLayout
 - [Leaflet](./components/leaflet.md) — adaptive two-pane stack
 - [Paned](./components/paned.md) — resizable two-panel split
 - [HBox](./components/hbox.md) — horizontal flexbox row
