@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
   import PhCheck from "../icons/components/Check.svelte";
   import PhMinus from "../icons/components/Minus.svelte";
 
@@ -9,20 +9,7 @@
     indeterminate = false,
     disabled = false,
     onchange,
-    // Skeleton pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
@@ -32,24 +19,28 @@
     checked = !checked;
     if (onchange) onchange(checked);
   }
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      margin: rest.margin ?? [0, 0, 0, 0],
+      padding: rest.padding ?? [0, 0, 0, 0],
+      bg: rest.bg ?? "transparent",
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? [0, 0, 0, 0],
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="Checkbox {className}"
-  bind:ref
-  {margin}
-  {padding}
-  {bg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
-  {...rest}
+  style={processedProps.styles}
+  {...processedProps.filteredRest}
 >
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -72,7 +63,7 @@
       <span class="Checkbox-label">{label}</span>
     {/if}
   </div>
-</Skeleton>
+</div>
 
 <style>
   .Checkbox-wrapper {

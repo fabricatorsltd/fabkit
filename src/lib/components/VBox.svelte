@@ -1,27 +1,12 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
+
   let {
     spacing = 0,
     align = "center",
     children,
     class: className = "",
-    // Skeleton Props Pass-through
-    margin = [0, 0, 0, 0],
-    padding = [0, 0, 0, 0],
-    bg = "transparent",
-    bgHover,
-    bgFocus,
-    bgActive,
-    borderWidth = [0, 0, 0, 0],
-    borderWidthHover,
-    borderWidthFocus,
-    borderWidthActive,
-    borderColor = "transparent",
-    borderStyle = "solid",
-    borderRadius = [0, 0, 0, 0],
-    shadow = "none",
-    zIndex = 0,
-    ref = $bindable(),
+    // Collect expressive syntax props
     justify = "start",
     ...rest
   } = $props();
@@ -56,38 +41,50 @@
     }
   });
 
-  const finalMargin = $derived(
-    Array.isArray(margin) ? margin : [margin, margin, margin, margin],
-  );
+  function formatValue(val) {
+    if (typeof val === "number") return `${val}px`;
+    return val;
+  }
+
+  function formatGap(val) {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) {
+      if (val.length === 0) return undefined;
+      if (val.length === 1) return formatValue(val[0]);
+      return `${formatValue(val[0])} ${formatValue(val[1])}`;
+    }
+    return formatValue(val);
+  }
+
+  const gap = $derived.by(() => formatGap(spacing));
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      bg: rest.bg ?? "transparent",
+      borderWidth: rest.borderWidth ?? [0, 0, 0, 0],
+      borderColor: rest.borderColor ?? "transparent",
+      borderStyle: rest.borderStyle ?? "solid",
+      borderRadius: rest.borderRadius ?? [0, 0, 0, 0],
+      shadow: rest.shadow ?? "none",
+      zIndex: rest.zIndex ?? 0,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="VBox {className}"
-  bind:ref
-  margin={finalMargin}
-  {padding}
-  {bg}
-  {bgHover}
-  {bgFocus}
-  {bgActive}
-  {borderWidth}
-  {borderWidthHover}
-  {borderWidthFocus}
-  {borderWidthActive}
-  {borderColor}
-  {borderStyle}
-  {borderRadius}
-  {shadow}
-  {zIndex}
-  spacing={spacing}
   style={[
+    processedProps.styles,
+    gap !== undefined ? `gap: ${gap}` : undefined,
     `align-items: ${_align}`,
     `justify-content: ${_justify}`,
-  ].join("; ")}
-  {...rest}
+  ].filter(Boolean).join("; ")}
+  {...processedProps.filteredRest}
 >
   {@render children?.()}
-</Skeleton>
+</div>
 
 <style>
   :global(.VBox) {

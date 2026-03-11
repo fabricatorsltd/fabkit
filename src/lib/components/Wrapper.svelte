@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
 
   const WIDTH_PRESETS = {
     xs: 480,
@@ -20,8 +20,6 @@
     maxWidth,
     children,
     class: className = "",
-    style = "",
-    ref = $bindable(),
     ...rest
   } = $props();
 
@@ -34,15 +32,21 @@
     }
     return 1200;
   });
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      w: "100%",
+      maxW: resolvedMaxWidth,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
+<div
   class="Wrapper {className}"
-  bind:ref
-  width="100%"
-  maxWidth={resolvedMaxWidth}
-  style={`margin-left: auto; margin-right: auto; ${style}`}
-  {...rest}
+  style="{processedProps.styles}; margin-left: auto; margin-right: auto;"
+  {...processedProps.filteredRest}
 >
   {@render children?.()}
-</Skeleton>
+</div>

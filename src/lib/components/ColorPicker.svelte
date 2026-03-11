@@ -25,6 +25,7 @@
   let isOpen = $state(false);
   let wrapperEl = $state();
   let hexInput = $state(value);
+  let uniqueId = Math.random().toString(36).substr(2, 9);
 
   $effect(() => {
     hexInput = value;
@@ -82,7 +83,18 @@
     {/if}
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div class="ColorPicker-trigger" onclick={toggleOpen}>
+    <div
+      class="ColorPicker-trigger"
+      onclick={toggleOpen}
+      role="button"
+      tabindex="0"
+      onkeydown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleOpen();
+        }
+      }}
+    >
       <div class="ColorPicker-swatch" style:background={value}></div>
       <span class="ColorPicker-value">{value}</span>
     </div>
@@ -95,8 +107,9 @@
           oninput={handleColorInput}
         />
         <div class="ColorPicker-hex-row">
-          <label class="ColorPicker-hex-label">Hex</label>
+          <label class="ColorPicker-hex-label" for="hex-{uniqueId}">Hex</label>
           <input
+            id="hex-{uniqueId}"
             type="text"
             class="ColorPicker-hex-input"
             value={hexInput}

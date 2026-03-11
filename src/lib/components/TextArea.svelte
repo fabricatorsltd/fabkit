@@ -75,6 +75,7 @@
   {/if}
   <textarea
     class="TextArea-input"
+    class:TextArea-input--flat={flat}
     {placeholder}
     {rows}
     readonly={readOnly}
@@ -123,7 +124,7 @@
     line-height: 1.5;
   }
 
-  .TextArea-input:focus {
+  .TextArea-input:focus:not(.TextArea-input--flat) {
     border-bottom: 2px solid var(--action-suggested);
   }
 </style>

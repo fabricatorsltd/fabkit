@@ -1,5 +1,5 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  import { resolveProps } from "../system.js";
 
   let {
     element = "span",
@@ -29,18 +29,28 @@
   });
 
   let finalStyle = $derived(italic ? "italic" : "normal");
+
+  const processedProps = $derived.by(() => {
+    const defaults = {
+      color: finalColor,
+      ...rest
+    };
+    return resolveProps(defaults);
+  });
 </script>
 
-<Skeleton
-  {element}
-  color={finalColor}
-  fontWeight={finalWeight}
-  fontSize={size}
-  textTransform={transform}
-  textAlign={align}
-  whiteSpace={wrapping}
-  style={`font-style: ${finalStyle}`}
-  {...rest}
+<svelte:element
+  this={element}
+  style={[
+    processedProps.styles,
+    `font-weight: ${finalWeight}`,
+    size ? `font-size: ${size}` : '',
+    transform ? `text-transform: ${transform}` : '',
+    align ? `text-align: ${align}` : '',
+    wrapping ? `white-space: ${wrapping}` : '',
+    `font-style: ${finalStyle}`
+  ].filter(Boolean).join('; ')}
+  {...processedProps.filteredRest}
 >
   {@render children?.()}
-</Skeleton>
+</svelte:element>
