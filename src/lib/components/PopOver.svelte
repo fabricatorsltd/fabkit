@@ -4,6 +4,7 @@
   let {
     attachTo,
     children,
+    onClose,
     onclose,
     align = "start",
     offset = [0, 5],
@@ -22,7 +23,7 @@
       !ref.contains(/** @type {Node} */ (event.target)) &&
       (!attachTo || !attachTo.contains(/** @type {Node} */ (event.target)))
     ) {
-      if (onclose) onclose();
+      (onClose ?? onclose)?.();
     }
   }
 

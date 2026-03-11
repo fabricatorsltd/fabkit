@@ -25,7 +25,7 @@ import { PopOver } from 'fabkit';
 </Button>
 
 {#if open}
-  <PopOver attachTo={btnRef} onclose={() => open = false}>
+  <PopOver attachTo={btnRef} onClose={() => open = false}>
     <Menu items={menuItems} />
   </PopOver>
 {/if}
@@ -38,7 +38,7 @@ import { PopOver } from 'fabkit';
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `attachTo` | `HTMLElement` | — | **Required.** The anchor element the PopOver positions itself relative to |
-| `onclose` | `() => void` | — | Called when a click outside the PopOver occurs |
+| `onClose` | `() => void` | — | Called when a click outside the PopOver occurs |
 | `align` | `"start" \| "end" \| "center"` | `"start"` | Horizontal alignment relative to the anchor |
 | `offset` | `[number, number]` | `[0, 5]` | `[x, y]` offset in px from the anchor |
 | `initialStyle` | `string` | `""` | Inline styles applied before auto-positioning kicks in |
@@ -52,7 +52,7 @@ import { PopOver } from 'fabkit';
 
 ## Notes
 
-- PopOver uses a click-outside listener to call `onclose`. You control the visibility via `{#if open}`.
+- PopOver uses a click-outside listener to call `onClose`. You control the visibility via `{#if open}`.
 - Auto-positioning ensures the popover does not clip outside the viewport — it flips sides if needed.
 - The element is rendered in-flow (not teleported) — be aware of stacking context.
 
