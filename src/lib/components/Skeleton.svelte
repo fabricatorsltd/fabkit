@@ -13,9 +13,9 @@
 
   /**
    * @typedef {Object} SkeletonProps
-   * @property {number[]} [margin] - [top, right, bottom, left]
-   * @property {number[]} [padding] - [top, right, bottom, left]
-   * @property {number|string} [spacing] - CSS gap (works with flex/grid layouts)
+   * @property {number[]|number} [margin] - CSS shorthand (1–4 values)
+   * @property {number[]|number} [padding] - CSS shorthand (1–4 values)
+   * @property {number|string|Array<number|string>} [spacing] - CSS gap (1 value = gap, 2 values = row/column gap)
    * @property {string} [bg="surface"]
    * @property {string} [bgHover] - Deprecated, use `hover.bg`
    * @property {string} [bgFocus] - Deprecated, use `focus.bg`
@@ -118,6 +118,16 @@
     return resolveToken(val);
   }
 
+  function formatGap(val) {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) {
+      if (val.length === 0) return undefined;
+      if (val.length === 1) return formatValue(val[0]);
+      return `${formatValue(val[0])} ${formatValue(val[1])}`;
+    }
+    return formatValue(val);
+  }
+
   let derivedStyle = $derived.by(() => {
     const resolvedBg = resolveToken(bg);
     const resolvedBorderColor = formatBorderColor(borderColor);
@@ -188,7 +198,9 @@
     if (overflow !== undefined) styles.push(`overflow: ${overflow}`);
     if (flex !== undefined) styles.push(`flex: ${flex}`);
     if (rest.flexWrap !== undefined) styles.push(`flex-wrap: ${rest.flexWrap}`);
-    if (spacing !== undefined) styles.push(`gap: ${formatValue(spacing)}`);
+
+    const gap = formatGap(spacing);
+    if (gap !== undefined) styles.push(`gap: ${gap}`);
     if (color !== undefined) styles.push(`color: ${resolvedColor}`);
     if (fontSize !== undefined)
       styles.push(`font-size: ${formatValue(fontSize)}`);

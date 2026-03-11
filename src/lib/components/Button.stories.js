@@ -13,7 +13,7 @@ const meta = {
       options: ["button", "suggested", "destructive", "flat"],
     },
     square: { control: "boolean" },
-    onclick: { action: "clicked" },
+    onClick: { action: "clicked" },
   },
 };
 

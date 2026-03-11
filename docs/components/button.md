@@ -15,14 +15,14 @@ import { Button } from 'fabkit';
 ## Basic Usage
 
 ```svelte
-<Button label="Save" onclick={() => save()} />
+<Button label="Save" onClick={() => save()} />
 
-<Button type="suggested" onclick={confirm}>
+<Button type="suggested" onClick={confirm}>
   <PhCheck size={16} />
   <span class="Button-label">Confirm</span>
 </Button>
 
-<Button type="destructive" onclick={deleteItem}>
+<Button type="destructive" onClick={deleteItem}>
   <PhTrash size={16} />
   <span class="Button-label">Delete</span>
 </Button>
@@ -40,7 +40,7 @@ import { Button } from 'fabkit';
 | `disabled` | `boolean` | `false` | Disables the button, reduces opacity |
 | `type` | `"button" \| "suggested" \| "destructive" \| "flat"` | `"button"` | Visual variant |
 | `square` | `boolean` | `false` | Equal padding on all sides (icon-only buttons) |
-| `onclick` | `(e: Event) => void` | — | Click handler |
+| `onClick` | `(e: Event) => void` | — | Click handler |
 | `class` | `string` | `""` | Additional CSS classes |
 | `ref` | `bindable` | — | DOM element reference |
 
@@ -79,7 +79,7 @@ All Skeleton color, border, shadow, and transform props work on Button.
 
 ```svelte
 <!-- Icon-only square button -->
-<Button square onclick={close}>
+<Button square onClick={close}>
   <PhX size={18} />
 </Button>
 
