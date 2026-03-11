@@ -55,7 +55,7 @@ Accepts all [Skeleton props](./skeleton.md). Defaults:
     <HBox spacing={8} justify="space-between" align="center" flex="1">
       <span style="font-weight: 600">My Application</span>
       <HBox spacing={4}>
-        <Button square onclick={openSettings}>
+        <Button square onClick={openSettings}>
           <PhGear size={16} />
         </Button>
       </HBox>

@@ -47,12 +47,12 @@
     </div>
     <div class="Dialog-actions">
       {#if cancel || !confirm}
-        <Button label={cancelText} onclick={handleCancel} />
+        <Button label={cancelText} onClick={handleCancel} />
       {/if}
       {#if confirm}
         <Button
           label={confirmText}
-          onclick={handleConfirm}
+          onClick={handleConfirm}
           type={confirmType}
         />
       {/if}

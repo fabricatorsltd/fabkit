@@ -65,7 +65,7 @@ Accepts all [Skeleton props](./skeleton.md).
 ## Example: Menu inside PopOver
 
 ```svelte
-<Button onclick={togglePopOver} bind:ref={popBtn}>
+<Button onClick={togglePopOver} bind:ref={popBtn}>
   <PhDotsThreeVertical size={18} />
 </Button>
 

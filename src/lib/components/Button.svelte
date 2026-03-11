@@ -8,7 +8,7 @@
     disabled = false,
     type = "button",
     square = false,
-    onclick,
+    onClick,
     class: className = "",
     // Skeleton Props Pass-through
     margin = [0, 0, 0, 0],
@@ -37,6 +37,8 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  if (rest.onclick !== undefined) delete rest.onclick;
 
   // Local derived values for fallbacks
   const finalPadding = $derived(
@@ -126,7 +128,7 @@
   bind:ref
   class="Button {classes} {className}"
   {disabled}
-  {onclick}
+  onclick={onClick}
   {margin}
   padding={finalPadding}
   bg={finalBg}

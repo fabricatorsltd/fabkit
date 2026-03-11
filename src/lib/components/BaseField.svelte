@@ -11,7 +11,7 @@
     flat = false,
     contained = false,
     /** @type {((event: Event) => void) | undefined} */
-    oninput,
+    onInput,
     class: className = "",
     // Skeleton Props Pass-through
     margin = [0, 0, 0, 0],
@@ -37,6 +37,8 @@
     ...rest
   } = $props();
 
+  if (rest.oninput !== undefined) delete rest.oninput;
+
   let isActive = $state(false);
   let hasContent = $derived(value.toString().length > 0);
   let isDateLike = $derived(
@@ -55,7 +57,7 @@
     /** @type {HTMLInputElement} */
     const target = event.target;
     value = target.value;
-    if (oninput) oninput(event);
+    onInput?.(event);
   }
 
   function handleBlur() {

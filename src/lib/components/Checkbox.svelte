@@ -8,7 +8,7 @@
     label = "",
     indeterminate = false,
     disabled = false,
-    onchange,
+    onChange,
     // Skeleton pass-through
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
@@ -27,10 +27,12 @@
     ...rest
   } = $props();
 
+  if (rest.onchange !== undefined) delete rest.onchange;
+
   function toggle() {
     if (disabled) return;
     checked = !checked;
-    if (onchange) onchange(checked);
+    onChange?.(checked);
   }
 </script>
 

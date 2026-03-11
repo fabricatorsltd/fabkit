@@ -9,9 +9,9 @@
    */
 
   let {
-    // Image source — required (src or srcset)
+    // Image source — required (src or srcSet)
     src = "",
-    srcset = "",
+    srcSet = "",
     sizes = "",
     alt = "",
 
@@ -35,7 +35,7 @@
     // Loading behavior
     loading = "lazy",
     decoding = "async",
-    fetchpriority = "auto",
+    fetchPriority = "auto",
 
     // Blur-up effect
     blur = false,            // animate blur removal on load
@@ -44,8 +44,8 @@
     // Zoom on hover
     zoomOnHover = false,
 
-    // Crossorigin
-    crossorigin,
+    // Cross origin
+    crossOrigin,
 
     // Rounded corners — pass directly or inherit from Skeleton
     borderRadius,
@@ -67,9 +67,9 @@
     draggable = false,
 
     // Interaction events
-    onclick,
-    onload,
-    onerror,
+    onClick,
+    onLoad,
+    onError,
 
     // Skeleton pass-through
     class: className = "",
@@ -93,6 +93,13 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  if (rest.srcset !== undefined) delete rest.srcset;
+  if (rest.fetchpriority !== undefined) delete rest.fetchpriority;
+  if (rest.crossorigin !== undefined) delete rest.crossorigin;
+  if (rest.onclick !== undefined) delete rest.onclick;
+  if (rest.onload !== undefined) delete rest.onload;
+  if (rest.onerror !== undefined) delete rest.onerror;
 
   let loaded = $state(false);
   let errored = $state(false);
@@ -120,12 +127,12 @@
 
   function handleLoad() {
     loaded = true;
-    onload?.();
+    onLoad?.();
   }
 
   function handleError() {
     errored = true;
-    onerror?.();
+    onError?.();
   }
 
   const containerStyle = $derived.by(() => {
@@ -163,7 +170,7 @@
 
 <Skeleton
   bind:ref
-  class="Image {onclick ? 'Image--clickable' : ''} {className}"
+  class="Image {onClick ? 'Image--clickable' : ''} {className}"
   bg={errored ? fallbackColor : (bg ?? (loaded ? 'transparent' : placeholderColor))}
   {bgHover}
   {bgFocus}
@@ -182,7 +189,7 @@
   {transformHover}
   {transformFocus}
   {transformActive}
-  {onclick}
+  onclick={onClick}
   position="relative"
   style={containerStyle}
   {role}
@@ -232,14 +239,14 @@
     <img
       bind:this={imgElement}
       src={effectiveSrc}
-      {srcset}
+      srcset={srcSet}
       {sizes}
       {alt}
       {loading}
       {decoding}
-      fetchpriority={fetchpriority}
+      fetchpriority={fetchPriority}
       draggable={draggable}
-      crossorigin={crossorigin}
+      crossorigin={crossOrigin}
       onload={handleLoad}
       onerror={handleError}
       style={imgStyle}

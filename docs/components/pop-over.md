@@ -20,7 +20,7 @@ import { PopOver } from 'fabkit';
   let btnRef = $state();
 </script>
 
-<Button onclick={() => open = true} bind:ref={btnRef}>
+<Button onClick={() => open = true} bind:ref={btnRef}>
   <PhDotsThreeVertical size={18} />
 </Button>
 

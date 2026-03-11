@@ -7,7 +7,7 @@
     subtitle = "",
     icon = undefined,
     widget,
-    onclick,
+    onClick,
     activatable = false,
     // Skeleton pass-through
     margin = [0, 0, 0, 0],
@@ -26,6 +26,8 @@
     class: className = "",
     ...rest
   } = $props();
+
+  if (rest.onclick !== undefined) delete rest.onclick;
 </script>
 
 <Skeleton
@@ -43,7 +45,7 @@
   {borderRadius}
   {shadow}
   {zIndex}
-  onclick={activatable ? onclick : undefined}
+  onclick={activatable ? onClick : undefined}
   cursor={activatable ? "pointer" : undefined}
   {...rest}
 >
