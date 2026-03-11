@@ -13,9 +13,10 @@
 
   /**
    * @typedef {Object} SkeletonProps
-   * @property {number[]} [margin] - [top, right, bottom, left]
-   * @property {number[]} [padding] - [top, right, bottom, left]
-   * @property {string} [bg="var(--background-base)"]
+   * @property {number[]|number} [margin] - CSS shorthand (1–4 values)
+   * @property {number[]|number} [padding] - CSS shorthand (1–4 values)
+   * @property {number|string|Array<number|string>} [spacing] - CSS gap (1 value = gap, 2 values = row/column gap)
+   * @property {string} [bg="surface"]
    * @property {string} [bgHover] - Deprecated, use `hover.bg`
    * @property {string} [bgFocus] - Deprecated, use `focus.bg`
    * @property {string} [bgActive] - Deprecated, use `active.bg`
@@ -51,6 +52,7 @@
     ref = $bindable(),
     margin = undefined,
     padding = undefined,
+    spacing = undefined,
     bg = "surface",
     bgHover = undefined,
     bgFocus = undefined,
@@ -114,6 +116,16 @@
   function formatValue(val) {
     if (typeof val === "number") return `${val}px`;
     return resolveToken(val);
+  }
+
+  function formatGap(val) {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) {
+      if (val.length === 0) return undefined;
+      if (val.length === 1) return formatValue(val[0]);
+      return `${formatValue(val[0])} ${formatValue(val[1])}`;
+    }
+    return formatValue(val);
   }
 
   let derivedStyle = $derived.by(() => {
@@ -186,6 +198,10 @@
     if (overflow !== undefined) styles.push(`overflow: ${overflow}`);
     if (flex !== undefined) styles.push(`flex: ${flex}`);
     if (rest.flexWrap !== undefined) styles.push(`flex-wrap: ${rest.flexWrap}`);
+
+    const gap = formatGap(spacing);
+    if (gap !== undefined) styles.push(`gap: ${gap}`);
+
     if (color !== undefined) styles.push(`color: ${resolvedColor}`);
     if (fontSize !== undefined)
       styles.push(`font-size: ${formatValue(fontSize)}`);

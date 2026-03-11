@@ -28,7 +28,7 @@ import { Grid } from 'fabkit';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `spacing` | `number` | `0` | CSS `gap` (number = px, no units) |
+| `spacing` | `number \| string \| (number \| string)[]` | `0` | CSS `gap` (px if number). Use 2 values for row/column gap |
 | `columns` | `string` | `"1fr"` | `grid-template-columns` |
 | `rows` | `string` | `"auto"` | `grid-template-rows` |
 | `align` | `string` | `"stretch"` | `align-items` |

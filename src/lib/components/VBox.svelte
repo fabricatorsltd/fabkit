@@ -41,10 +41,22 @@
     }
   });
 
-  const gapPx = $derived.by(() => {
-    const n = typeof spacing === "number" ? spacing : parseFloat(String(spacing));
-    return Number.isFinite(n) ? n : 0;
-  });
+  function formatValue(val) {
+    if (typeof val === "number") return `${val}px`;
+    return val;
+  }
+
+  function formatGap(val) {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) {
+      if (val.length === 0) return undefined;
+      if (val.length === 1) return formatValue(val[0]);
+      return `${formatValue(val[0])} ${formatValue(val[1])}`;
+    }
+    return formatValue(val);
+  }
+
+  const gap = $derived.by(() => formatGap(spacing));
 
   const processedProps = $derived.by(() => {
     const defaults = {
@@ -65,7 +77,7 @@
   class="VBox {className}"
   style={[
     processedProps.styles,
-    `gap: ${gapPx}px`,
+    gap !== undefined ? `gap: ${gap}` : undefined,
     `align-items: ${_align}`,
     `justify-content: ${_justify}`,
   ].filter(Boolean).join("; ")}

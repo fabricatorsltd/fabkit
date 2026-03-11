@@ -38,8 +38,9 @@ import { Skeleton } from 'fabkit';
 |------|------|---------|-------------|
 | `element` | `string` | `"div"` | HTML tag to render (`div`, `section`, `article`, `button`, etc.) |
 | `ref` | `bindable` | — | Bind to get the DOM element reference |
-| `margin` | `number[] \| number` | `[0,0,0,0]` | CSS margin — `[top, right, bottom, left]` in px |
-| `padding` | `number[] \| number` | `[0,0,0,0]` | CSS padding — `[top, right, bottom, left]` in px |
+| `margin` | `number[] \| number` | `[0,0,0,0]` | CSS margin shorthand (1–4 values; number = px) |
+| `padding` | `number[] \| number` | `[0,0,0,0]` | CSS padding shorthand (1–4 values; number = px) |
+| `spacing` | `number \| string \| (number \| string)[]` | — | CSS `gap` (px if number). Use 2 values for row/column gap |
 | `width` | `number \| string` | — | Width (number = px, string = any CSS unit) |
 | `height` | `number \| string` | — | Height |
 | `minWidth` | `number \| string` | — | min-width |
@@ -153,15 +154,15 @@ Skeleton applies hover/focus/active state styles automatically via CSS variable 
 
 ## Array Notation
 
-All box-model arrays follow CSS shorthand order — `[top, right, bottom, left]`.
+All box-model arrays follow CSS shorthand (1–4 values). Two values map to vertical/horizontal, four values map to top/right/bottom/left.
 
 ```js
 // Equal on all sides
-padding={[16, 16, 16, 16]}
+padding={16}
 
 // Vertical 8, horizontal 16
-padding={[8, 16, 8, 16]}
+padding={[8, 16]}
 
-// Number shorthand (same on all sides)
-padding={16}
+// Top / right / bottom / left
+padding={[8, 16, 8, 16]}
 ```

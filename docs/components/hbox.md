@@ -27,7 +27,7 @@ import { HBox } from 'fabkit';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `spacing` | `number` | `0` | Gap between children (number = px, no units) |
+| `spacing` | `number \| string \| (number \| string)[]` | `0` | CSS `gap` (px if number). Use 2 values for row/column gap |
 | `align` | `string` | `"center"` | `align-items` value (`start`, `center`, `end`, `stretch`, `baseline`) |
 | `justify` | `string` | `"start"` | `justify-content` value (`start`, `center`, `end`, `space-between`, `space-around`) |
 | `wrap` | `boolean` | `false` | Enables `flex-wrap: wrap` |
