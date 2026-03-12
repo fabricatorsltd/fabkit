@@ -40,6 +40,8 @@
 - [Notebook](./components/notebook.md) — dynamic tabbed content
 - [TabsSwitcher](./components/tabs-switcher.md) — tab bar for Notebook
 - [Tab](./components/tab.md) — single tab for TabsSwitcher
+- [ViewSwitcher](./components/view-switcher.md) — adaptive view switching
+- [ViewStack](./components/view-stack.md) — view container for switching
 - [Accordion](./components/accordion.md) — expandable/collapsible panels
 - [AccordionItem](./components/accordion-item.md) — single panel for Accordion
 
