@@ -22,6 +22,7 @@ export const Dialog: Component<Record<string, any>>;
 export const Toast: Component<Record<string, any>>;
 export const ToastOverlay: Component<Record<string, any>>;
 export const Grid: Component<Record<string, any>>;
+export const AdaptiveGrid: Component<Record<string, any>>;
 export const HBox: Component<Record<string, any>>;
 export const Wrapper: Component<Record<string, any>>;
 export const Container: Component<Record<string, any>>;
