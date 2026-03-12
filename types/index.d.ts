@@ -723,6 +723,7 @@ export const SideLayout: Component<SideLayoutProps>;
 export const AdaptiveLayout: Component<Record<string, any>>;
 export const Breakpoint: Component<Record<string, any>>;
 export const Leaflet: Component<Record<string, any>>;
+export const Flap: Component<Record<string, any>>;
 export const Slider: Component<SliderProps>;
 export const TextField: Component<TextFieldProps>;
 export const VBox: Component<VBoxProps>;
