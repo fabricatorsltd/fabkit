@@ -8,6 +8,9 @@ export { defaultTheme } from "./defaultTheme.js";
 // System Utilities
 export { resolveProps } from "./system.js";
 
+// Prop constants
+export { Align, Justify, LeafletMode, HideBelowMode, ButtonVariant } from "./propTypes.js";
+
 // Components
 export { default as BaseField } from "./components/BaseField.svelte";
 export { default as Button } from "./components/Button.svelte";

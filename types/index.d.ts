@@ -2,17 +2,82 @@
 
 import type { Component } from 'svelte';
 
-export interface ButtonProps {
+export type RGBA = readonly [number, number, number, number];
+export type ColorValue = string | RGBA;
+export type Length = number | string;
+export type Box4<T = Length> = readonly [T, T, T, T];
+
+export type Align = 'start' | 'center' | 'end' | 'fill';
+export type Justify =
+  | 'start'
+  | 'center'
+  | 'end'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly';
+
+export type LeafletMode = 'auto' | 'split' | 'stacked';
+export type HideBelowMode = 'auto' | 'visible' | 'hidden';
+export type ButtonVariant = 'primary' | 'secondary' | 'destructive' | 'flat';
+
+export const Align: Readonly<{ start: 'start'; center: 'center'; end: 'end'; fill: 'fill' }>;
+export const Justify: Readonly<{
+  start: 'start';
+  center: 'center';
+  end: 'end';
+  spaceBetween: 'space-between';
+  spaceAround: 'space-around';
+  spaceEvenly: 'space-evenly';
+}>;
+export const LeafletMode: Readonly<{ auto: 'auto'; split: 'split'; stacked: 'stacked' }>;
+export const HideBelowMode: Readonly<{ auto: 'auto'; visible: 'visible'; hidden: 'hidden' }>;
+export const ButtonVariant: Readonly<{
+  primary: 'primary';
+  secondary: 'secondary';
+  destructive: 'destructive';
+  flat: 'flat';
+}>;
+
+export interface StyleProps {
+  bg?: ColorValue;
+  color?: ColorValue;
+  borderColor?: ColorValue;
+  shadow?: string;
+  margin?: Length | Box4;
+  padding?: Length | Box4;
+  borderWidth?: Length | Box4;
+  borderRadius?: Length | Box4;
+  class?: string;
+  [key: string]: unknown;
+}
+
+export interface ButtonProps extends StyleProps {
   label?: string;
   icon?: unknown;
   children?: unknown;
   disabled?: boolean;
   type?: string;
   square?: boolean;
+  variant?: ButtonVariant;
   onClick?: (event: MouseEvent) => void;
-  class?: string;
-  [key: string]: unknown;
 }
+
+export interface FlexBoxProps extends StyleProps {
+  spacing?: Length | readonly [Length, Length];
+  align?: Align;
+  justify?: Justify;
+  children?: unknown;
+}
+
+export interface HBoxProps extends FlexBoxProps {}
+export interface VBoxProps extends FlexBoxProps {}
+
+// System Utilities
+export function resolveProps(props: Record<string, any>): {
+  styles: string;
+  className: string;
+  filteredRest: Record<string, any>;
+};
 
 // Components
 export const BaseField: Component<Record<string, any>>;
@@ -20,7 +85,7 @@ export const Button: Component<ButtonProps>;
 export const Card: Component<Record<string, any>>;
 export const Dialog: Component<Record<string, any>>;
 export const Grid: Component<Record<string, any>>;
-export const HBox: Component<Record<string, any>>;
+export const HBox: Component<HBoxProps>;
 export const Wrapper: Component<Record<string, any>>;
 export const Clamp: Component<Record<string, any>>;
 export const Paned: Component<Record<string, any>>;
@@ -30,7 +95,7 @@ export const SelectField: Component<Record<string, any>>;
 export const SideLayout: Component<Record<string, any>>;
 export const Slider: Component<Record<string, any>>;
 export const TextField: Component<Record<string, any>>;
-export const VBox: Component<Record<string, any>>;
+export const VBox: Component<VBoxProps>;
 export const SlideOver: Component<Record<string, any>>;
 export const SlideOverContent: Component<Record<string, any>>;
 export const Carousel: Component<Record<string, any>>;

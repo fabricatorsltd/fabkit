@@ -10,6 +10,15 @@ const TOKEN_MAP = {
 };
 
 export function resolveToken(token) {
+  if (Array.isArray(token) && token.length === 4) {
+    const [r, g, b, a] = token;
+    const rf = Number.isFinite(r) ? Math.min(255, Math.max(0, Math.round(r))) : 0;
+    const gf = Number.isFinite(g) ? Math.min(255, Math.max(0, Math.round(g))) : 0;
+    const bf = Number.isFinite(b) ? Math.min(255, Math.max(0, Math.round(b))) : 0;
+    const af = Number.isFinite(a) ? Math.min(1, Math.max(0, a)) : 1;
+    return `rgba(${rf},${gf},${bf},${af})`;
+  }
+
   if (typeof token !== "string") return token;
 
   // opacity syntax in color tokens
