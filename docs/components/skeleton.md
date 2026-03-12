@@ -30,6 +30,18 @@ import { Skeleton } from 'fabkit';
 
 ---
 
+## ColorValue
+
+For color-like props (`bg`, `color`, `borderColor`, shadows), you can pass:
+
+- CSS color strings (`#fff`, `rgba(...)`, `var(...)`, ...)
+- Theme tokens (`surface`, `text-primary`, `gray.500`, `surface/30`, ...)
+- RGBA tuples (`[r, g, b, a]`)
+
+See [Theming](../theming.md) for more details.
+
+---
+
 ## Props
 
 ### Layout
@@ -60,10 +72,10 @@ import { Skeleton } from 'fabkit';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `bg` | `string` | `"transparent"` | Background color (idle) |
-| `bgHover` | `string` | fallback to `bg` | Background on `:hover` |
-| `bgFocus` | `string` | fallback to `bgHover` | Background on `:focus` |
-| `bgActive` | `string` | fallback to `bgHover` | Background on `:active` |
+| `bg` | `ColorValue` | `"transparent"` | Background color (idle) |
+| `bgHover` | `ColorValue` | fallback to `bg` | Background on `:hover` |
+| `bgFocus` | `ColorValue` | fallback to `bgHover` | Background on `:focus` |
+| `bgActive` | `ColorValue` | fallback to `bgHover` | Background on `:active` |
 
 ### Border
 
@@ -73,10 +85,10 @@ import { Skeleton } from 'fabkit';
 | `borderWidthHover` | `number[]` | fallback to `borderWidth` | Border widths on hover |
 | `borderWidthFocus` | `number[]` | fallback | Border widths on focus |
 | `borderWidthActive` | `number[]` | fallback | Border widths on active |
-| `borderColor` | `string \| string[]` | `"transparent"` | Border color(s) — single value or `[top, right, bottom, left]` |
-| `borderColorHover` | `string \| string[]` | fallback | Border color on hover |
-| `borderColorFocus` | `string \| string[]` | fallback | Border color on focus |
-| `borderColorActive` | `string \| string[]` | fallback | Border color on active |
+| `borderColor` | `ColorValue \| ColorValue[]` | `"transparent"` | Border color(s) — single value or `[top, right, bottom, left]` |
+| `borderColorHover` | `ColorValue \| ColorValue[]` | fallback | Border color on hover |
+| `borderColorFocus` | `ColorValue \| ColorValue[]` | fallback | Border color on focus |
+| `borderColorActive` | `ColorValue \| ColorValue[]` | fallback | Border color on active |
 | `borderStyle` | `string` | `"solid"` | CSS border-style |
 | `borderRadius` | `number[]` | `[0,0,0,0]` | Border radii `[tl, tr, br, bl]` px |
 
@@ -92,10 +104,10 @@ import { Skeleton } from 'fabkit';
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `color` | `string` | — | Text color (idle) |
-| `colorHover` | `string` | fallback | Text color on hover |
-| `colorFocus` | `string` | fallback | Text color on focus |
-| `colorActive` | `string` | fallback | Text color on active |
+| `color` | `ColorValue` | — | Text color (idle) |
+| `colorHover` | `ColorValue` | fallback | Text color on hover |
+| `colorFocus` | `ColorValue` | fallback | Text color on focus |
+| `colorActive` | `ColorValue` | fallback | Text color on active |
 | `fontSize` | `number \| string` | — | Font size |
 | `fontWeight` | `string \| number` | — | Font weight |
 | `textAlign` | `string` | — | Text alignment |

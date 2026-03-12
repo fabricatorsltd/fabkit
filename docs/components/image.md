@@ -64,14 +64,14 @@ import { Image } from 'fabkit';
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `placeholder` | `string` | `""` | URL/data URI shown while main image loads (displayed blurred) |
-| `placeholderColor` | `string` | `var(--background-elevated)` | Solid background color while loading (when no placeholder URL) |
+| `placeholderColor` | `ColorValue` | `var(--background-elevated)` | Solid background color while loading (when no placeholder URL) |
 
 ### Fallback on Error
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `fallback` | `string` | `""` | Image URL shown when main image fails to load |
-| `fallbackColor` | `string` | `var(--background-elevated-2)` | Background color on error |
+| `fallbackColor` | `ColorValue` | `var(--background-elevated-2)` | Background color on error |
 
 Fallback resolution order on error:
 

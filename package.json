@@ -9,7 +9,7 @@
     "build": "rollup -c",
     "prepublishOnly": "svelte-kit sync && svelte-package && rollup -c",
     "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
-    "test": "pnpm run check",
+    "test": "npm run check",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

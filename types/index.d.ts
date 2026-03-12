@@ -1,6 +1,7 @@
 // Auto-generated — do not edit
 
 import type { Component } from 'svelte';
+import type { Readable } from 'svelte/store';
 import type { IconWeight } from './icons';
 
 export type Snippet = () => any;
@@ -20,6 +21,9 @@ export type Justify =
   | 'space-around'
   | 'space-evenly';
 
+export type LeafletMode = 'auto' | 'split' | 'stacked';
+export type HideBelowMode = 'auto' | 'visible' | 'hidden';
+
 export type IconPosition = 'left' | 'right';
 export type PopOverAlign = 'start' | 'center' | 'end';
 export type GridAlign = 'start' | 'center' | 'end' | 'stretch';
@@ -38,6 +42,8 @@ export const Justify: Readonly<{
   spaceAround: 'space-around';
   spaceEvenly: 'space-evenly';
 }>;
+export const LeafletMode: Readonly<{ auto: 'auto'; split: 'split'; stacked: 'stacked' }>;
+export const HideBelowMode: Readonly<{ auto: 'auto'; visible: 'visible'; hidden: 'hidden' }>;
 export const IconPosition: Readonly<{ left: 'left'; right: 'right' }>;
 export const PopOverAlign: Readonly<{ start: 'start'; center: 'center'; end: 'end' }>;
 export const GridAlign: Readonly<{
@@ -71,7 +77,7 @@ export interface InteractionStyle {
   color?: ColorValue;
   shadow?: string;
   borderWidth?: Length | Box4;
-  borderColor?: ColorValue;
+  borderColor?: ColorValue | readonly ColorValue[];
   transform?: string;
 }
 
@@ -113,10 +119,10 @@ export interface SkeletonProps {
   borderWidthFocus?: Length | Box4;
   borderWidthActive?: Length | Box4;
 
-  borderColor?: ColorValue;
-  borderColorHover?: ColorValue;
-  borderColorFocus?: ColorValue;
-  borderColorActive?: ColorValue;
+  borderColor?: ColorValue | readonly ColorValue[];
+  borderColorHover?: ColorValue | readonly ColorValue[];
+  borderColorFocus?: ColorValue | readonly ColorValue[];
+  borderColorActive?: ColorValue | readonly ColorValue[];
 
   borderStyle?: string;
   borderRadius?: Length | Box4;
@@ -171,6 +177,25 @@ export function resolveProps(props: Record<string, any>): {
   className: string;
   filteredRest: Record<string, any>;
 };
+
+export type Density = 'compact' | 'regular' | 'roomy';
+
+export interface DensityTokens {
+  space2: number;
+  space4: number;
+  space8: number;
+  space12: number;
+  space16: number;
+  space24: number;
+  fontSize: number;
+  controlHeight: number;
+}
+
+export const DENSITIES: readonly Density[];
+export const DENSITY_TOKENS: Record<Density, DensityTokens>;
+export function normalizeDensity(value: any): Density;
+export function resolveDensityTokens(density: any, overrides?: Partial<DensityTokens>): DensityTokens;
+export function getDensityStore(): Readable<{ density: Density; tokens: DensityTokens }>;
 
 export interface ButtonProps extends SkeletonProps {
   label?: string;
@@ -694,6 +719,335 @@ export interface ImageProps extends SkeletonProps {
   ref?: unknown;
 }
 
+export type ToastVariant = 'neutral' | 'success' | 'warning' | 'error' | 'info';
+
+export interface ToastProps extends SkeletonProps {
+  title?: string;
+  subtitle?: string;
+  variant?: ToastVariant;
+  actionLabel?: string;
+  onAction?: (event: MouseEvent) => void;
+  dismissible?: boolean;
+  onDismiss?: (event: MouseEvent) => void;
+  icon?: Component<any> | null;
+  children?: Snippet;
+}
+
+export interface ToastInput {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  variant?: ToastVariant;
+  actionLabel?: string;
+  onAction?: (event: MouseEvent) => void;
+  dismissible?: boolean;
+  timeout?: number;
+  icon?: Component<any> | null;
+}
+
+export type ToastPlacement = 'top' | 'bottom';
+
+export interface ToastOverlayProps {
+  children?: Snippet;
+  toasts?: readonly ToastInput[];
+  limit?: number;
+  timeout?: number;
+  placement?: ToastPlacement;
+  width?: number;
+  gap?: number;
+  offset?: number;
+  class?: string;
+  ref?: unknown;
+  [key: string]: unknown;
+}
+
+export interface BannerProps extends SkeletonProps {
+  title?: string;
+  subtitle?: string;
+  variant?: ToastVariant | 'neutral';
+  revealed?: boolean;
+  actionLabel?: string;
+  onAction?: (event: MouseEvent) => void;
+  dismissible?: boolean;
+  onDismiss?: (event: MouseEvent) => void;
+  icon?: Component<any> | null;
+  children?: Snippet;
+}
+
+export type AdaptiveGridMode = 'auto' | 'grid' | 'list';
+
+export interface AdaptiveGridProps extends SkeletonProps {
+  mode?: AdaptiveGridMode;
+  minCardWidth?: Length;
+  minColumns?: number;
+  listBelow?: Length;
+  columns?: string;
+  spacing?: Length;
+  listSpacing?: Length;
+  listPadding?: Length | Box4;
+  align?: GridAlign | string;
+  justify?: GridJustify | string;
+  children?: Snippet;
+}
+
+export interface ContainerGutters {
+  compact?: Length;
+  regular?: Length;
+  wide?: Length;
+}
+
+export interface ContainerProps extends SkeletonProps {
+  maxWidth?: Length;
+  gutters?: Length | ContainerGutters;
+  compactBelow?: Length;
+  wideAbove?: Length;
+  edgeToEdgeBelow?: boolean | number | string;
+  center?: boolean;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface PageProps extends ContainerProps {}
+
+export type ClampScrollableOrientation = 'horizontal' | 'vertical';
+
+export interface ClampScrollableProps extends SkeletonProps {
+  orientation?: ClampScrollableOrientation;
+  maximumSize?: number;
+  tighteningThreshold?: number;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface AdaptiveLayoutRenderArgs {
+  activeBreakpoint?: string;
+  width?: number;
+  height?: number;
+}
+
+export interface AdaptiveLayoutProps extends SkeletonProps {
+  activeBreakpoint?: string;
+  width?: number;
+  height?: number;
+  children?: (args: AdaptiveLayoutRenderArgs) => any;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface BreakpointProps {
+  name?: string;
+  minWidth?: number;
+  maxWidth?: number;
+  minHeight?: number;
+  maxHeight?: number;
+  priority?: number;
+  fallback?: boolean;
+  children?: Snippet;
+}
+
+export interface LeafletProps extends SkeletonProps {
+  sidebar?: Snippet;
+  content?: Snippet;
+  children?: Snippet;
+  mode?: LeafletMode;
+  stackAt?: number;
+  sidebarWidth?: Length;
+  revealContent?: boolean;
+  keepMounted?: boolean;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface NavigationViewProps extends SkeletonProps {
+  context?: string;
+  stack?: number[];
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface NavigationSplitViewProps extends LeafletProps {}
+
+export type FlapPlacement = 'left' | 'right';
+
+export interface FlapProps extends SkeletonProps {
+  sidebar?: Snippet;
+  content?: Snippet;
+  children?: Snippet;
+  open?: boolean;
+  width?: Length;
+  placement?: FlapPlacement;
+  closeOnEscape?: boolean;
+  closeOnBackdrop?: boolean;
+  keepMounted?: boolean;
+  zIndex?: number;
+  class?: string;
+  ref?: unknown;
+}
+
+export type ToolbarViewMode = 'auto' | 'compact' | 'wide';
+
+export interface ToolbarViewProps extends SkeletonProps {
+  top?: Snippet;
+  bottom?: Snippet;
+  content?: Snippet;
+  title?: string;
+  subtitle?: string;
+  start?: Snippet;
+  end?: Snippet;
+  center?: Snippet;
+  mode?: ToolbarViewMode;
+  compactMinWidth?: number;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface ViewSwitcherView {
+  id: string;
+  title: string;
+  icon?: Component<any> | null;
+  disabled?: boolean;
+}
+
+export type ViewSwitcherMode = 'auto' | 'tabs' | 'segmented' | 'dropdown';
+
+export interface ViewSwitcherProps extends SkeletonProps {
+  views?: readonly ViewSwitcherView[];
+  activeId?: string;
+  mode?: ViewSwitcherMode;
+  tabsMinWidth?: number;
+  segmentedMinWidth?: number;
+  dropdownLabel?: string;
+  showIcons?: boolean;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface ViewStackView {
+  id: string;
+  component?: Component<any> | null;
+  props?: Record<string, any>;
+}
+
+export interface ViewStackProps extends SkeletonProps {
+  views?: readonly ViewStackView[];
+  activeId?: string;
+  keepMounted?: boolean;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface AdaptiveContentProps {
+  activeBreakpoint?: string;
+  fallback?: Snippet;
+  children?: Snippet;
+  [key: string]: unknown;
+}
+
+export interface ResponsiveSlotProps extends AdaptiveContentProps {}
+
+export interface DensityProviderProps extends SkeletonProps {
+  density?: Density | 'auto';
+  compactBelow?: number;
+  roomyAbove?: number;
+  tokens?: Partial<DensityTokens>;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface ActionBarItem {
+  label?: string;
+  icon?: Component<any> | null;
+  variant?: ButtonVariant;
+  disabled?: boolean;
+  href?: string;
+  onClick?: (event: MouseEvent) => void;
+  action?: (event: MouseEvent) => void;
+}
+
+export type ActionBarMode = 'auto' | 'all' | 'overflow';
+
+export interface ActionBarProps extends SkeletonProps {
+  items?: readonly ActionBarItem[];
+  mode?: ActionBarMode;
+  spacing?: number;
+  moreLabel?: string;
+  moreIcon?: Component<any> | null;
+  moreVariant?: ButtonVariant;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface AdaptiveTableColumn {
+  key: string;
+  title?: string;
+  sortable?: boolean;
+}
+
+export type AdaptiveTableMode = 'auto' | 'cards' | 'table';
+
+export interface AdaptiveTableProps extends SkeletonProps {
+  mode?: AdaptiveTableMode;
+  stackAt?: number;
+  columns?: readonly AdaptiveTableColumn[];
+  rows?: readonly any[];
+  selectable?: boolean;
+  selectedRows?: readonly any[];
+  titleKey?: string;
+  onRowClick?: (row: any) => void;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface AdaptiveMediaProps extends ImageProps {
+  mode?: 'auto' | 'compact' | 'wide';
+  stackAt?: number;
+  wide?: Partial<ImageProps>;
+  compact?: Partial<ImageProps>;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface AdaptiveFormLayoutProps extends SkeletonProps {
+  stackAt?: number;
+  labelWidth?: Length;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface AdaptiveFormRowProps {
+  label?: string;
+  help?: string;
+  children?: Snippet;
+  class?: string;
+  [key: string]: unknown;
+}
+
+export interface HideBelowProps extends SkeletonProps {
+  below?: number;
+  mode?: HideBelowMode;
+  children?: Snippet;
+  fallback?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
+export interface OptionalProps extends SkeletonProps {
+  below?: number;
+  mode?: 'auto' | 'inline' | 'below';
+  orderBelow?: number;
+  unwrapInline?: boolean;
+  children?: Snippet;
+  class?: string;
+  ref?: unknown;
+}
+
 export interface EngineDecoratorProps {
   children?: Snippet;
 }
@@ -711,15 +1065,28 @@ export const BaseField: Component<BaseFieldProps>;
 export const Button: Component<ButtonProps>;
 export const Card: Component<CardProps>;
 export const Dialog: Component<DialogProps>;
+export const Toast: Component<ToastProps>;
+export const ToastOverlay: Component<ToastOverlayProps>;
+export const Banner: Component<BannerProps>;
 export const Grid: Component<GridProps>;
+export const AdaptiveGrid: Component<AdaptiveGridProps>;
 export const HBox: Component<HBoxProps>;
 export const Wrapper: Component<WrapperProps>;
+export const Container: Component<ContainerProps>;
+export const Page: Component<PageProps>;
 export const Clamp: Component<ClampProps>;
+export const ClampScrollable: Component<ClampScrollableProps>;
 export const Paned: Component<PanedProps>;
 export const PopOver: Component<PopOverProps>;
 export const PopOverWrapper: Component<PopOverWrapperProps>;
 export const SelectField: Component<SelectFieldProps>;
 export const SideLayout: Component<SideLayoutProps>;
+export const AdaptiveLayout: Component<AdaptiveLayoutProps>;
+export const Breakpoint: Component<BreakpointProps>;
+export const Leaflet: Component<LeafletProps>;
+export const NavigationSplitView: Component<NavigationSplitViewProps>;
+export const NavigationView: Component<NavigationViewProps>;
+export const Flap: Component<FlapProps>;
 export const Slider: Component<SliderProps>;
 export const TextField: Component<TextFieldProps>;
 export const VBox: Component<VBoxProps>;
@@ -732,11 +1099,17 @@ export const Notebook: Component<NotebookProps> & { Tab: Component<TabProps> };
 export const StaticNotebook: Component<StaticNotebookProps>;
 export const Switcher: Component<SwitcherProps>;
 export const TabsSwitcher: Component<TabsSwitcherProps>;
+export const ToolbarView: Component<ToolbarViewProps>;
+export const ViewStack: Component<ViewStackProps>;
+export const ViewSwitcher: Component<ViewSwitcherProps>;
 export const TextRich: Component<TextRichProps>;
 export const TitleBar: Component<TitleBarProps>;
 export const Window: Component<WindowProps>;
 export const Skeleton: Component<SkeletonComponentProps>;
+export const DensityProvider: Component<DensityProviderProps>;
 export const Text: Component<TextProps>;
+export const AdaptiveContent: Component<AdaptiveContentProps>;
+export const ResponsiveSlot: Component<ResponsiveSlotProps>;
 export const EngineDecorator: Component<EngineDecoratorProps>;
 export const Image: Component<ImageProps>;
 export const TextArea: Component<TextAreaProps>;
@@ -755,12 +1128,19 @@ export const Chip: Component<ChipProps>;
 export const DataTable: Component<DataTableProps>;
 export const Kbd: Component<KbdProps>;
 export const ActionRow: Component<ActionRowProps>;
+export const ActionBar: Component<ActionBarProps>;
 export const PreferencesGroup: Component<PreferencesGroupProps>;
 export const PreferencesPage: Component<PreferencesPageProps>;
 export const EntryRow: Component<EntryRowProps>;
 export const SwitchRow: Component<SwitchRowProps>;
 export const SpinRow: Component<SpinRowProps>;
 export const LevelBar: Component<LevelBarProps>;
+export const AdaptiveTable: Component<AdaptiveTableProps>;
+export const AdaptiveMedia: Component<AdaptiveMediaProps>;
+export const AdaptiveFormLayout: Component<AdaptiveFormLayoutProps>;
+export const AdaptiveFormRow: Component<AdaptiveFormRowProps>;
+export const HideBelow: Component<HideBelowProps>;
+export const Optional: Component<OptionalProps>;
 
 export const Menu: Component<MenuProps> & { Item: Component<MenuItemProps> };
 

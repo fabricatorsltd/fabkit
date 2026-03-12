@@ -109,6 +109,13 @@
   }
 
   function formatBorderColor(val) {
+    if (
+      Array.isArray(val) &&
+      val.length === 4 &&
+      val.every((v) => typeof v === "number")
+    ) {
+      return resolveToken(val);
+    }
     if (!Array.isArray(val)) return resolveToken(val);
     return val.map(resolveToken).join(" ");
   }
