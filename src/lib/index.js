@@ -15,6 +15,7 @@ export { default as Card } from "./components/Card.svelte";
 export { default as Dialog } from "./components/Dialog.svelte";
 export { default as Toast } from "./components/Toast.svelte";
 export { default as ToastOverlay } from "./components/ToastOverlay.svelte";
+export { default as Banner } from "./components/Banner.svelte";
 export { default as Grid } from "./components/Grid.svelte";
 export { default as AdaptiveGrid } from "./components/AdaptiveGrid.svelte";
 export { default as HBox } from "./components/HBox.svelte";
