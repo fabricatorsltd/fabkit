@@ -25,6 +25,7 @@
 - [HBox](./components/hbox.md) — horizontal flexbox row
 - [VBox](./components/vbox.md) — vertical flexbox column
 - [Grid](./components/grid.md) — CSS Grid wrapper
+- [AdaptiveGrid](./components/adaptive-grid.md) — grid → list by container size
 - [Card](./components/card.md) — bordered container
 - [Wrapper](./components/wrapper.md) — generic container
 - [Clamp](./components/clamp.md) — constrain content size

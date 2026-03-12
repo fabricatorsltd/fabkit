@@ -14,6 +14,7 @@ export { default as Button } from "./components/Button.svelte";
 export { default as Card } from "./components/Card.svelte";
 export { default as Dialog } from "./components/Dialog.svelte";
 export { default as Grid } from "./components/Grid.svelte";
+export { default as AdaptiveGrid } from "./components/AdaptiveGrid.svelte";
 export { default as HBox } from "./components/HBox.svelte";
 export { default as Wrapper } from "./components/Wrapper.svelte";
 export { default as Clamp } from "./components/Clamp.svelte";

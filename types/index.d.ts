@@ -20,6 +20,7 @@ export const Button: Component<ButtonProps>;
 export const Card: Component<Record<string, any>>;
 export const Dialog: Component<Record<string, any>>;
 export const Grid: Component<Record<string, any>>;
+export const AdaptiveGrid: Component<Record<string, any>>;
 export const HBox: Component<Record<string, any>>;
 export const Wrapper: Component<Record<string, any>>;
 export const Clamp: Component<Record<string, any>>;
