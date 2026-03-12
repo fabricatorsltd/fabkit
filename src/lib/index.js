@@ -31,6 +31,8 @@ export { default as ToastOverlay } from "./components/ToastOverlay.svelte";
 export { default as Grid } from "./components/Grid.svelte";
 export { default as HBox } from "./components/HBox.svelte";
 export { default as Wrapper } from "./components/Wrapper.svelte";
+export { default as Container } from "./components/Container.svelte";
+export { default as Page } from "./components/Page.svelte";
 export { default as Clamp } from "./components/Clamp.svelte";
 export { default as ClampScrollable } from "./components/ClampScrollable.svelte";
 import MenuComponent from "./components/Menu.svelte";
