@@ -85,6 +85,8 @@ export { default as AdaptiveTable } from "./components/AdaptiveTable.svelte";
 export { default as AdaptiveMedia } from "./components/AdaptiveMedia.svelte";
 export { default as AdaptiveFormLayout } from "./components/AdaptiveFormLayout.svelte";
 export { default as AdaptiveFormRow } from "./components/AdaptiveFormRow.svelte";
+export { default as HideBelow } from "./components/HideBelow.svelte";
+export { default as Optional } from "./components/Optional.svelte";
 
 // Utils
 export { default as Engine } from "./Engine.js";
