@@ -70,6 +70,7 @@
 - [PreferencesGroup](./components/preferences-group.md) — group for settings
 - [PreferencesPage](./components/preferences-page.md) — settings page layout
 - [Tooltip](./components/tooltip.md) — floating label on hover/focus
+- [Banner](./components/banner.md) — inline info/warning bar
 - [Separator](./components/separator.md) — divider line
 
 ### Form Fields
