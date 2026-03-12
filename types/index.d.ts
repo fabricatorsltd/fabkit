@@ -5,6 +5,7 @@ import type { Component } from 'svelte';
 export interface ButtonProps {
   label?: string;
   icon?: unknown;
+  labelBehavior?: 'auto' | 'always' | 'never';
   children?: unknown;
   disabled?: boolean;
   type?: string;
