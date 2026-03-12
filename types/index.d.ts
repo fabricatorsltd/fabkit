@@ -19,6 +19,8 @@ export const BaseField: Component<Record<string, any>>;
 export const Button: Component<ButtonProps>;
 export const Card: Component<Record<string, any>>;
 export const Dialog: Component<Record<string, any>>;
+export const Toast: Component<Record<string, any>>;
+export const ToastOverlay: Component<Record<string, any>>;
 export const Grid: Component<Record<string, any>>;
 export const HBox: Component<Record<string, any>>;
 export const Wrapper: Component<Record<string, any>>;

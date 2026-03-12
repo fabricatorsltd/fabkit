@@ -59,6 +59,8 @@
 - [ContextArea](./components/context-area.md) — right-click context menu
 - [SlideOver](./components/slide-over.md) — bottom sheet / modal drawer
 - [SlideOverContent](./components/slide-over-content.md) — content for SlideOver
+- [ToastOverlay](./components/toast-overlay.md) — non-blocking notifications
+- [Toast](./components/toast.md) — transient notification
 - [Menu](./components/menu.md) — vertical item list
 - [MenuItem](./components/menu-item.md) — single menu item
 - [ActionRow](./components/action-row.md) — row for actions/settings
