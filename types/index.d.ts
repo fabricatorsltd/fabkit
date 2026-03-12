@@ -23,6 +23,7 @@ export const Grid: Component<Record<string, any>>;
 export const HBox: Component<Record<string, any>>;
 export const Wrapper: Component<Record<string, any>>;
 export const Clamp: Component<Record<string, any>>;
+export const ClampScrollable: Component<Record<string, any>>;
 export const Paned: Component<Record<string, any>>;
 export const PopOver: Component<Record<string, any>>;
 export const PopOverWrapper: Component<Record<string, any>>;
