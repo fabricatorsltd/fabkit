@@ -8,9 +8,9 @@ This repo publishes the package to **GitHub Packages** (npm registry: `npm.pkg.g
 ### Requirements
 
 - Node.js 20+
-- pnpm
+- pnpm (recommended via Corepack) or npm
 
-Recommended:
+Recommended (pnpm):
 
 ```bash
 corepack enable
@@ -21,13 +21,21 @@ Install dependencies:
 
 ```bash
 pnpm install
+# or
+npm ci
 ```
 
-Run checks/build:
+Run checks/build/tests:
 
 ```bash
 pnpm run check
 pnpm run build
+pnpm run test
+
+# or
+npm run check
+npm run build
+npm test
 ```
 
 
@@ -50,6 +58,8 @@ GitHub Packages requires authentication for npm installs.
 
 ```bash
 pnpm add @fabricatorsltd/fabkit
+# or
+npm i @fabricatorsltd/fabkit
 ```
 
 

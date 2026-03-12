@@ -10,6 +10,21 @@ export { resolveProps } from "./system.js";
 export { DENSITIES, DENSITY_TOKENS, normalizeDensity, resolveDensityTokens } from "./density.js";
 export { getDensityStore } from "./DensityContext.js";
 
+// Prop constants
+export {
+  Align,
+  Justify,
+  LeafletMode,
+  HideBelowMode,
+  IconPosition,
+  PopOverAlign,
+  GridAlign,
+  GridJustify,
+  TextAlign,
+  TextTransform,
+  ButtonVariant
+} from "./propTypes.js";
+
 // Components
 export { default as BaseField } from "./components/BaseField.svelte";
 export { default as Button } from "./components/Button.svelte";

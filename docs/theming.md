@@ -173,6 +173,12 @@ Every component accepts raw Skeleton props that override per-instance visual sty
 
 These props do **not** require any CSS — they are applied as inline styles on the element.
 
+For color-like props (`bg`, `color`, `borderColor`, shadows), values can be:
+
+- CSS color strings (`#fff`, `rgba(...)`, `var(...)`, ...)
+- Theme tokens (`surface`, `text-primary`, `gray.500`, `surface/30`, ...)
+- RGBA tuples (`[r, g, b, a]`)
+
 See [Skeleton](./components/skeleton.md) for the full list of available props.
 
 ---

@@ -42,8 +42,8 @@ import { PopOver } from 'fabkit';
 | `align` | `"start" \| "end" \| "center"` | `"start"` | Horizontal alignment relative to the anchor |
 | `offset` | `[number, number]` | `[0, 5]` | `[x, y]` offset in px from the anchor |
 | `initialStyle` | `string` | `""` | Inline styles applied before auto-positioning kicks in |
-| `bg` | `string` | `"var(--background-base)"` | Background color for the popover panel |
-| `color` | `string` | — | Text/icon color for the popover content |
+| `bg` | `ColorValue` | `"var(--background-base)"` | Background color for the popover panel |
+| `color` | `ColorValue` | — | Text/icon color for the popover content |
 | `children` | `Snippet` | — | PopOver content |
 | `class` | `string` | `""` | Additional CSS classes |
 | `ref` | `bindable` | — | DOM element reference |
