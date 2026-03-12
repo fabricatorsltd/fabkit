@@ -74,6 +74,7 @@ export { default as Chip } from "./components/Chip.svelte";
 export { default as DataTable } from "./components/DataTable.svelte";
 export { default as Kbd } from "./components/Kbd.svelte";
 export { default as ActionRow } from "./components/ActionRow.svelte";
+export { default as ActionBar } from "./components/ActionBar.svelte";
 export { default as PreferencesGroup } from "./components/PreferencesGroup.svelte";
 export { default as PreferencesPage } from "./components/PreferencesPage.svelte";
 export { default as EntryRow } from "./components/EntryRow.svelte";
