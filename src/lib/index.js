@@ -81,6 +81,7 @@ export { default as EntryRow } from "./components/EntryRow.svelte";
 export { default as SwitchRow } from "./components/SwitchRow.svelte";
 export { default as SpinRow } from "./components/SpinRow.svelte";
 export { default as LevelBar } from "./components/LevelBar.svelte";
+export { default as AdaptiveTable } from "./components/AdaptiveTable.svelte";
 
 // Utils
 export { default as Engine } from "./Engine.js";
