@@ -63,6 +63,8 @@ export { default as StaticNotebook } from "./components/StaticNotebook.svelte";
 export { default as Switcher } from "./components/Switcher.svelte";
 export { default as TabsSwitcher } from "./components/TabsSwitcher.svelte";
 export { default as ToolbarView } from "./components/ToolbarView.svelte";
+export { default as ViewStack } from "./components/ViewStack.svelte";
+export { default as ViewSwitcher } from "./components/ViewSwitcher.svelte";
 export { default as TextRich } from "./components/TextRich.svelte";
 export { default as TitleBar } from "./components/TitleBar.svelte";
 export { default as Window } from "./components/Window.svelte";
