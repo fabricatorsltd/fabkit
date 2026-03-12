@@ -19,6 +19,7 @@ export { default as Grid } from "./components/Grid.svelte";
 export { default as HBox } from "./components/HBox.svelte";
 export { default as Wrapper } from "./components/Wrapper.svelte";
 export { default as Clamp } from "./components/Clamp.svelte";
+export { default as ClampScrollable } from "./components/ClampScrollable.svelte";
 import MenuComponent from "./components/Menu.svelte";
 import MenuItem from "./components/MenuItem.svelte";
 const Menu = MenuComponent;
