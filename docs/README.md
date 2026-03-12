@@ -26,7 +26,6 @@
 - [AdaptiveLayout](./components/adaptive-layout.md) — container-driven breakpoints
 - [Breakpoint](./components/breakpoint.md) — breakpoint rule for AdaptiveLayout
 - [Leaflet](./components/leaflet.md) — adaptive two-pane stack
-- [Flap](./components/flap.md) — adaptive sidebar drawer
 - [Paned](./components/paned.md) — resizable two-panel split
 - [ToolbarView](./components/toolbar-view.md) — top/bottom bars + content
 - [HBox](./components/hbox.md) — horizontal flexbox row

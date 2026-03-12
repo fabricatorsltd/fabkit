@@ -40,7 +40,6 @@ export { default as SideLayout } from "./components/SideLayout.svelte";
 export { default as AdaptiveLayout } from "./components/AdaptiveLayout.svelte";
 export { default as Breakpoint } from "./components/Breakpoint.svelte";
 export { default as Leaflet } from "./components/Leaflet.svelte";
-export { default as Flap } from "./components/Flap.svelte";
 export { default as Slider } from "./components/Slider.svelte";
 export { default as TextField } from "./components/TextField.svelte";
 export { default as VBox } from "./components/VBox.svelte";

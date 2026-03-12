@@ -170,7 +170,7 @@ Bad:
 
 Better:
 
-- use `AdaptiveLayout` to move the sidebar into a drawer (`Flap`) when space is limited
+- use `AdaptiveLayout` to move the sidebar into an overflow pattern when space is limited
 
 
 ### Treating compact as a separate app
