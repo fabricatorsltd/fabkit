@@ -14,6 +14,8 @@ export { getDensityStore } from "./DensityContext.js";
 export {
   Align,
   Justify,
+  LeafletMode,
+  HideBelowMode,
   IconPosition,
   PopOverAlign,
   GridAlign,

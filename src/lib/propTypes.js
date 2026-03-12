@@ -14,6 +14,18 @@ export const Justify = Object.freeze({
   spaceEvenly: "space-evenly"
 });
 
+export const LeafletMode = Object.freeze({
+  auto: "auto",
+  split: "split",
+  stacked: "stacked"
+});
+
+export const HideBelowMode = Object.freeze({
+  auto: "auto",
+  visible: "visible",
+  hidden: "hidden"
+});
+
 export const IconPosition = Object.freeze({
   left: "left",
   right: "right"
