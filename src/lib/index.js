@@ -77,6 +77,8 @@ export { default as TitleBar } from "./components/TitleBar.svelte";
 export { default as Window } from "./components/Window.svelte";
 export { default as Skeleton } from "./components/Skeleton.svelte";
 export { default as Text } from "./components/Text.svelte";
+export { default as AdaptiveContent } from "./components/AdaptiveContent.svelte";
+export { default as ResponsiveSlot } from "./components/ResponsiveSlot.svelte";
 export { default as EngineDecorator } from "./components/EngineDecorator.svelte";
 
 export { default as Image } from "./components/Image.svelte";
