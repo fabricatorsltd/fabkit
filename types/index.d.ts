@@ -43,6 +43,7 @@ export const MenuSwitcher: Component<Record<string, any>>;
 export const StaticNotebook: Component<Record<string, any>>;
 export const Switcher: Component<Record<string, any>>;
 export const TabsSwitcher: Component<Record<string, any>>;
+export const ToolbarView: Component<Record<string, any>>;
 export const TextRich: Component<Record<string, any>>;
 export const TitleBar: Component<Record<string, any>>;
 export const Window: Component<Record<string, any>>;
