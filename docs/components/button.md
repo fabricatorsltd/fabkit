@@ -35,6 +35,7 @@ import { Button } from 'fabkit';
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `label` | `string` | `""` | Text label. Ignored when `children` is provided |
+| `labelBehavior` | `"auto" \| "always" \| "never"` | `"always"` | When to show the label (auto hides on compact). When hidden, Button sets `aria-label` from `label` unless already provided |
 | `icon` | `string` | `""` | Legacy string icon — prefer using `children` with a Phosphor component |
 | `children` | `Snippet` | — | Slot content — renders instead of `label`/`icon` |
 | `disabled` | `boolean` | `false` | Disables the button, reduces opacity |
@@ -82,6 +83,9 @@ All Skeleton color, border, shadow, and transform props work on Button.
 <Button square onClick={close}>
   <PhX size={18} />
 </Button>
+
+<!-- Auto label behavior (icon-only on compact) -->
+<Button icon={PhTrash} label="Delete" labelBehavior="auto" onClick={deleteItem} />
 
 <!-- Custom colors -->
 <Button

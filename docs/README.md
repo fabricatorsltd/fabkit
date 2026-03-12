@@ -10,24 +10,34 @@
 
 - [Getting Started](./getting-started.md) — installation, setup, SSR, dark mode
 - [Theming](./theming.md) — `initTheme`, CSS variables, fine-tuning, dark mode
+- [Responsive apps](./responsive-apps.md) — container-driven responsive best practices
 
 ### Foundation
 
 - [Skeleton](./components/skeleton.md) — base layout primitive (all visual props)
+- [AdaptiveContent](./components/adaptive-content.md) — breakpoint-based content variants
+- [DensityProvider](./components/density-provider.md) — density context (compact/regular/roomy)
 
 ### Layout
 
 - [Window](./components/window.md) — app shell
 - [TitleBar](./components/title-bar.md) — window title bar
 - [SideLayout](./components/side-layout.md) — sidebar + content
+- [AdaptiveLayout](./components/adaptive-layout.md) — container-driven breakpoints
+- [Breakpoint](./components/breakpoint.md) — breakpoint rule for AdaptiveLayout
 - [Leaflet](./components/leaflet.md) — adaptive two-pane stack
+- [Flap](./components/flap.md) — adaptive sidebar drawer
 - [Paned](./components/paned.md) — resizable two-panel split
+- [ToolbarView](./components/toolbar-view.md) — top/bottom bars + content
 - [HBox](./components/hbox.md) — horizontal flexbox row
 - [VBox](./components/vbox.md) — vertical flexbox column
 - [Grid](./components/grid.md) — CSS Grid wrapper
+- [AdaptiveGrid](./components/adaptive-grid.md) — grid → list by container size
 - [Card](./components/card.md) — bordered container
 - [Wrapper](./components/wrapper.md) — generic container
+- [Container](./components/container.md) — maxWidth + gutters + edge-to-edge
 - [Clamp](./components/clamp.md) — constrain content size
+- [ClampScrollable](./components/clamp-scrollable.md) — clamp inside scroll
 
 ### Navigation & Tabs
 
@@ -36,6 +46,8 @@
 - [Notebook](./components/notebook.md) — dynamic tabbed content
 - [TabsSwitcher](./components/tabs-switcher.md) — tab bar for Notebook
 - [Tab](./components/tab.md) — single tab for TabsSwitcher
+- [ViewSwitcher](./components/view-switcher.md) — adaptive view switching
+- [ViewStack](./components/view-stack.md) — view container for switching
 - [Accordion](./components/accordion.md) — expandable/collapsible panels
 - [AccordionItem](./components/accordion-item.md) — single panel for Accordion
 
@@ -53,12 +65,15 @@
 - [ContextArea](./components/context-area.md) — right-click context menu
 - [SlideOver](./components/slide-over.md) — bottom sheet / modal drawer
 - [SlideOverContent](./components/slide-over-content.md) — content for SlideOver
+- [ToastOverlay](./components/toast-overlay.md) — non-blocking notifications
+- [Toast](./components/toast.md) — transient notification
 - [Menu](./components/menu.md) — vertical item list
 - [MenuItem](./components/menu-item.md) — single menu item
 - [ActionRow](./components/action-row.md) — row for actions/settings
 - [PreferencesGroup](./components/preferences-group.md) — group for settings
 - [PreferencesPage](./components/preferences-page.md) — settings page layout
 - [Tooltip](./components/tooltip.md) — floating label on hover/focus
+- [Banner](./components/banner.md) — inline info/warning bar
 - [Separator](./components/separator.md) — divider line
 
 ### Form Fields
