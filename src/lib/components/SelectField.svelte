@@ -1,5 +1,6 @@
 <script>
   import { resolveProps } from "../system.js";
+  import { resolveToken } from "../style/index.js";
   import PhCaretUp from "../icons/components/CaretUp.svelte";
   import PhCaretDown from "../icons/components/CaretDown.svelte";
   /**
@@ -20,6 +21,8 @@
     optionHoverBg = "var(--background-elevated-2-hover)",
     optionActiveBg = "var(--background-top)",
     class: className = "",
+    borderColor = undefined,
+    borderColorActive = undefined,
     // Collect expressive syntax props
     ...rest
   } = $props();
@@ -85,8 +88,31 @@
   const finalBorderRadius = $derived(
     rest.borderRadius !== undefined ? rest.borderRadius : [0, 0, 0, 0],
   );
+  function resolveSingleBorderColor(val) {
+    if (val === undefined) return undefined;
+    if (Array.isArray(val)) {
+      const bottom = val.length >= 3 ? val[2] : val[val.length - 1];
+      return resolveToken(bottom);
+    }
+    return resolveToken(val);
+  }
+
   const finalBorderColor = $derived(
-    rest.borderColor !== undefined ? rest.borderColor : "transparent",
+    borderColor !== undefined ? borderColor : "transparent",
+  );
+
+  const underlineBorderColor = $derived(
+    borderColor !== undefined
+      ? resolveSingleBorderColor(borderColor)
+      : "var(--border-tertiary)",
+  );
+
+  const underlineBorderColorActive = $derived(
+    rest.active?.borderColor !== undefined
+      ? resolveSingleBorderColor(rest.active.borderColor)
+      : borderColorActive !== undefined
+        ? resolveSingleBorderColor(borderColorActive)
+        : "var(--action-suggested)",
   );
 
   const processedProps = $derived.by(() => {
@@ -124,12 +150,14 @@
   </label>
   <div
     class="SelectField-display"
+    style:--snt-select-underline={underlineBorderColor}
+    style:--snt-select-underline-active={underlineBorderColorActive}
     style:border-bottom-width={flat ? "0" : isOpen ? "2px" : "1px"}
     style:border-bottom-color={flat
       ? "transparent"
       : isOpen
-        ? "var(--action-suggested)"
-        : "var(--border-tertiary)"}
+        ? "var(--snt-select-underline-active)"
+        : "var(--snt-select-underline)"}
   >
     {displayText}
     <span class="SelectField-expand-icon">
@@ -182,10 +210,17 @@
     justify-content: space-between;
     align-items: center;
     height: 22px;
+    transition:
+      border-bottom-color 0.2s ease-out,
+      border-bottom-width 0.2s ease-out;
   }
 
   .SelectField-display:focus {
-    border-bottom: 2px solid var(--action-suggested);
+    border-bottom-color: var(
+      --snt-select-underline-active,
+      var(--action-suggested)
+    );
+    border-bottom-width: 2px;
   }
 
   .SelectField-label {

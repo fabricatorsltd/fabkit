@@ -4,6 +4,7 @@
   let {
     value = $bindable("#000000"),
     label = "",
+    flat = false,
     // Skeleton pass-through
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
@@ -77,7 +78,11 @@
   {zIndex}
   {...rest}
 >
-  <div class="ColorPicker-wrapper" bind:this={wrapperEl}>
+  <div
+    class="ColorPicker-wrapper"
+    class:ColorPicker-wrapper--flat={flat}
+    bind:this={wrapperEl}
+  >
     {#if label}
       <span class="ColorPicker-label">{label}</span>
     {/if}
@@ -130,6 +135,10 @@
     gap: 8px;
     border-bottom: 1px solid var(--border-tertiary);
     padding: 4px 0;
+  }
+
+  .ColorPicker-wrapper--flat {
+    border-bottom: none;
   }
 
   .ColorPicker-label {

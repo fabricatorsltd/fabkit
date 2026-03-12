@@ -81,6 +81,7 @@ Accepts all [Skeleton props](./skeleton.md).
 
 - The dropdown list is custom (not a native `<select>`) — consistent styling across all browsers.
 - Clicking outside the dropdown closes it.
+- `borderColor` / `borderColorActive` are used for the underline color.
 - If the dropdown renders under other elements, set the `zIndex` prop on `SelectField` (the dropdown uses a higher z-index than the field container).
 - The expand caret icon uses `PhCaretDown` from Phosphor.
 - If the dropdown is appearing under other elements, set `zIndex` on the `SelectField` (the dropdown will render at `zIndex + 1`).
