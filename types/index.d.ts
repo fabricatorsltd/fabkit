@@ -58,6 +58,7 @@ export const TextRich: Component<Record<string, any>>;
 export const TitleBar: Component<Record<string, any>>;
 export const Window: Component<Record<string, any>>;
 export const Skeleton: Component<Record<string, any>>;
+export const DensityProvider: Component<Record<string, any>>;
 export const Text: Component<Record<string, any>>;
 export const AdaptiveContent: Component<Record<string, any>>;
 export const ResponsiveSlot: Component<Record<string, any>>;
@@ -95,6 +96,13 @@ export function initTheme(...args: any[]): any;
 export function getTheme(...args: any[]): any;
 export function generateColorVariants(...args: any[]): any;
 export const defaultTheme: any;
+
+// Density
+export const DENSITIES: any;
+export const DENSITY_TOKENS: any;
+export function normalizeDensity(...args: any[]): any;
+export function resolveDensityTokens(...args: any[]): any;
+export function getDensityStore(...args: any[]): any;
 
 // Utils
 export const Engine: any;

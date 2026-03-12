@@ -7,6 +7,8 @@ export { defaultTheme } from "./defaultTheme.js";
 
 // System Utilities
 export { resolveProps } from "./system.js";
+export { DENSITIES, DENSITY_TOKENS, normalizeDensity, resolveDensityTokens } from "./density.js";
+export { getDensityStore } from "./DensityContext.js";
 
 // Components
 export { default as BaseField } from "./components/BaseField.svelte";
@@ -63,6 +65,7 @@ export { default as TextRich } from "./components/TextRich.svelte";
 export { default as TitleBar } from "./components/TitleBar.svelte";
 export { default as Window } from "./components/Window.svelte";
 export { default as Skeleton } from "./components/Skeleton.svelte";
+export { default as DensityProvider } from "./components/DensityProvider.svelte";
 export { default as Text } from "./components/Text.svelte";
 export { default as AdaptiveContent } from "./components/AdaptiveContent.svelte";
 export { default as ResponsiveSlot } from "./components/ResponsiveSlot.svelte";
