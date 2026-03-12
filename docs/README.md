@@ -10,6 +10,7 @@
 
 - [Getting Started](./getting-started.md) — installation, setup, SSR, dark mode
 - [Theming](./theming.md) — `initTheme`, CSS variables, fine-tuning, dark mode
+- [Responsive apps](./responsive-apps.md) — container-driven responsive best practices
 
 ### Foundation
 
