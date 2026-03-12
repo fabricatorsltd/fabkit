@@ -27,6 +27,7 @@ import { ColorPicker } from 'fabkit';
 | `value`   | `string`  | `""`   | Selected color (**bindable**) |
 | `palette` | `string[]`| `[]`    | Array of preset colors     |
 | `disabled`| `boolean` | `false` | Disables the picker        |
+| `flat`    | `boolean` | `false` | Removes the internal underline/bottom border |
 | `ref`     | `bindable`| —       | DOM element reference      |
 
 ---

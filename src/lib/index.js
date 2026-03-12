@@ -40,6 +40,8 @@ export { default as SideLayout } from "./components/SideLayout.svelte";
 export { default as AdaptiveLayout } from "./components/AdaptiveLayout.svelte";
 export { default as Breakpoint } from "./components/Breakpoint.svelte";
 export { default as Leaflet } from "./components/Leaflet.svelte";
+export { default as NavigationSplitView } from "./components/NavigationSplitView.svelte";
+export { default as NavigationView } from "./components/NavigationView.svelte";
 export { default as Flap } from "./components/Flap.svelte";
 export { default as Slider } from "./components/Slider.svelte";
 export { default as TextField } from "./components/TextField.svelte";
@@ -90,12 +92,19 @@ export { default as Chip } from "./components/Chip.svelte";
 export { default as DataTable } from "./components/DataTable.svelte";
 export { default as Kbd } from "./components/Kbd.svelte";
 export { default as ActionRow } from "./components/ActionRow.svelte";
+export { default as ActionBar } from "./components/ActionBar.svelte";
 export { default as PreferencesGroup } from "./components/PreferencesGroup.svelte";
 export { default as PreferencesPage } from "./components/PreferencesPage.svelte";
 export { default as EntryRow } from "./components/EntryRow.svelte";
 export { default as SwitchRow } from "./components/SwitchRow.svelte";
 export { default as SpinRow } from "./components/SpinRow.svelte";
 export { default as LevelBar } from "./components/LevelBar.svelte";
+export { default as AdaptiveTable } from "./components/AdaptiveTable.svelte";
+export { default as AdaptiveMedia } from "./components/AdaptiveMedia.svelte";
+export { default as AdaptiveFormLayout } from "./components/AdaptiveFormLayout.svelte";
+export { default as AdaptiveFormRow } from "./components/AdaptiveFormRow.svelte";
+export { default as HideBelow } from "./components/HideBelow.svelte";
+export { default as Optional } from "./components/Optional.svelte";
 
 // Utils
 export { default as Engine } from "./Engine.js";

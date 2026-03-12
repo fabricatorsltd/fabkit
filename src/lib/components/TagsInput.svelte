@@ -6,6 +6,7 @@
     tags = $bindable([]),
     placeholder = "Add tag…",
     maxTags = undefined,
+    flat = false,
     // Skeleton pass-through
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
@@ -67,7 +68,10 @@
   {zIndex}
   {...rest}
 >
-  <div class="TagsInput-container">
+  <div
+    class="TagsInput-container"
+    class:TagsInput-container--flat={flat}
+  >
     {#each tags as tag, i}
       <div class="TagsInput-tag">
         <span>{tag}</span>
@@ -97,8 +101,12 @@
     min-height: 40px;
   }
 
-  .TagsInput-container:focus-within {
+  .TagsInput-container:focus-within:not(.TagsInput-container--flat) {
     border-bottom: 2px solid var(--action-suggested);
+  }
+
+  .TagsInput-container--flat {
+    border-bottom: none;
   }
 
   .TagsInput-tag {

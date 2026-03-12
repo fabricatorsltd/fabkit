@@ -189,15 +189,20 @@
   .BaseField-input:-webkit-autofill,
   .BaseField-input:-webkit-autofill:hover,
   .BaseField-input:-webkit-autofill:focus,
-  .BaseField-input:-internal-autofill-selected {
-    border-radius: inherit;
-    -webkit-text-fill-color: var(--text-primary);
-    caret-color: var(--text-primary);
+  .BaseField-input:-internal-autofill-selected,
+  .BaseField-input:-internal-autofill-previewed {
+    border-radius: inherit !important;
+    -webkit-text-fill-color: var(--text-primary) !important;
+    caret-color: var(--text-primary) !important;
     background-color: transparent !important;
-    box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    box-shadow: 0 0 0px 1000px transparent inset !important;
+    transition: background-color 9999s ease-out 0s;
   }
 
-  :global(.BaseField:has(input:-webkit-autofill)) .BaseField-label {
+  :global(.BaseField:has(input:-webkit-autofill)) .BaseField-label,
+  :global(.BaseField:has(input:-internal-autofill-selected)) .BaseField-label,
+  :global(.BaseField:has(input:-internal-autofill-previewed)) .BaseField-label {
     transform: translateY(-15px);
     font-size: 0.85rem;
     left: 0 !important;
