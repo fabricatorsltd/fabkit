@@ -25,6 +25,7 @@
 - [Leaflet](./components/leaflet.md) — adaptive two-pane stack
 - [Flap](./components/flap.md) — adaptive sidebar drawer
 - [Paned](./components/paned.md) — resizable two-panel split
+- [ToolbarView](./components/toolbar-view.md) — top/bottom bars + content
 - [HBox](./components/hbox.md) — horizontal flexbox row
 - [VBox](./components/vbox.md) — vertical flexbox column
 - [Grid](./components/grid.md) — CSS Grid wrapper
