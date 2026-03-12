@@ -23,6 +23,7 @@
 - [AdaptiveLayout](./components/adaptive-layout.md) — container-driven breakpoints
 - [Breakpoint](./components/breakpoint.md) — breakpoint rule for AdaptiveLayout
 - [Leaflet](./components/leaflet.md) — adaptive two-pane stack
+- [Flap](./components/flap.md) — adaptive sidebar drawer
 - [Paned](./components/paned.md) — resizable two-panel split
 - [HBox](./components/hbox.md) — horizontal flexbox row
 - [VBox](./components/vbox.md) — vertical flexbox column
