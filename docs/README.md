@@ -14,6 +14,7 @@
 ### Foundation
 
 - [Skeleton](./components/skeleton.md) — base layout primitive (all visual props)
+- [AdaptiveContent](./components/adaptive-content.md) — breakpoint-based content variants
 
 ### Layout
 

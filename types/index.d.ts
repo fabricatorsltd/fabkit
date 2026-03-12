@@ -58,6 +58,8 @@ export const TitleBar: Component<Record<string, any>>;
 export const Window: Component<Record<string, any>>;
 export const Skeleton: Component<Record<string, any>>;
 export const Text: Component<Record<string, any>>;
+export const AdaptiveContent: Component<Record<string, any>>;
+export const ResponsiveSlot: Component<Record<string, any>>;
 export const EngineDecorator: Component<Record<string, any>>;
 export const Image: Component<Record<string, any>>;
 export const TextArea: Component<Record<string, any>>;
