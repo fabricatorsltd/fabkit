@@ -9,7 +9,17 @@ export { defaultTheme } from "./defaultTheme.js";
 export { resolveProps } from "./system.js";
 
 // Prop constants
-export { Align, Justify, LeafletMode, HideBelowMode, ButtonVariant } from "./propTypes.js";
+export {
+  Align,
+  Justify,
+  IconPosition,
+  PopOverAlign,
+  GridAlign,
+  GridJustify,
+  TextAlign,
+  TextTransform,
+  ButtonVariant
+} from "./propTypes.js";
 
 // Components
 export { default as BaseField } from "./components/BaseField.svelte";
