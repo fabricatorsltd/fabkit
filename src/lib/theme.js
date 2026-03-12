@@ -221,11 +221,8 @@ function applyThemeToRoot(theme) {
   const isDark = root.classList.contains('dark');
   const structVars = isDark ? DARK_VARS : LIGHT_VARS;
 
-  // Apply structural vars (only if not already set by external CSS)
   for (const [k, v] of Object.entries(structVars)) {
-    if (!root.style.getPropertyValue(k)) {
-      root.style.setProperty(k, v);
-    }
+    root.style.setProperty(k, v);
   }
 
   // Border radius from theme dimensions
@@ -292,8 +289,13 @@ let currentTheme = null;
  *   dimensions: { borderRadius: 12, spacing: 10, fontSize: 14 }
  * });
  */
-export function initTheme(userTheme = {}) {
-  const theme = mergeWithDefaults(userTheme);
+export function initTheme(userTheme) {
+  if (arguments.length === 0 && currentTheme) {
+    applyThemeToRoot(currentTheme);
+    return currentTheme;
+  }
+
+  const theme = mergeWithDefaults(userTheme || {});
   applyThemeToRoot(theme);
   currentTheme = theme;
   return theme;
