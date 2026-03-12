@@ -16,6 +16,8 @@ export { default as Dialog } from "./components/Dialog.svelte";
 export { default as Grid } from "./components/Grid.svelte";
 export { default as HBox } from "./components/HBox.svelte";
 export { default as Wrapper } from "./components/Wrapper.svelte";
+export { default as Container } from "./components/Container.svelte";
+export { default as Page } from "./components/Page.svelte";
 export { default as Clamp } from "./components/Clamp.svelte";
 import MenuComponent from "./components/Menu.svelte";
 import MenuItem from "./components/MenuItem.svelte";
