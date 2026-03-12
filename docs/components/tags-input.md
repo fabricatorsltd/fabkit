@@ -27,6 +27,7 @@ import { TagsInput } from 'fabkit';
 | `values`  | `string[]`| `[]`    | List of tags (**bindable**) |
 | `placeholder` | `string` | `""` | Placeholder text           |
 | `disabled`| `boolean` | `false` | Disables the input         |
+| `flat`    | `boolean` | `false` | Removes the internal underline/bottom border |
 | `ref`     | `bindable`| —       | DOM element reference      |
 
 ---
