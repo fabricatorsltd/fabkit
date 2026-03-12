@@ -199,7 +199,8 @@ export function getDensityStore(): Readable<{ density: Density; tokens: DensityT
 
 export interface ButtonProps extends SkeletonProps {
   label?: string;
-  icon?: Component<any> | null;
+  icon?: Component<any> | Snippet | null;
+  labelBehavior?: 'auto' | 'always' | 'never';
   children?: Snippet;
   disabled?: boolean;
   type?: string;
