@@ -31,6 +31,7 @@
 - [Grid](./components/grid.md) — CSS Grid wrapper
 - [Card](./components/card.md) — bordered container
 - [Wrapper](./components/wrapper.md) — generic container
+- [Container](./components/container.md) — maxWidth + gutters + edge-to-edge
 - [Clamp](./components/clamp.md) — constrain content size
 - [ClampScrollable](./components/clamp-scrollable.md) — clamp inside scroll
 
