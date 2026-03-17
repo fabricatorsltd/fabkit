@@ -109,16 +109,26 @@ export function resolveProps(props) {
     'm', 'mx', 'my', 'mt', 'mb', 'ml', 'mr',
     'p', 'px', 'py', 'pt', 'pb', 'pl', 'pr',
     'margin', 'padding',
-    // Sizing shortcuts
+
+    // Sizing
     'w', 'h', 'minW', 'minH', 'maxW', 'maxH',
+    'width', 'height', 'minWidth', 'minHeight', 'maxWidth', 'maxHeight',
+
     // Display
     'display', 'flex', 'flexDir', 'gap', 'align', 'justify',
+
+    // Typography
+    'fontSize', 'fontWeight', 'textAlign',
+
     // Borders & Radius
     'radius', 'borderRadius', 'borderWidth', 'borderColor', 'borderStyle',
+
     // Backgrounds & Colors
     'bg', 'color', 'shadow',
+
     // Interactions
     'hover', 'focus', 'active',
+
     // Other
     'zIndex', 'opacity', 'overflow', 'position'
   ]);
@@ -178,6 +188,36 @@ export function resolveProps(props) {
     else if (key === 'maxH' && value !== undefined) {
       styles['max-height'] = formatValue(value);
     }
+    else if (key === 'width' && value !== undefined) {
+      styles['width'] = formatValue(value);
+    }
+    else if (key === 'height' && value !== undefined) {
+      styles['height'] = formatValue(value);
+    }
+    else if (key === 'minWidth' && value !== undefined) {
+      styles['min-width'] = formatValue(value);
+    }
+    else if (key === 'minHeight' && value !== undefined) {
+      styles['min-height'] = formatValue(value);
+    }
+    else if (key === 'maxWidth' && value !== undefined) {
+      styles['max-width'] = formatValue(value);
+    }
+    else if (key === 'maxHeight' && value !== undefined) {
+      styles['max-height'] = formatValue(value);
+    }
+    else if (key === 'min-width' && value !== undefined) {
+      styles['min-width'] = formatValue(value);
+    }
+    else if (key === 'min-height' && value !== undefined) {
+      styles['min-height'] = formatValue(value);
+    }
+    else if (key === 'max-width' && value !== undefined) {
+      styles['max-width'] = formatValue(value);
+    }
+    else if (key === 'max-height' && value !== undefined) {
+      styles['max-height'] = formatValue(value);
+    }
     // Handle backgrounds and colors
     else if (key === 'bg' && value !== undefined) {
       styles['background-color'] = resolveToken(value);
@@ -188,6 +228,16 @@ export function resolveProps(props) {
     // Handle shadows
     else if (key === 'shadow' && value !== undefined) {
       styles['box-shadow'] = resolveToken(value);
+    }
+    // Handle typography
+    else if (key === 'fontSize' || key === 'font-size') {
+      styles['font-size'] = formatValue(value);
+    }
+    else if (key === 'fontWeight' || key === 'font-weight') {
+      styles['font-weight'] = value;
+    }
+    else if (key === 'textAlign' || key === 'text-align') {
+      styles['text-align'] = value;
     }
     // Handle display properties
     else if (key === 'display' && value !== undefined) {
