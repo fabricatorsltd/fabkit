@@ -30,6 +30,7 @@ export { default as BaseField } from "./components/BaseField.svelte";
 export { default as Button } from "./components/Button.svelte";
 export { default as Card } from "./components/Card.svelte";
 export { default as Dialog } from "./components/Dialog.svelte";
+export { default as ConfirmDialog } from "./components/ConfirmDialog.svelte";
 export { default as Toast } from "./components/Toast.svelte";
 export { default as ToastOverlay } from "./components/ToastOverlay.svelte";
 export { default as Banner } from "./components/Banner.svelte";

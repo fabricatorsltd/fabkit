@@ -6,23 +6,27 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     title: { control: "text" },
-    messages: { control: "object" },
-    confirmText: { control: "text" },
-    confirmType: {
-      control: { type: "select" },
-      options: ["button", "suggested", "destructive", "flat"],
-    },
-    cancelText: { control: "text" },
+    closeOnBackdrop: { control: "boolean" },
+    closeOnEscape: { control: "boolean" },
   },
 };
 
 export default meta;
 
 export const Default = {
+  render: (args) => ({
+    Component: Dialog,
+    props: args,
+    slots: {
+      default: `
+        <p>Custom body content (form, layout, etc.).</p>
+      `,
+    },
+  }),
   args: {
-    title: "Confirmation",
-    messages: ["Are you sure you want to proceed?"],
-    confirm: () => alert("Confirmed"),
-    cancel: () => alert("Cancelled"),
+    title: "Dialog",
+    onClose: () => alert("Closed"),
+    closeOnBackdrop: true,
+    closeOnEscape: true,
   },
 };

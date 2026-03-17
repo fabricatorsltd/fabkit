@@ -59,7 +59,8 @@
 - [Slider](./components/slider.md) — range input
 - [SpinRow](./components/spin-row.md) — row with label and spinner
 - [Carousel](./components/carousel.md) — slide viewer
-- [Dialog](./components/dialog.md) — modal confirmation
+- [Dialog](./components/dialog.md) — generic modal container
+- [ConfirmDialog](./components/confirm-dialog.md) — modal confirmation
 - [PopOver](./components/pop-over.md) — anchored floating panel
 - [PopOverWrapper](./components/pop-over-wrapper.md) — popover positioning utility
 - [ContextArea](./components/context-area.md) — right-click context menu
