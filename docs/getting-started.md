@@ -117,7 +117,8 @@ import('fabkit').then(({ initTheme }) => initTheme());
 | [Card](./components/card.md) | Bordered content container |
 | [Carousel](./components/carousel.md) | Horizontal slide viewer |
 | [ContextArea](./components/context-area.md) | Right-click context menu |
-| [Dialog](./components/dialog.md) | Modal confirmation dialog |
+| [Dialog](./components/dialog.md) | Generic modal dialog container |
+| [ConfirmDialog](./components/confirm-dialog.md) | Modal confirmation dialog |
 | [Grid](./components/grid.md) | CSS Grid wrapper |
 | [HBox](./components/hbox.md) | Horizontal flexbox row |
 | [VBox](./components/vbox.md) | Vertical flexbox column |

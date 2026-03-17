@@ -348,15 +348,25 @@ export interface CardProps extends SkeletonProps {
   children?: Snippet;
 }
 
-export interface DialogProps extends SkeletonProps {
+export interface ConfirmDialogProps extends SkeletonProps {
   title?: string;
-  messages?: readonly any[];
+  messages?: readonly string[];
   confirm?: () => void;
   confirmText?: string;
   confirmType?: ButtonVariant | string;
   cancel?: () => void;
   cancelText?: string;
   children?: Snippet;
+}
+
+export interface DialogProps extends SkeletonProps {
+  title?: string;
+  onClose?: () => void;
+  closeOnBackdrop?: boolean;
+  closeOnEscape?: boolean;
+  footer?: Snippet;
+  children?: Snippet;
+  class?: string;
 }
 
 export type ClampOrientation = 'horizontal' | 'vertical';
@@ -1066,6 +1076,7 @@ export const BaseField: Component<BaseFieldProps>;
 export const Button: Component<ButtonProps>;
 export const Card: Component<CardProps>;
 export const Dialog: Component<DialogProps>;
+export const ConfirmDialog: Component<ConfirmDialogProps>;
 export const Toast: Component<ToastProps>;
 export const ToastOverlay: Component<ToastOverlayProps>;
 export const Banner: Component<BannerProps>;
