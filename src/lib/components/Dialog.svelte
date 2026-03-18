@@ -19,8 +19,18 @@
   }
 
   function handleBackdropKeydown(event) {
-    if (event.key === "Escape" && closeOnEscape) onClose?.();
-    if ((event.key === "Enter" || event.key === " ") && closeOnBackdrop) onClose?.();
+    if (event.key === "Escape" && closeOnEscape) {
+      onClose?.();
+      return;
+    }
+
+    if (!closeOnBackdrop) return;
+    if (event.target !== event.currentTarget) return;
+
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onClose?.();
+    }
   }
 
   onMount(() => {
