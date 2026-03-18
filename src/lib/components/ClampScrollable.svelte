@@ -102,17 +102,44 @@
     if (!ref) return;
     if (typeof ResizeObserver === "undefined") return;
 
-    const update = () => {
+    const updateFromElement = () => {
       availableSize =
         orientation === "vertical" ? ref.clientHeight : ref.clientWidth;
     };
 
-    update();
+    const ro = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      const rect = entry?.contentRect;
+      const size = orientation === "vertical" ? rect?.height : rect?.width;
 
-    const ro = new ResizeObserver(() => update());
+      if (Number.isFinite(size) && size > 0) {
+        availableSize = size;
+      } else {
+        updateFromElement();
+      }
+    });
+
     ro.observe(ref);
 
-    return () => ro.disconnect();
+    let raf1;
+    let raf2;
+
+    if (typeof requestAnimationFrame === "function") {
+      raf1 = requestAnimationFrame(() => {
+        updateFromElement();
+        raf2 = requestAnimationFrame(updateFromElement);
+      });
+    } else {
+      updateFromElement();
+    }
+
+    return () => {
+      ro.disconnect();
+      if (typeof cancelAnimationFrame === "function") {
+        if (raf1) cancelAnimationFrame(raf1);
+        if (raf2) cancelAnimationFrame(raf2);
+      }
+    };
   });
 </script>
 
