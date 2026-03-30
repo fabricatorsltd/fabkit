@@ -76,6 +76,8 @@
         maxPx ? `max-height: ${maxPx}` : undefined,
         "height: 100%",
         sizePx ? `height: ${sizePx}` : undefined,
+        "margin-top: auto",
+        "margin-bottom: auto",
       ]
         .filter(Boolean)
         .join("; ");
@@ -86,6 +88,8 @@
       maxPx ? `max-width: ${maxPx}` : undefined,
       "width: 100%",
       sizePx ? `width: ${sizePx}` : undefined,
+      "margin-left: auto",
+      "margin-right: auto",
     ]
       .filter(Boolean)
       .join("; ");
@@ -95,9 +99,12 @@
     if (!ref) return;
     if (typeof ResizeObserver === "undefined") return;
 
-    const updateFromElement = () => {
+    // Measure the PARENT element to avoid self-referencing feedback loop
+    const target = ref.parentElement ?? ref;
+
+    const updateFromTarget = () => {
       availableSize =
-        orientation === "vertical" ? ref.clientHeight : ref.clientWidth;
+        orientation === "vertical" ? target.clientHeight : target.clientWidth;
     };
 
     const ro = new ResizeObserver((entries) => {
@@ -108,22 +115,22 @@
       if (Number.isFinite(size) && size > 0) {
         availableSize = size;
       } else {
-        updateFromElement();
+        updateFromTarget();
       }
     });
 
-    ro.observe(ref);
+    ro.observe(target);
 
     let raf1;
     let raf2;
 
     if (typeof requestAnimationFrame === "function") {
       raf1 = requestAnimationFrame(() => {
-        updateFromElement();
-        raf2 = requestAnimationFrame(updateFromElement);
+        updateFromTarget();
+        raf2 = requestAnimationFrame(updateFromTarget);
       });
     } else {
-      updateFromElement();
+      updateFromTarget();
     }
 
     return () => {
@@ -146,16 +153,21 @@
   :global(.Clamp) {
     display: flex;
     box-sizing: border-box;
+    min-width: 0;
+    min-height: 0;
   }
 
   :global(.Clamp--horizontal) {
     flex-direction: row;
-    justify-content: center;
+    /* Use flex-start + auto margins on inner for safe centering */
+    justify-content: flex-start;
   }
 
   :global(.Clamp--vertical) {
     flex-direction: column;
-    justify-content: center;
+    /* Use flex-start + auto margins on inner for safe centering */
+    justify-content: flex-start;
+    overflow-y: auto;
   }
 
   .Clamp-inner {

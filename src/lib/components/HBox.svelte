@@ -90,5 +90,7 @@
   :global(.HBox) {
     display: flex;
     flex-direction: row;
+    min-width: 0;
+    min-height: 0;
   }
 </style>

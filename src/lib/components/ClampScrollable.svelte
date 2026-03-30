@@ -102,9 +102,12 @@
     if (!ref) return;
     if (typeof ResizeObserver === "undefined") return;
 
-    const updateFromElement = () => {
+    // Measure the PARENT element to avoid self-referencing feedback loop
+    const target = ref.parentElement ?? ref;
+
+    const updateFromTarget = () => {
       availableSize =
-        orientation === "vertical" ? ref.clientHeight : ref.clientWidth;
+        orientation === "vertical" ? target.clientHeight : target.clientWidth;
     };
 
     const ro = new ResizeObserver((entries) => {
@@ -115,22 +118,22 @@
       if (Number.isFinite(size) && size > 0) {
         availableSize = size;
       } else {
-        updateFromElement();
+        updateFromTarget();
       }
     });
 
-    ro.observe(ref);
+    ro.observe(target);
 
     let raf1;
     let raf2;
 
     if (typeof requestAnimationFrame === "function") {
       raf1 = requestAnimationFrame(() => {
-        updateFromElement();
-        raf2 = requestAnimationFrame(updateFromElement);
+        updateFromTarget();
+        raf2 = requestAnimationFrame(updateFromTarget);
       });
     } else {
-      updateFromElement();
+      updateFromTarget();
     }
 
     return () => {

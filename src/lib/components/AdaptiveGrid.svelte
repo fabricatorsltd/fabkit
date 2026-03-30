@@ -141,6 +141,12 @@
 </Skeleton>
 
 <style>
+  :global(.AdaptiveGrid) {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
   :global(.AdaptiveGrid-list) {
     display: flex;
     flex-direction: column;

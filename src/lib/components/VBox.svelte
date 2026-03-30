@@ -91,5 +91,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    min-width: 0;
+    min-height: 0;
   }
 </style>

@@ -153,7 +153,7 @@
   bind:this={ref}
   style={[
     processedProps.styles,
-    `height: ${flat || maximized ? '100vh' : 'calc(100vh - 20px)'}`
+    `height: ${flat || maximized ? '100dvh' : 'calc(100dvh - 20px)'}`,
   ].filter(Boolean).join('; ')}
   {...processedProps.filteredRest}
 >
@@ -173,7 +173,7 @@
   :global(.Window) {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow: clip;
   }
 
   :global(.Window.Window--maximized) {

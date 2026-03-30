@@ -160,10 +160,12 @@ table {
 html {
     background-color: transparent;
     text-align: center;
+    height: 100%;
 }
 
 body {
     margin: 0;
+    height: 100%;
     color: var(--text-primary);
     user-select: none;
     -webkit-user-select: none;
@@ -181,7 +183,8 @@ textarea {
 }
 
 #app {
-    height: 100vh;
+    height: 100dvh;
+    height: 100vh; /* fallback for older browsers */
     text-align: center;
 }
 

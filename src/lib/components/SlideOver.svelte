@@ -25,6 +25,15 @@
     allowOverflow = false,
   } = $props();
 
+  // Programmatically lock body scroll while mounted (replaces the old :global(body) { overflow: hidden })
+  $effect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  });
+
   let popupHeight = $state(height);
   let isVisible = $state(true);
   let container = $state(null);
@@ -223,10 +232,6 @@
 {/if}
 
 <style>
-  :global(body) {
-    overflow: hidden;
-  }
-
   .SlideOver-content {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
