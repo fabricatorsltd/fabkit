@@ -1,3 +1,4 @@
+import _DialogDemo from "./_DialogDemo.svelte";
 import Dialog from "./Dialog.svelte";
 
 const meta = {
@@ -15,17 +16,23 @@ export default meta;
 
 export const Default = {
   render: (args) => ({
-    Component: Dialog,
-    props: args,
-    slots: {
-      default: `
-        <p>Custom body content (form, layout, etc.).</p>
-      `,
-    },
+    Component: _DialogDemo,
+    props: { ...args },
   }),
   args: {
     title: "Dialog",
-    onClose: () => alert("Closed"),
+    closeOnBackdrop: true,
+    closeOnEscape: true,
+  },
+};
+
+export const WithFooter = {
+  render: (args) => ({
+    Component: _DialogDemo,
+    props: { ...args, withFooter: true },
+  }),
+  args: {
+    title: "Confirm Action",
     closeOnBackdrop: true,
     closeOnEscape: true,
   },

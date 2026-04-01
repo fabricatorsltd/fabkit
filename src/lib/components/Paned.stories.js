@@ -1,3 +1,4 @@
+import _PanedDemo from "./_PanedDemo.svelte";
 import Paned from "./Paned.svelte";
 
 const meta = {
@@ -15,24 +16,19 @@ const meta = {
 export default meta;
 
 export const Default = {
+  render: (args) => ({
+    Component: _PanedDemo,
+    props: { size: { left: 30, right: 70 }, minLeft: 100, ...args },
+  }),
   args: {
     size: { left: 30, right: 70 },
     minLeft: 100,
   },
-  render: (args) => ({
-    Component: Paned,
-    props: args,
-    // left: LeftSnippet,
-    // right: RightSnippet
-  }),
 };
 
-/*
-{#snippet LeftSnippet()}
-	<div style="background: #eee; height: 100%; padding: 20px;">Left Pane</div>
-{/snippet}
-
-{#snippet RightSnippet()}
-	<div style="background: #ddd; height: 100%; padding: 20px;">Right Pane</div>
-{/snippet}
-*/
+export const EvenSplit = {
+  render: () => ({
+    Component: _PanedDemo,
+    props: { size: { left: 50, right: 50 }, minLeft: 80 },
+  }),
+};

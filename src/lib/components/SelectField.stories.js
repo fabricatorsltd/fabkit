@@ -8,6 +8,7 @@ const meta = {
     value: { control: "text" },
     label: { control: "text" },
     options: { control: "object" },
+    flat: { control: "boolean" },
     icon: { control: "text" },
     iconPosition: {
       control: { type: "select" },
@@ -18,13 +19,35 @@ const meta = {
 
 export default meta;
 
+const fruitOptions = [
+  { value: "apple",  text: "Apple" },
+  { value: "banana", text: "Banana" },
+  { value: "cherry", text: "Cherry" },
+];
+
 export const Default = {
   args: {
-    label: "Select Option",
+    label: "Fruit",
+    options: fruitOptions,
+  },
+};
+
+export const WithPreselected = {
+  args: {
+    label: "Fruit",
+    value: "banana",
+    options: fruitOptions,
+  },
+};
+
+export const Flat = {
+  args: {
+    label: "Theme",
+    flat: true,
     options: [
-      { value: "1", text: "Option 1" },
-      { value: "2", text: "Option 2" },
-      { value: "3", text: "Option 3" },
+      { value: "light", text: "Light" },
+      { value: "dark",  text: "Dark" },
+      { value: "auto",  text: "System" },
     ],
   },
 };

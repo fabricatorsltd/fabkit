@@ -1,23 +1,21 @@
-// src/lib/components/Carousel.stories.js
+import _CarouselDemo from "./_CarouselDemo.svelte";
 import Carousel from "./Carousel.svelte";
 
 const meta = {
   title: "Components/Carousel",
   component: Carousel,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    borderRadius: { control: "text" },
+    bg: { control: "color" },
+  },
 };
 
 export default meta;
 
 export const Default = {
   render: () => ({
-    Component: Carousel,
+    Component: _CarouselDemo,
     props: {},
-    children: [
-      '<div style="background-color: lightblue; padding: 20px;"><h2>Slide 1</h2></div>',
-      '<div style="background-color: lightgreen; padding: 20px;"><h2>Slide 2</h2></div>',
-      '<div style="background-color: lightcoral; padding: 20px;"><h2>Slide 3</h2></div>',
-    ],
   }),
 };

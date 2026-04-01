@@ -30,3 +30,36 @@ export const Default = {
     placeholder: "Enter text",
   },
 };
+
+export const WithLeftIcon = {
+  args: {
+    label: "Search",
+    placeholder: "Search…",
+    icon: "magnifying-glass",
+    iconPosition: "left",
+  },
+};
+
+export const Password = {
+  args: {
+    label: "Password",
+    placeholder: "Enter password",
+    type: "password",
+  },
+};
+
+export const ReadOnly = {
+  args: {
+    label: "Username",
+    value: "alice_dev",
+    readOnly: true,
+  },
+};
+
+export const Flat = {
+  args: {
+    label: "Flat Field",
+    placeholder: "No border",
+    flat: true,
+  },
+};
