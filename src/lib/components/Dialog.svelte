@@ -91,9 +91,10 @@
     inset: 0;
     z-index: var(--z-dialog, 1000);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    padding: 8px;
+    overflow-y: auto;
+    padding: 16px;
     background-color: var(--background-translucent);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
@@ -102,6 +103,7 @@
   .Dialog {
     display: flex;
     flex-direction: column;
+    margin: auto;
   }
 
   .Dialog-content {

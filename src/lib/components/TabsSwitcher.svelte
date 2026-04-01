@@ -314,7 +314,8 @@
     gap: 5px;
     margin: 5px;
     overflow-x: auto;
-    max-width: calc(100vw - 250px); /* Adjust based on your layout needs */
+    flex: 1;
+    min-width: 0;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }

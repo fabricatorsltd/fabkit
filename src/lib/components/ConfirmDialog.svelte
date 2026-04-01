@@ -71,8 +71,6 @@
     flex-direction: column;
     background-color: var(--background-translucent);
     border-radius: 10px;
-    overflow: hidden;
-    margin: 8px;
     position: fixed;
     top: 0;
     left: 0;
@@ -82,10 +80,13 @@
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding: 16px;
   }
 
   .Dialog-content {
+    margin: auto;
     min-width: 240px;
     max-width: 90vw;
     padding: 16px 20px 16px 20px;

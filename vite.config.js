@@ -11,6 +11,16 @@ export default defineConfig({
     }
   },
   server: {
+    warmup: {
+      // Pre-compila tutti i componenti della lib all'avvio del server così
+      // il primo caricamento non deve aspettare la compilazione JIT di Svelte
+      clientFiles: [
+        './src/lib/index.js',
+        './src/lib/*.js',
+        './src/lib/components/*.svelte',
+        './src/lib/icons/*.svelte',
+      ]
+    },
     fs: {
       // Permette a Vite di servire file che sono fuori dalla root di "examples"
       allow: ['..']
