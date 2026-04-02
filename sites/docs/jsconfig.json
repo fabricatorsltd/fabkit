@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"moduleResolution": "bundler",
+		"target": "ESNext",
+		"module": "ESNext",
+		"checkJs": true,
+		"strict": true,
+		"allowJs": true,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"sourceMap": true,
+		"baseUrl": ".",
+		"paths": {
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"],
+			"@docs/*": ["../../docs/components/*"]
+		}
+	},
+	"type": "module",
+	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.svelte", ".svelte-kit/ambient.d.ts"]
+}
