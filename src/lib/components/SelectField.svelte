@@ -1,20 +1,22 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").SelectFieldProps} SelectFieldProps
+   */
+
   import { resolveProps } from "../system.js";
   import { resolveToken } from "../style/index.js";
   import PhCaretUp from "../icons/components/CaretUp.svelte";
   import PhCaretDown from "../icons/components/CaretDown.svelte";
-  /**
-   * @typedef {object} Option
-   * @property {string} value
-   * @property {string} text
-   */
+  import { IconPosition } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {SelectFieldProps} */
   let {
     value = $bindable(""),
     label = "",
     options = [],
     icon = "",
-    iconPosition = "right",
+    iconPosition = IconPosition.right,
     flat = false,
     dropdownBg = "var(--background-base)",
     dropdownColor = "var(--text-primary)",
@@ -26,6 +28,10 @@
     // Collect expressive syntax props
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("SelectField", "iconPosition", iconPosition, IconPosition);
+  });
 
   let isOpen = $state(false);
   let ref = $state(null);

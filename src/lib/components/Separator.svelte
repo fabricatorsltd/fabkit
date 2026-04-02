@@ -1,13 +1,24 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").SeparatorProps} SeparatorProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { SeparatorOrientation } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {SeparatorProps} */
   let {
-    orientation = "horizontal",
+    orientation = SeparatorOrientation.horizontal,
     label = "",
     color,
     // Collect everything else: mx, my, p, radius, hover, etc.
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Separator", "orientation", orientation, SeparatorOrientation);
+  });
 
   // This single line replaces 20+ manual prop definitions
   const { styles, className: resolvedClassName, filteredRest } = $derived(resolveProps(rest));

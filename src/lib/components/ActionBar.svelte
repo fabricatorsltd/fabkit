@@ -1,4 +1,8 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").ActionBarProps} ActionBarProps
+   */
+
   import { tick } from "svelte";
   import Skeleton from "./Skeleton.svelte";
   import HBox from "./HBox.svelte";
@@ -6,14 +10,17 @@
   import PopOverWrapper from "./PopOverWrapper.svelte";
   import Menu from "./Menu.svelte";
   import PhDotsThreeVertical from "../icons/components/DotsThreeVertical.svelte";
+  import { ActionBarMode, ButtonVariant } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {ActionBarProps} */
   let {
     items = [],
-    mode = "auto",
+    mode = ActionBarMode.auto,
     spacing = 8,
     moreLabel = "More",
     moreIcon = PhDotsThreeVertical,
-    moreVariant = "flat",
+    moreVariant = ButtonVariant.flat,
     class: className = "",
     margin = [0, 0, 0, 0],
     padding = [0, 0, 0, 0],
@@ -30,6 +37,11 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("ActionBar", "mode", mode, ActionBarMode);
+    validateProp("ActionBar", "moreVariant", moreVariant, ButtonVariant);
+  });
 
   let measureRef = $state();
   let availableWidth = $state(undefined);

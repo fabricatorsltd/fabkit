@@ -1,6 +1,13 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").ToolbarViewProps} ToolbarViewProps
+   */
 
+  import Skeleton from "./Skeleton.svelte";
+  import { ToolbarViewMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {ToolbarViewProps} */
   let {
     top,
     bottom,
@@ -10,7 +17,7 @@
     start,
     end,
     center,
-    mode = "auto",
+    mode = ToolbarViewMode.auto,
     compactMinWidth = 520,
     class: className = "",
     margin = [0, 0, 0, 0],
@@ -31,6 +38,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("ToolbarView", "mode", mode, ToolbarViewMode);
+  });
 
   let containerWidth = $state(0);
 

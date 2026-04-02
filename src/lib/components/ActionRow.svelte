@@ -1,7 +1,12 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").ActionRowProps} ActionRowProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
   import PhCaretRight from "../icons/components/CaretRight.svelte";
 
+  /** @type {ActionRowProps} */
   let {
     title = "",
     subtitle = "",

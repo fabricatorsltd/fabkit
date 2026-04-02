@@ -1,15 +1,26 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").HideBelowProps} HideBelowProps
+   */
 
+  import Skeleton from "./Skeleton.svelte";
+  import { HideBelowMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {HideBelowProps} */
   let {
     below = 600,
-    mode = "auto", // auto | visible | hidden
+    mode = HideBelowMode.auto,
     children,
     fallback,
     class: className = "",
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("HideBelow", "mode", mode, HideBelowMode);
+  });
 
   let availableWidth = $state(undefined);
 

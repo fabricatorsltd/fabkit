@@ -1,15 +1,22 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").ButtonProps} ButtonProps
+   */
+
   import { getContext } from "svelte";
   import { ADAPTIVE_LAYOUT_CONTEXT_KEY } from "../context.js";
   import { resolveProps } from "../system.js";
+  import { ButtonVariant } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {ButtonProps} */
   let {
     label = "",
     icon = "",
     labelBehavior = "always",
     children,
     disabled = false,
-    variant = "secondary", // primary, secondary, destructive, flat
+    variant = ButtonVariant.secondary,
     square = false,
     onClick,
     class: className = "",
@@ -17,6 +24,10 @@
     // Collect expressive syntax props
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Button", "variant", variant, ButtonVariant);
+  });
 
   const adaptiveCtx = getContext(ADAPTIVE_LAYOUT_CONTEXT_KEY);
 

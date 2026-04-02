@@ -1,11 +1,18 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").LeafletProps} LeafletProps
+   */
 
+  import Skeleton from "./Skeleton.svelte";
+  import { LeafletMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {LeafletProps} */
   let {
     sidebar,
     content,
     children,
-    mode = "auto",
+    mode = LeafletMode.auto,
     stackAt = 900,
     sidebarWidth = 320,
     revealContent = $bindable(false),
@@ -14,6 +21,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Leaflet", "mode", mode, LeafletMode);
+  });
 
   let availableWidth = $state(undefined);
 

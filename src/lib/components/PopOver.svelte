@@ -1,12 +1,19 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").PopOverProps} PopOverProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { PopOverAlign } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {PopOverProps} */
   let {
     attachTo,
     children,
     onClose,
     onclose,
-    align = "start",
+    align = PopOverAlign.start,
     offset = [0, 5],
     initialStyle = "",
     bg = "var(--background-base)",
@@ -14,6 +21,10 @@
     class: className = "",
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("PopOver", "align", align, PopOverAlign);
+  });
 
   let ref = $state(null);
 

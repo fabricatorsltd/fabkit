@@ -70,3 +70,90 @@ export const ButtonVariant = Object.freeze({
   destructive: "destructive",
   flat: "flat"
 });
+
+export const ClampOrientation = Object.freeze({
+  horizontal: "horizontal",
+  vertical: "vertical"
+});
+
+export const WrapperSize = Object.freeze({
+  xs: "xs",
+  sm: "sm",
+  md: "md",
+  lg: "lg",
+  xl: "xl",
+  "2xl": "2xl",
+  mobile: "mobile",
+  tablet: "tablet",
+  desktop: "desktop",
+  wide: "wide",
+  full: "full"
+});
+
+export const SeparatorOrientation = Object.freeze({
+  horizontal: "horizontal",
+  vertical: "vertical"
+});
+
+export const TooltipPosition = Object.freeze({
+  top: "top",
+  bottom: "bottom",
+  left: "left",
+  right: "right"
+});
+
+export const ToastVariant = Object.freeze({
+  neutral: "neutral",
+  success: "success",
+  warning: "warning",
+  error: "error",
+  info: "info"
+});
+
+export const ToastPlacement = Object.freeze({
+  top: "top",
+  bottom: "bottom"
+});
+
+export const AdaptiveGridMode = Object.freeze({
+  auto: "auto",
+  grid: "grid",
+  list: "list"
+});
+
+export const AdaptiveTableMode = Object.freeze({
+  auto: "auto",
+  cards: "cards",
+  table: "table"
+});
+
+export const ToolbarViewMode = Object.freeze({
+  auto: "auto",
+  compact: "compact",
+  wide: "wide"
+});
+
+export const ViewSwitcherMode = Object.freeze({
+  auto: "auto",
+  tabs: "tabs",
+  segmented: "segmented",
+  dropdown: "dropdown"
+});
+
+export const ActionBarMode = Object.freeze({
+  auto: "auto",
+  all: "all",
+  overflow: "overflow"
+});
+
+export const AdaptiveMediaMode = Object.freeze({
+  auto: "auto",
+  compact: "compact",
+  wide: "wide"
+});
+
+export const OptionalMode = Object.freeze({
+  auto: "auto",
+  inline: "inline",
+  below: "below"
+});

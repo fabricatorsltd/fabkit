@@ -1,12 +1,19 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").AdaptiveTableProps} AdaptiveTableProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
   import Card from "./Card.svelte";
   import Checkbox from "./Checkbox.svelte";
   import PhCaretUp from "../icons/components/CaretUp.svelte";
   import PhCaretDown from "../icons/components/CaretDown.svelte";
+  import { AdaptiveTableMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {AdaptiveTableProps} */
   let {
-    mode = "auto",
+    mode = AdaptiveTableMode.auto,
     stackAt = 720,
     columns = [],
     rows = [],
@@ -30,6 +37,10 @@
     class: className = "",
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("AdaptiveTable", "mode", mode, AdaptiveTableMode);
+  });
 
   let availableWidth = $state(undefined);
 

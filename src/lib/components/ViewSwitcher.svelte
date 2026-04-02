@@ -1,11 +1,18 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").ViewSwitcherProps} ViewSwitcherProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
   import SelectField from "./SelectField.svelte";
+  import { ViewSwitcherMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {ViewSwitcherProps} */
   let {
     views = [],
     activeId = $bindable(""),
-    mode = "auto",
+    mode = ViewSwitcherMode.auto,
     tabsMinWidth = 520,
     segmentedMinWidth = 360,
     dropdownLabel = "",
@@ -29,6 +36,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("ViewSwitcher", "mode", mode, ViewSwitcherMode);
+  });
 
   let containerWidth = $state(0);
 

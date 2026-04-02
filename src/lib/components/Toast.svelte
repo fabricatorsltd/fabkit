@@ -1,12 +1,19 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").ToastProps} ToastProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
   import Button from "./Button.svelte";
   import PhX from "../icons/components/X.svelte";
+  import { ToastVariant } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {ToastProps} */
   let {
     title = "",
     subtitle = "",
-    variant = "neutral",
+    variant = ToastVariant.neutral,
     actionLabel = "",
     onAction,
     dismissible = true,
@@ -27,35 +34,39 @@
     ...rest
   } = $props();
 
+  $derived.by(() => {
+    validateProp("Toast", "variant", variant, ToastVariant);
+  });
+
   if (rest.onclick !== undefined) delete rest.onclick;
 
   const variantConfig = $derived.by(() => {
     switch (variant) {
-      case "success":
+      case ToastVariant.success:
         return {
           accent: "#16a34a",
           bg: "color-mix(in srgb, #16a34a 12%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, #16a34a 22%, var(--border-primary))",
         };
-      case "warning":
+      case ToastVariant.warning:
         return {
           accent: "#f59e0b",
           bg: "color-mix(in srgb, #f59e0b 12%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, #f59e0b 22%, var(--border-primary))",
         };
-      case "error":
+      case ToastVariant.error:
         return {
           accent: "var(--action-destructive)",
           bg: "color-mix(in srgb, var(--action-destructive) 9%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, var(--action-destructive) 18%, var(--border-primary))",
         };
-      case "info":
+      case ToastVariant.info:
         return {
           accent: "var(--action-suggested)",
           bg: "color-mix(in srgb, var(--action-suggested) 11%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, var(--action-suggested) 20%, var(--border-primary))",
         };
-      case "neutral":
+      case ToastVariant.neutral:
       default:
         return {
           accent: "var(--border-tertiary)",

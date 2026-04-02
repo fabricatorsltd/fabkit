@@ -1,26 +1,38 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").VBoxProps} VBoxProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { Align, Justify } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {VBoxProps} */
   let {
     spacing = 0,
-    align = "center",
+    align = Align.start,
     children,
     class: className = "",
     // Collect expressive syntax props
-    justify = "start",
+    justify = Justify.start,
     ...rest
   } = $props();
 
+  $derived.by(() => {
+    validateProp("VBox", "align", align, Align);
+    validateProp("VBox", "justify", justify, Justify);
+  });
+
   let _justify = $derived.by(() => {
     switch (justify) {
-      case "start":
-      case "end":
+      case Justify.start:
+      case Justify.end:
         return "flex-" + justify;
-      case "center":
+      case Justify.center:
         return "center";
-      case "space-between":
-      case "space-around":
-      case "space-evenly":
+      case Justify.spaceBetween:
+      case Justify.spaceAround:
+      case Justify.spaceEvenly:
         return justify;
       default:
         return "flex-start";
@@ -29,17 +41,18 @@
 
   let _align = $derived.by(() => {
     switch (align) {
-      case "fill":
+      case Align.fill:
         return "stretch";
-      case "start":
-      case "end":
+      case Align.start:
+      case Align.end:
         return "flex-" + align;
-      case "center":
+      case Align.center:
         return "center";
       default:
-        return "center";
+        return "flex-start";
     }
   });
+
 
   function formatValue(val) {
     if (typeof val === "number") return `${val}px`;

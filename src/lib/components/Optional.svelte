@@ -1,9 +1,16 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").OptionalProps} OptionalProps
+   */
 
+  import Skeleton from "./Skeleton.svelte";
+  import { OptionalMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {OptionalProps} */
   let {
     below = 600,
-    mode = "auto", // auto | inline | below
+    mode = OptionalMode.auto,
     orderBelow = 1000,
     unwrapInline = true,
     children,
@@ -11,6 +18,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Optional", "mode", mode, OptionalMode);
+  });
 
   let availableWidth = $state(undefined);
 

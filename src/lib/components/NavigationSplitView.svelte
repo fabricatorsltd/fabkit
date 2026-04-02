@@ -1,11 +1,18 @@
 <script>
-  import Leaflet from "./Leaflet.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").NavigationSplitViewProps} NavigationSplitViewProps
+   */
 
+  import Leaflet from "./Leaflet.svelte";
+  import { LeafletMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {NavigationSplitViewProps} */
   let {
     sidebar,
     content,
     children,
-    mode = "auto",
+    mode = LeafletMode.auto,
     stackAt = 900,
     sidebarWidth = 320,
     revealContent = $bindable(false),
@@ -14,6 +21,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("NavigationSplitView", "mode", mode, LeafletMode);
+  });
 </script>
 
 <Leaflet

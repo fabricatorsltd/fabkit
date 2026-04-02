@@ -1,5 +1,11 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").WrapperProps} WrapperProps
+   */
+
   import { resolveProps } from "../system.js";
+  import { WrapperSize } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
   const WIDTH_PRESETS = {
     xs: 480,
@@ -15,13 +21,20 @@
     full: "100%",
   };
 
+  /** @type {WrapperProps} */
   let {
-    size = "xl",
+    size = WrapperSize.xl,
     maxWidth,
     children,
     class: className = "",
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    if (typeof size === "string") {
+      validateProp("Wrapper", "size", size, WrapperSize);
+    }
+  });
 
   const resolvedMaxWidth = $derived.by(() => {
     if (maxWidth !== undefined) return maxWidth;

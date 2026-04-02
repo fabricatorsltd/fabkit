@@ -22,8 +22,24 @@ export {
   GridJustify,
   TextAlign,
   TextTransform,
-  ButtonVariant
+  ButtonVariant,
+  ClampOrientation,
+  WrapperSize,
+  SeparatorOrientation,
+  TooltipPosition,
+  ToastVariant,
+  ToastPlacement,
+  AdaptiveGridMode,
+  AdaptiveTableMode,
+  ToolbarViewMode,
+  ViewSwitcherMode,
+  FlapPlacement,
+  ActionBarMode,
+  AdaptiveMediaMode,
+  OptionalMode
 } from "./propTypes.js";
+
+export { validateProp } from "./validator.js";
 
 // Components
 export { default as BaseField } from "./components/BaseField.svelte";

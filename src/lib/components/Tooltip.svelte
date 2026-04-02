@@ -1,15 +1,26 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").TooltipProps} TooltipProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { TooltipPosition } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {TooltipProps} */
   let {
     text = "",
-    position = "top",
+    position = TooltipPosition.top,
     delay = 300,
     children,
     // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Tooltip", "position", position, TooltipPosition);
+  });
 
   let visible = $state(false);
   let timer = $state(null);

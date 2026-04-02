@@ -1,12 +1,19 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").BannerProps} BannerProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
   import Button from "./Button.svelte";
   import PhX from "../icons/components/X.svelte";
+  import { ToastVariant } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {BannerProps} */
   let {
     title = "",
     subtitle = "",
-    variant = "info",
+    variant = ToastVariant.info,
     revealed = true,
     actionLabel = "",
     onAction,
@@ -28,39 +35,43 @@
     ...rest
   } = $props();
 
+  $derived.by(() => {
+    validateProp("Banner", "variant", variant, ToastVariant);
+  });
+
   if (rest.onclick !== undefined) delete rest.onclick;
 
   const variantConfig = $derived.by(() => {
     switch (variant) {
-      case "neutral":
+      case ToastVariant.neutral:
         return {
           accent: "var(--border-tertiary)",
           bg: "var(--background-elevated)",
           borderColor: "var(--border-primary)",
           color: "var(--text-primary)",
         };
-      case "success":
+      case ToastVariant.success:
         return {
           accent: "#16a34a",
           bg: "color-mix(in srgb, #16a34a 14%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, #16a34a 26%, var(--border-primary))",
           color: "var(--text-primary)",
         };
-      case "warning":
+      case ToastVariant.warning:
         return {
           accent: "#f59e0b",
           bg: "color-mix(in srgb, #f59e0b 14%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, #f59e0b 26%, var(--border-primary))",
           color: "var(--text-primary)",
         };
-      case "error":
+      case ToastVariant.error:
         return {
           accent: "var(--action-destructive)",
           bg: "color-mix(in srgb, var(--action-destructive) 10%, var(--background-elevated))",
           borderColor: "color-mix(in srgb, var(--action-destructive) 20%, var(--border-primary))",
           color: "var(--text-primary)",
         };
-      case "info":
+      case ToastVariant.info:
       default:
         return {
           accent: "var(--action-suggested)",

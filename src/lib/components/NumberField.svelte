@@ -1,8 +1,15 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").NumberFieldProps} NumberFieldProps
+   */
+
   import { resolveProps } from "../system.js";
   import PhPlus from "../icons/components/Plus.svelte";
   import PhMinus from "../icons/components/Minus.svelte";
+  import { IconPosition } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {NumberFieldProps} */
   let {
     value = $bindable(0),
     label = "",
@@ -10,11 +17,15 @@
     max = undefined,
     step = 1,
     icon = "",
-    iconPosition = "right",
+    iconPosition = IconPosition.right,
     // Collect expressive syntax props
     class: className = "",
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("NumberField", "iconPosition", iconPosition, IconPosition);
+  });
 
   let isActive = $state(false);
   let hasContent = $derived(value !== undefined && value !== "");

@@ -27,8 +27,8 @@
     <Text>Custom body content — forms, layouts, anything.</Text>
     {#if withFooter}
       {#snippet footer()}
-        <Button label="Cancel" type="flat" onClick={() => (open = false)} />
-        <Button label="Confirm" type="suggested" onClick={() => (open = false)} />
+        <Button label="Cancel" variant="flat" onClick={() => (open = false)} />
+        <Button label="Confirm" variant="primary" onClick={() => (open = false)} />
       {/snippet}
     {/if}
   </Dialog>

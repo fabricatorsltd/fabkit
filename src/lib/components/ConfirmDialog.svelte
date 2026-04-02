@@ -1,17 +1,28 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").ConfirmDialogProps} ConfirmDialogProps
+   */
+
   import { resolveProps } from "../system.js";
   import Button from "./Button.svelte";
+  import { ButtonVariant } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {ConfirmDialogProps} */
   let {
     title = "",
     messages = [],
     confirm,
     confirmText = "Confirm",
-    confirmType = "suggested",
+    confirmType = ButtonVariant.primary,
     cancel,
     cancelText = "Cancel",
     children,
   } = $props();
+
+  $derived.by(() => {
+    validateProp("ConfirmDialog", "confirmType", confirmType, ButtonVariant);
+  });
 
   function handleCancel() {
     if (cancel) cancel();
@@ -58,7 +69,7 @@
         <Button
           label={confirmText}
           onClick={handleConfirm}
-          type={confirmType}
+          variant={confirmType}
         />
       {/if}
     </div>

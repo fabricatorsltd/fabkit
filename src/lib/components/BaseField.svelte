@@ -1,12 +1,20 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").BaseFieldProps} BaseFieldProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
+  import { IconPosition } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {BaseFieldProps} */
   let {
     value = $bindable(""),
     label = "",
     placeholder = "",
     type = "text",
     icon = "",
-    iconPosition = "right",
+    iconPosition = IconPosition.right,
     readOnly = false,
     flat = false,
     contained = false,
@@ -36,6 +44,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("BaseField", "iconPosition", iconPosition, IconPosition);
+  });
 
   if (rest.oninput !== undefined) delete rest.oninput;
 

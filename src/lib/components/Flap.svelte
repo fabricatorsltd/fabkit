@@ -1,13 +1,20 @@
 <script>
-  import Skeleton from "./Skeleton.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").FlapProps} FlapProps
+   */
 
+  import Skeleton from "./Skeleton.svelte";
+  import { FlapPlacement } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {FlapProps} */
   let {
     sidebar,
     content,
     children,
     open = $bindable(false),
     width = 320,
-    placement = "left",
+    placement = FlapPlacement.left,
     closeOnEscape = true,
     closeOnBackdrop = true,
     keepMounted = true,
@@ -16,6 +23,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Flap", "placement", placement, FlapPlacement);
+  });
 
   const widthCss = $derived.by(() =>
     typeof width === "number" ? `${width}px` : width

@@ -1,8 +1,15 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").ClampProps} ClampProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { ClampOrientation } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {ClampProps} */
   let {
-    orientation = "horizontal",
+    orientation = ClampOrientation.horizontal,
     maximumSize = 600,
     tighteningThreshold = 600,
     children,
@@ -10,6 +17,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Clamp", "orientation", orientation, ClampOrientation);
+  });
 
   let availableSize = $state(undefined);
 

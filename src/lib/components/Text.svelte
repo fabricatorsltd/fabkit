@@ -1,6 +1,13 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").TextProps} TextProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { TextAlign, TextTransform } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {TextProps} */
   let {
     element = "span",
     children,
@@ -15,6 +22,11 @@
     wrapping, // whiteSpace
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Text", "align", align, TextAlign);
+    validateProp("Text", "transform", transform, TextTransform);
+  });
 
   let finalColor = $derived.by(() => {
     if (color) return color;

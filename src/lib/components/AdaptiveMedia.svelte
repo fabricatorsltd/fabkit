@@ -1,8 +1,15 @@
 <script>
-  import Image from "./Image.svelte";
+  /**
+   * @typedef {import("../../types/index.d.ts").AdaptiveMediaProps} AdaptiveMediaProps
+   */
 
+  import Image from "./Image.svelte";
+  import { AdaptiveMediaMode } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {AdaptiveMediaProps} */
   let {
-    mode = "auto",
+    mode = AdaptiveMediaMode.auto,
     stackAt = 600,
     wide = {},
     compact = {},
@@ -10,6 +17,10 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("AdaptiveMedia", "mode", mode, AdaptiveMediaMode);
+  });
 
   let availableWidth = $state(undefined);
 

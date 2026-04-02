@@ -1,18 +1,30 @@
 <script>
-  import { resolveProps } from "../system.js";
+  /**
+   * @typedef {import("../../types/index.d.ts").GridProps} GridProps
+   */
 
+  import { resolveProps } from "../system.js";
+  import { GridAlign, GridJustify } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
+
+  /** @type {GridProps} */
   let {
     spacing = 0,
     columns = "1fr",
     rows = "auto",
-    align = "stretch",
-    justify = "stretch",
+    align = GridAlign.stretch,
+    justify = GridJustify.stretch,
     height = "auto",
     children,
     class: className = "",
     // Collect expressive syntax props
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("Grid", "align", align, GridAlign);
+    validateProp("Grid", "justify", justify, GridJustify);
+  });
 
   function formatValue(val) {
     if (typeof val === "number") return `${val}px`;

@@ -1,9 +1,16 @@
 <script>
+  /**
+   * @typedef {import("../../types/index.d.ts").AdaptiveGridProps} AdaptiveGridProps
+   */
+
   import Skeleton from "./Skeleton.svelte";
   import Grid from "./Grid.svelte";
+  import { AdaptiveGridMode, GridAlign, GridJustify } from "../propTypes.js";
+  import { validateProp } from "../validator.js";
 
+  /** @type {AdaptiveGridProps} */
   let {
-    mode = "auto",
+    mode = AdaptiveGridMode.auto,
 
     minCardWidth = 240,
     minColumns = 2,
@@ -15,8 +22,8 @@
     listSpacing = 12,
     listPadding,
 
-    align = "stretch",
-    justify = "stretch",
+    align = GridAlign.stretch,
+    justify = GridJustify.stretch,
 
     children,
     class: className = "",
@@ -37,6 +44,12 @@
     ref = $bindable(),
     ...rest
   } = $props();
+
+  $derived.by(() => {
+    validateProp("AdaptiveGrid", "mode", mode, AdaptiveGridMode);
+    validateProp("AdaptiveGrid", "align", align, GridAlign);
+    validateProp("AdaptiveGrid", "justify", justify, GridJustify);
+  });
 
   let availableWidth = $state(undefined);
 
